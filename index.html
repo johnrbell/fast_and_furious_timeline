@@ -775,6 +775,47 @@ function makeStraightLine(journey) {
     });
 }
 
+function nearestIndex(routePts, target) {
+    let best = 0, bestDist = Infinity;
+    for (let i = 0; i < routePts.length; i++) {
+        const d = (routePts[i][0] - target[0]) ** 2 + (routePts[i][1] - target[1]) ** 2;
+        if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best;
+}
+
+function buildSegmentedLines(routeLatLngs, journey) {
+    const waypoints = journey.points;
+    const splits = waypoints.map(wp => nearestIndex(routeLatLngs, wp));
+    splits.sort((a, b) => a - b);
+
+    const segments = [];
+    for (let i = 0; i < splits.length - 1; i++) {
+        const start = splits[i];
+        const end = splits[i + 1];
+        if (end <= start) continue;
+        segments.push(routeLatLngs.slice(start, end + 1));
+    }
+
+    if (segments.length === 0) return [L.polyline(routeLatLngs, {
+        color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
+    })];
+
+    const minOpacity = 0.2;
+    const maxOpacity = 0.9;
+    return segments.map((seg, i) => {
+        const t = segments.length === 1 ? 1 : i / (segments.length - 1);
+        const opacity = minOpacity + t * (maxOpacity - minOpacity);
+        return L.polyline(seg, {
+            color: journey.color,
+            weight: 2.5 + t * 2,
+            dashArray: '10 6',
+            opacity,
+            className: 'journey-path'
+        });
+    });
+}
+
 async function getJourneyLayer(key) {
     if (journeyLayers[key]) return journeyLayers[key];
 
@@ -793,10 +834,8 @@ async function getJourneyLayer(key) {
     }
 
     if (routeLatLngs) {
-        const line = L.polyline(routeLatLngs, {
-            color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
-        });
-        journeyLayers[key] = L.layerGroup([line]);
+        const lines = buildSegmentedLines(routeLatLngs, journey);
+        journeyLayers[key] = L.layerGroup(lines);
     } else {
         journeyLayers[key] = L.layerGroup([makeStraightLine(journey)]);
     }
