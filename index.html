@@ -458,10 +458,16 @@ body {
 .leaflet-control-zoom a {
     background: rgba(18, 18, 24, 0.95) !important;
     color: #ccc !important;
-    border-color: #444 !important;
-    width: 28px !important;
-    height: 28px !important;
-    line-height: 26px !important;
+    border: none !important;
+    border-right: 1px solid #444 !important;
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 34px !important;
+    font-size: 18px !important;
+}
+
+.leaflet-control-zoom a:last-child {
+    border-right: none !important;
 }
 
 .leaflet-control-zoom a:hover {
