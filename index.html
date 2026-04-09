@@ -802,7 +802,7 @@ const journeyHeader = document.createElement('div');
 journeyHeader.className = 'legend-section-header';
 journeyHeader.innerHTML = `
     <div class="legend-section-title">Journeys</div>
-    <button class="legend-section-toggle" id="journey-clear-btn">show all</button>
+    <button class="legend-section-toggle" id="journey-clear-btn">clear all</button>
 `;
 legendEl.appendChild(journeyHeader);
 
@@ -812,7 +812,7 @@ const journeyToggles = [];
 Object.keys(JOURNEYS).forEach(key => {
     const journey = JOURNEYS[key];
     const toggle = document.createElement('div');
-    toggle.className = 'journey-toggle disabled';
+    toggle.className = 'journey-toggle';
     toggle.dataset.key = key;
     toggle.innerHTML = `
         <div class="journey-line" style="border-color:${journey.color}"></div>
@@ -836,6 +836,11 @@ function updateJourneyClearBtn() {
     const anyEnabled = journeyToggles.some(t => !t.classList.contains('disabled'));
     journeyClearBtn.textContent = anyEnabled ? 'clear all' : 'show all';
 }
+
+Object.keys(JOURNEYS).forEach(async key => {
+    const layer = await getJourneyLayer(key);
+    map.addLayer(layer);
+});
 
 journeyClearBtn.addEventListener('click', async () => {
     const anyEnabled = journeyToggles.some(t => !t.classList.contains('disabled'));
