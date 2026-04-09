@@ -85,12 +85,23 @@ const events = [
         characters: "Brian O'Conner, Sgt. Tanner, Agent Bilkins, Johnny Tran, Lance Nguyen"
     },
     {
+        id: "race-wars-brian",
+        name: "Race Wars — Brian's Last Night Undercover",
+        category: 'brian',
+        sceneOrder: 17,
+        filmTime: "1:10",
+        lat: 34.1045, lng: -117.2512,
+        address: "San Bernardino International Airport, San Bernardino",
+        description: "Brian arrives at Race Wars walking a razor's edge — the SWAT raid on Tran's house was a disaster, Internal Affairs is circling, and Bilkins is ready to pull the plug. This is his last chance to build a case. When Jesse loses his car to Tran and disappears, Brian senses the crew is about to do something reckless, but he's powerless to stop it without blowing his cover.",
+        characters: "Brian O'Conner, Dom Toretto, Jesse, Johnny Tran"
+    },
+    {
         id: "final-hijack-brian",
         name: "Hemet — Brian Blows His Cover",
         category: 'brian',
         sceneOrder: 18,
         filmTime: "1:20",
-        lat: 33.7474, lng: -116.9720,
+        lat: 33.7478, lng: -116.9716,
         address: "Hemet, California (90 miles SE of Los Angeles)",
         description: "When the final hijacking goes catastrophically wrong and Vince is trapped on the side of the truck with a shotgun-wielding driver, Brian makes a fateful choice — he calls in a medevac helicopter, revealing to Dom and the crew that he's been an undercover cop the entire time.",
         characters: "Brian O'Conner, Dom Toretto, Vince"
@@ -101,7 +112,7 @@ const events = [
         category: 'brian',
         sceneOrder: 22,
         filmTime: "1:38",
-        lat: 33.7418, lng: -118.2653,
+        lat: 33.7420, lng: -118.2649,
         address: "Terminal Way at Earle Street, Terminal Island, San Pedro",
         description: "After everything — the lies, the betrayal, the badge — Brian lines up against Dom for one last quarter-mile. They nearly collide with a train at the railroad crossing on Earle Street. When the dust settles, Brian tosses Dom the keys to his car, choosing loyalty over the law and letting him drive away.",
         characters: "Brian O'Conner, Dom Toretto"
@@ -159,7 +170,7 @@ const events = [
         category: 'dom',
         sceneOrder: 17,
         filmTime: "1:10",
-        lat: 34.1042, lng: -117.2516,
+        lat: 34.1045, lng: -117.2512,
         address: "San Bernardino International Airport, San Bernardino",
         description: "Dom and the crew arrive at Race Wars in force. Beneath the surface, Dom is planning one final truck hijacking. When Jesse loses his Jetta to Tran and disappears, Dom pushes forward with the heist anyway — a decision that unravels everything.",
         characters: "Dom Toretto, Letty, Vince, Leon, Jesse, Mia Toretto"
@@ -170,7 +181,7 @@ const events = [
         category: 'dom',
         sceneOrder: 18,
         filmTime: "1:20",
-        lat: 33.7482, lng: -116.9712,
+        lat: 33.7478, lng: -116.9716,
         address: "Hemet, California (90 miles SE of Los Angeles)",
         description: "Dom leads the crew on one final truck hijacking in the hills outside Hemet. The truck driver fights back with a shotgun, wounding Vince who gets tangled in the rig's cables. Dom watches helplessly as his plan falls apart and his crew is put in mortal danger.",
         characters: "Dom Toretto, Vince, Letty, Leon"
@@ -181,10 +192,21 @@ const events = [
         category: 'dom',
         sceneOrder: 22,
         filmTime: "1:38",
-        lat: 33.7422, lng: -118.2645,
+        lat: 33.7420, lng: -118.2649,
         address: "Terminal Way at Earle Street, Terminal Island, San Pedro",
         description: "With nothing left to lose — his crew scattered, Jesse dead, his freedom gone — Dom challenges Brian to one final race on Terminal Island. They barrel toward a freight train at the railroad crossing. Dom's Charger is destroyed in the aftermath, but Brian hands him the keys to escape. Dom drives off into an uncertain future.",
         characters: "Dom Toretto, Brian O'Conner"
+    },
+    {
+        id: "driveby-dom",
+        name: "Toretto's House — Jesse Is Killed",
+        category: 'dom',
+        sceneOrder: 19,
+        filmTime: "1:28",
+        lat: 34.0783, lng: -118.2577,
+        address: "722 E. Kensington Road, Echo Park, Los Angeles",
+        description: "Jesse finally returns home after fleeing Race Wars, pulling up to Dom's house in his battered Jetta. Before anyone can react, Johnny Tran and Lance roar past on motorcycles and open fire. Jesse is cut down in the street — the youngest member of Dom's family, murdered on his own front lawn. Dom's grief turns instantly to rage.",
+        characters: "Dom Toretto, Jesse, Mia Toretto, Johnny Tran, Lance Nguyen"
     },
 
     // ── Johnny Tran ──
@@ -211,23 +233,34 @@ const events = [
         characters: "Johnny Tran, Lance Nguyen"
     },
     {
+        id: "swat-raid-tran-pov",
+        name: "Simi Valley — Tran's House Raided",
+        category: 'tran',
+        sceneOrder: 16,
+        filmTime: "1:05",
+        lat: 34.2805, lng: -118.7340,
+        address: "5777 Tonopah Court, Simi Valley, California",
+        description: "A SWAT team storms Johnny Tran's family compound on Brian's orders. The raid turns up nothing — no black Civics, no stolen goods, no machine guns. Tran and Lance are arrested but quickly released on bail. The botched raid vindicates Tran and humiliates the task force, leaving Tran more brazen and dangerous than before.",
+        characters: "Johnny Tran, Lance Nguyen, Brian O'Conner, Sgt. Tanner"
+    },
+    {
         id: "race-wars-tran",
         name: "Race Wars — Tran Takes Jesse's Jetta",
         category: 'tran',
         sceneOrder: 17,
         filmTime: "1:10",
-        lat: 34.1048, lng: -117.2508,
+        lat: 34.1045, lng: -117.2512,
         address: "San Bernardino International Airport, San Bernardino",
         description: "At Race Wars, Johnny Tran goads Jesse into betting his father's Volkswagen Jetta in a head-to-head race. Tran wins easily, taking the car. Humiliated and terrified of Dom's reaction, Jesse panics and flees the event — setting off the chain of events that leads to the film's violent climax.",
         characters: "Johnny Tran, Jesse, Lance Nguyen"
     },
     {
         id: "driveby-jesse",
-        name: "Toretto House — Tran's Drive-By Kills Jesse",
+        name: "Toretto's House — Tran's Drive-By Kills Jesse",
         category: 'tran',
         sceneOrder: 19,
         filmTime: "1:28",
-        lat: 34.0785, lng: -118.2573,
+        lat: 34.0783, lng: -118.2577,
         address: "722 E. Kensington Road, Echo Park, Los Angeles",
         description: "After the failed hijacking, Jesse returns to Dom's house. Johnny Tran and Lance Nguyen roar past on motorcycles, opening fire with machine guns in a retaliatory drive-by. Jesse is gunned down in the street — the crew's youngest member killed in a hail of bullets. His death sends Dom and Brian into a furious pursuit.",
         characters: "Johnny Tran, Lance Nguyen, Jesse, Dom Toretto, Mia Toretto"
@@ -296,7 +329,7 @@ const events = [
         sceneOrder: 17,
         filmTime: "1:10",
         lat: 34.1045, lng: -117.2512,
-        address: "San Bernardino International Airport, E. 3rd Street, San Bernardino",
+        address: "San Bernardino International Airport, San Bernardino",
         description: "The massive desert 'Race Wars' rally was filmed at San Bernardino International Airport, about 60 miles east of LA. Director Rob Cohen noted it was 120 degrees during filming. Jesse loses his father's Volkswagen Jetta to Johnny Tran in a race, then flees.",
         characters: "Dom Toretto, Brian O'Conner, Jesse, Johnny Tran, the whole crew"
     },
@@ -395,7 +428,7 @@ const JOURNEYS = {
             [34.2805, -118.7340],   // SWAT Raid (Simi Valley)
             [34.1045, -117.2512],   // Race Wars
             [33.7478, -116.9716],   // Final Hijack (Hemet)
-            [34.0785, -118.2573],   // Toretto House (drive-by)
+            [34.0783, -118.2577],   // Toretto's House (drive-by)
             [34.0874, -118.2758],   // Micheltorena Chase
             [34.0834, -118.2599],   // Glendale Blvd
             [33.7420, -118.2649]    // Final Race
@@ -417,7 +450,7 @@ const JOURNEYS = {
             [34.0533, -118.9635],   // Neptune's Net
             [34.1045, -117.2512],   // Race Wars
             [33.7478, -116.9716],   // Final Hijack (Hemet)
-            [34.0785, -118.2573],   // Toretto House (drive-by)
+            [34.0783, -118.2577],   // Toretto's House (drive-by)
             [33.7420, -118.2649]    // Final Race
         ]
     }
