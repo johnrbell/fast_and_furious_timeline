@@ -95,6 +95,17 @@ const events = [
         description: "When the final hijacking goes catastrophically wrong and Vince is trapped on the side of the truck with a shotgun-wielding driver, Brian makes a fateful choice — he calls in a medevac helicopter, revealing to Dom and the crew that he's been an undercover cop the entire time.",
         characters: "Brian O'Conner, Dom Toretto, Vince"
     },
+    {
+        id: "final-race-brian",
+        name: "Terminal Island — Brian Lets Dom Go",
+        category: 'brian',
+        sceneOrder: 22,
+        filmTime: "1:38",
+        lat: 33.7418, lng: -118.2653,
+        address: "Terminal Way at Earle Street, Terminal Island, San Pedro",
+        description: "After everything — the lies, the betrayal, the badge — Brian lines up against Dom for one last quarter-mile. They nearly collide with a train at the railroad crossing on Earle Street. When the dust settles, Brian tosses Dom the keys to his car, choosing loyalty over the law and letting him drive away.",
+        characters: "Brian O'Conner, Dom Toretto"
+    },
 
     // ── Dominic Toretto ──
     {
@@ -163,6 +174,17 @@ const events = [
         address: "Hemet, California (90 miles SE of Los Angeles)",
         description: "Dom leads the crew on one final truck hijacking in the hills outside Hemet. The truck driver fights back with a shotgun, wounding Vince who gets tangled in the rig's cables. Dom watches helplessly as his plan falls apart and his crew is put in mortal danger.",
         characters: "Dom Toretto, Vince, Letty, Leon"
+    },
+    {
+        id: "final-race-dom",
+        name: "Terminal Island — Dom's Last Quarter-Mile",
+        category: 'dom',
+        sceneOrder: 22,
+        filmTime: "1:38",
+        lat: 33.7422, lng: -118.2645,
+        address: "Terminal Way at Earle Street, Terminal Island, San Pedro",
+        description: "With nothing left to lose — his crew scattered, Jesse dead, his freedom gone — Dom challenges Brian to one final race on Terminal Island. They barrel toward a freight train at the railroad crossing. Dom's Charger is destroyed in the aftermath, but Brian hands him the keys to escape. Dom drives off into an uncertain future.",
+        characters: "Dom Toretto, Brian O'Conner"
     },
 
     // ── Johnny Tran ──

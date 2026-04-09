@@ -230,15 +230,31 @@ body {
 }
 
 .legend-item {
-    padding: 3px 0;
+    padding: 3px 0 3px 4px;
+    margin-left: -4px;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-radius: 3px;
 }
 
 .legend-item:hover { color: #ff6b35; }
+
+.legend-item.timestamp-highlight {
+    color: #fff;
+    background: rgba(255, 107, 53, 0.14);
+}
+
+.legend-item.timestamp-highlight .legend-item-time {
+    opacity: 1;
+}
+
+.event-marker.timestamp-highlight {
+    transform: scale(1.4);
+    box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.5), 0 0 18px rgba(255, 107, 53, 0.35) !important;
+}
 
 .legend-item-time {
     display: inline-block;
@@ -685,7 +701,8 @@ Object.keys(CATEGORY_LABELS).forEach(cat => {
     categoryLayers[cat] = L.layerGroup();
 });
 
-events.forEach(evt => {
+const markersByIndex = [];
+events.forEach((evt, evtIndex) => {
     const color = COLORS[evt.category];
     const icon = L.divIcon({
         className: '',
@@ -707,6 +724,8 @@ events.forEach(evt => {
         `, { maxWidth: 320, autoPanPaddingTopLeft: L.point(10, 58) });
 
     marker._eventData = evt;
+    marker._eventIndex = evtIndex;
+    markersByIndex[evtIndex] = marker;
     categoryLayers[evt.category].addLayer(marker);
 });
 
@@ -949,6 +968,50 @@ streetToggle.addEventListener('click', () => {
     }
 });
 legendEl.appendChild(streetToggle);
+
+// ── Timestamp Highlight ─────────────────────────
+const filmTimeIndex = {};
+events.forEach((evt, i) => {
+    if (!filmTimeIndex[evt.filmTime]) filmTimeIndex[evt.filmTime] = [];
+    filmTimeIndex[evt.filmTime].push(i);
+});
+
+function highlightByTimestamp(filmTime, sourceIndex) {
+    const siblings = filmTimeIndex[filmTime];
+    if (!siblings || siblings.length < 2) return;
+    siblings.forEach(idx => {
+        if (idx === sourceIndex) return;
+        const item = document.querySelector(`.legend-item[data-index="${idx}"]`);
+        if (item) item.classList.add('timestamp-highlight');
+        const marker = markersByIndex[idx];
+        if (marker) {
+            const el = marker.getElement();
+            if (el) {
+                const div = el.querySelector('.event-marker');
+                if (div) div.classList.add('timestamp-highlight');
+            }
+        }
+    });
+}
+
+function clearTimestampHighlight() {
+    document.querySelectorAll('.timestamp-highlight').forEach(el => {
+        el.classList.remove('timestamp-highlight');
+    });
+}
+
+document.querySelectorAll('.legend-item').forEach(item => {
+    const idx = parseInt(item.dataset.index);
+    const evt = events[idx];
+    item.addEventListener('mouseenter', () => highlightByTimestamp(evt.filmTime, idx));
+    item.addEventListener('mouseleave', clearTimestampHighlight);
+});
+
+markersByIndex.forEach((marker, idx) => {
+    const evt = events[idx];
+    marker.on('mouseover', () => highlightByTimestamp(evt.filmTime, idx));
+    marker.on('mouseout', clearTimestampHighlight);
+});
 
 // ── Legend Collapse ──────────────────────────────
 const legend = document.getElementById('legend');
