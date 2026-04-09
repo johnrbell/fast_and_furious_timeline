@@ -786,35 +786,54 @@ function nearestIndex(routePts, target) {
 
 function buildSegmentedLines(routeLatLngs, journey) {
     const waypoints = journey.points;
-    const splits = waypoints.map(wp => nearestIndex(routeLatLngs, wp));
-    splits.sort((a, b) => a - b);
+    const wpIndices = waypoints.map(wp => nearestIndex(routeLatLngs, wp));
+
+    const sortedOrder = wpIndices.map((ri, wi) => ({ ri, wi }));
+    sortedOrder.sort((a, b) => a.ri - b.ri);
 
     const segments = [];
-    for (let i = 0; i < splits.length - 1; i++) {
-        const start = splits[i];
-        const end = splits[i + 1];
+    const waypointToSegment = {};
+    for (let i = 0; i < sortedOrder.length - 1; i++) {
+        const start = sortedOrder[i].ri;
+        const end = sortedOrder[i + 1].ri;
         if (end <= start) continue;
+        const segIdx = segments.length;
         segments.push(routeLatLngs.slice(start, end + 1));
+        waypointToSegment[sortedOrder[i].wi] = segIdx;
+    }
+    if (sortedOrder.length > 1) {
+        const lastWi = sortedOrder[sortedOrder.length - 1].wi;
+        if (!(lastWi in waypointToSegment)) {
+            waypointToSegment[lastWi] = segments.length - 1;
+        }
     }
 
-    if (segments.length === 0) return [L.polyline(routeLatLngs, {
-        color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
-    })];
+    if (segments.length === 0) {
+        const line = L.polyline(routeLatLngs, {
+            color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
+        });
+        line._origOpacity = 0.75;
+        line._origWeight = 3.5;
+        return { lines: [line], waypointToSegment: {} };
+    }
 
     const minOpacity = 0.2;
     const maxOpacity = 0.9;
-    return segments.map((seg, i) => {
+    const lines = segments.map((seg, i) => {
         const t = segments.length === 1 ? 1 : i / (segments.length - 1);
         const opacity = minOpacity + t * (maxOpacity - minOpacity);
-        return L.polyline(seg, {
-            color: journey.color,
-            weight: 2.5 + t * 2,
-            dashArray: '10 6',
-            opacity,
-            className: 'journey-path'
+        const weight = 2.5 + t * 2;
+        const line = L.polyline(seg, {
+            color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path'
         });
+        line._origOpacity = opacity;
+        line._origWeight = weight;
+        return line;
     });
+    return { lines, waypointToSegment };
 }
+
+const journeySegmentData = {};
 
 async function getJourneyLayer(key) {
     if (journeyLayers[key]) return journeyLayers[key];
@@ -834,10 +853,15 @@ async function getJourneyLayer(key) {
     }
 
     if (routeLatLngs) {
-        const lines = buildSegmentedLines(routeLatLngs, journey);
+        const { lines, waypointToSegment } = buildSegmentedLines(routeLatLngs, journey);
         journeyLayers[key] = L.layerGroup(lines);
+        journeySegmentData[key] = { lines, waypointToSegment };
     } else {
-        journeyLayers[key] = L.layerGroup([makeStraightLine(journey)]);
+        const line = makeStraightLine(journey);
+        line._origOpacity = 0.7;
+        line._origWeight = 3;
+        journeyLayers[key] = L.layerGroup([line]);
+        journeySegmentData[key] = { lines: [line], waypointToSegment: {} };
     }
 
     return journeyLayers[key];
@@ -1024,6 +1048,73 @@ streetToggle.addEventListener('click', () => {
 });
 legendEl.appendChild(streetToggle);
 
+// ── Event-to-Segment Mapping ────────────────────
+const eventSegmentMap = {};
+const categoryToJourney = { brian: 'brian', dom: 'dom' };
+
+function buildEventSegmentMap() {
+    Object.entries(categoryToJourney).forEach(([cat, journeyKey]) => {
+        const sd = journeySegmentData[journeyKey];
+        if (!sd || !sd.waypointToSegment) return;
+
+        const journey = JOURNEYS[journeyKey];
+        const catEvents = events
+            .map((e, i) => ({ evt: e, idx: i }))
+            .filter(o => o.evt.category === cat)
+            .sort((a, b) => a.evt.sceneOrder - b.evt.sceneOrder);
+
+        const usedWaypoints = new Set();
+        catEvents.forEach(({ evt, idx }) => {
+            let bestWp = -1, bestDist = Infinity;
+            journey.points.forEach((wp, wi) => {
+                if (usedWaypoints.has(wi)) return;
+                const d = (evt.lat - wp[0]) ** 2 + (evt.lng - wp[1]) ** 2;
+                if (d < bestDist) { bestDist = d; bestWp = wi; }
+            });
+            if (bestWp >= 0 && bestDist < 0.001) {
+                usedWaypoints.add(bestWp);
+                const segIdx = sd.waypointToSegment[bestWp];
+                if (segIdx !== undefined) {
+                    eventSegmentMap[idx] = { journeyKey, segmentIndex: segIdx };
+                }
+            }
+        });
+    });
+}
+buildEventSegmentMap();
+
+// ── Segment Highlight ───────────────────────────
+function highlightSegment(eventIndex) {
+    const mapping = eventSegmentMap[eventIndex];
+    if (!mapping) return;
+    const sd = journeySegmentData[mapping.journeyKey];
+    if (!sd) return;
+    if (!map.hasLayer(journeyLayers[mapping.journeyKey])) return;
+
+    sd.lines.forEach((line, i) => {
+        if (i === mapping.segmentIndex) {
+            line.setStyle({ opacity: 1, weight: 5.5, dashArray: null });
+            line.bringToFront();
+        } else {
+            line.setStyle({ opacity: 0.08, weight: line._origWeight });
+        }
+    });
+}
+
+function clearSegmentHighlight() {
+    Object.keys(journeySegmentData).forEach(key => {
+        const sd = journeySegmentData[key];
+        if (!sd) return;
+        sd.lines.forEach(line => {
+            line.setStyle({
+                opacity: line._origOpacity,
+                weight: line._origWeight,
+                dashArray: '10 6'
+            });
+        });
+    });
+}
+
 // ── Timestamp Highlight ─────────────────────────
 const filmTimeIndex = {};
 events.forEach((evt, i) => {
@@ -1053,18 +1144,25 @@ function clearTimestampHighlight() {
     document.querySelectorAll('.timestamp-highlight').forEach(el => {
         el.classList.remove('timestamp-highlight');
     });
+    clearSegmentHighlight();
 }
 
 document.querySelectorAll('.legend-item').forEach(item => {
     const idx = parseInt(item.dataset.index);
     const evt = events[idx];
-    item.addEventListener('mouseenter', () => highlightByTimestamp(evt.filmTime, idx));
+    item.addEventListener('mouseenter', () => {
+        highlightByTimestamp(evt.filmTime, idx);
+        highlightSegment(idx);
+    });
     item.addEventListener('mouseleave', clearTimestampHighlight);
 });
 
 markersByIndex.forEach((marker, idx) => {
     const evt = events[idx];
-    marker.on('mouseover', () => highlightByTimestamp(evt.filmTime, idx));
+    marker.on('mouseover', () => {
+        highlightByTimestamp(evt.filmTime, idx);
+        highlightSegment(idx);
+    });
     marker.on('mouseout', clearTimestampHighlight);
 });
 
