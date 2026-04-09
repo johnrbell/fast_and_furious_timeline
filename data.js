@@ -41,6 +41,17 @@ const events = [
         characters: "Brian O'Conner (Paul Walker)"
     },
     {
+        id: "torettos-market-brian",
+        name: "Toretto's Market & Café — Brian's Tuna Sandwich",
+        category: 'brian',
+        sceneOrder: 3,
+        filmTime: "0:07",
+        lat: 34.0763, lng: -118.2585,
+        address: "1234 Bellevue Avenue, Echo Park, Los Angeles",
+        description: "Brian walks into Toretto's Market and orders the same terrible tuna sandwich for the fourth day in a row — a transparent excuse to get close to Mia. Vince, suspicious from day one, picks a fight that spills into the street. Dom breaks it up, and Brian gets his first real look at the man he's been sent to investigate.",
+        characters: "Brian O'Conner, Mia Toretto, Vince, Dom Toretto"
+    },
+    {
         id: "racers-edge",
         name: "The Racer's Edge — Brian's Day Job",
         category: 'brian',
