@@ -292,6 +292,17 @@ body {
     box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.5), 0 0 18px rgba(255, 107, 53, 0.35) !important;
 }
 
+.event-marker.hover-highlight {
+    transform: scale(1.5);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    z-index: 1000 !important;
+}
+
+.legend-item.hover-highlight {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.14);
+}
+
 .legend-item-time {
     display: inline-block;
     font-family: 'SF Mono', 'Consolas', monospace;
@@ -724,8 +735,6 @@ let categoryLayers = {};
 let markersByIndex = [];
 let journeyLayers = {};
 let journeyRouteCache = {};
-let journeySegmentData = {};
-let eventSegmentMap = {};
 let filmTimeIndex = {};
 let journeyToggles = [];
 let categoryDivs = [];
@@ -813,45 +822,30 @@ function buildSegmentedLines(routeLatLngs, journey) {
     sortedOrder.sort((a, b) => a.ri - b.ri);
 
     const segments = [];
-    const waypointToSegment = {};
     for (let i = 0; i < sortedOrder.length - 1; i++) {
         const start = sortedOrder[i].ri;
         const end = sortedOrder[i + 1].ri;
         if (end <= start) continue;
-        const segIdx = segments.length;
         segments.push(routeLatLngs.slice(start, end + 1));
-        waypointToSegment[sortedOrder[i].wi] = segIdx;
-    }
-    if (sortedOrder.length > 1) {
-        const lastWi = sortedOrder[sortedOrder.length - 1].wi;
-        if (!(lastWi in waypointToSegment)) {
-            waypointToSegment[lastWi] = segments.length - 1;
-        }
     }
 
     if (segments.length === 0) {
         const line = L.polyline(routeLatLngs, {
             color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
         });
-        line._origOpacity = 0.75;
-        line._origWeight = 3.5;
-        return { lines: [line], waypointToSegment: {} };
+        return [line];
     }
 
-    const minOpacity = 0.2;
+    const minOpacity = 0.45;
     const maxOpacity = 0.9;
-    const lines = segments.map((seg, i) => {
+    return segments.map((seg, i) => {
         const t = segments.length === 1 ? 1 : i / (segments.length - 1);
         const opacity = minOpacity + t * (maxOpacity - minOpacity);
-        const weight = 2.5 + t * 2;
-        const line = L.polyline(seg, {
+        const weight = 3 + t * 1.5;
+        return L.polyline(seg, {
             color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path'
         });
-        line._origOpacity = opacity;
-        line._origWeight = weight;
-        return line;
     });
-    return { lines, waypointToSegment };
 }
 
 async function getJourneyLayer(key) {
@@ -874,50 +868,14 @@ async function getJourneyLayer(key) {
     }
 
     if (routeLatLngs) {
-        const { lines, waypointToSegment } = buildSegmentedLines(routeLatLngs, journey);
+        const lines = buildSegmentedLines(routeLatLngs, journey);
         journeyLayers[key] = L.layerGroup(lines);
-        journeySegmentData[key] = { lines, waypointToSegment };
     } else {
         const line = makeStraightLine(journey);
-        line._origOpacity = 0.7;
-        line._origWeight = 3;
         journeyLayers[key] = L.layerGroup([line]);
-        journeySegmentData[key] = { lines: [line], waypointToSegment: {} };
     }
 
     return journeyLayers[key];
-}
-
-// ── Segment Highlight ───────────────────────────
-function highlightSegment(eventIndex) {
-    const mapping = eventSegmentMap[eventIndex];
-    if (!mapping) return;
-    const sd = journeySegmentData[mapping.journeyKey];
-    if (!sd) return;
-    if (!map.hasLayer(journeyLayers[mapping.journeyKey])) return;
-
-    sd.lines.forEach((line, i) => {
-        if (i === mapping.segmentIndex) {
-            line.setStyle({ opacity: 1, weight: 5.5, dashArray: null });
-            line.bringToFront();
-        } else {
-            line.setStyle({ opacity: 0.08, weight: line._origWeight });
-        }
-    });
-}
-
-function clearSegmentHighlight() {
-    Object.keys(journeySegmentData).forEach(key => {
-        const sd = journeySegmentData[key];
-        if (!sd) return;
-        sd.lines.forEach(line => {
-            line.setStyle({
-                opacity: line._origOpacity,
-                weight: line._origWeight,
-                dashArray: '10 6'
-            });
-        });
-    });
 }
 
 // ── Timestamp Highlight ─────────────────────────
@@ -943,7 +901,12 @@ function clearTimestampHighlight() {
     document.querySelectorAll('.timestamp-highlight').forEach(el => {
         el.classList.remove('timestamp-highlight');
     });
-    clearSegmentHighlight();
+}
+
+function clearHoverHighlight() {
+    document.querySelectorAll('.hover-highlight').forEach(el => {
+        el.classList.remove('hover-highlight');
+    });
 }
 
 // ── Load Movie ──────────────────────────────────
@@ -972,8 +935,6 @@ function loadMovie(slug) {
     categoryLayers = {};
     journeyLayers = {};
     journeyRouteCache = {};
-    journeySegmentData = {};
-    eventSegmentMap = {};
     markersByIndex = [];
     journeyToggles = [];
     categoryDivs = [];
@@ -1067,11 +1028,10 @@ function loadMovie(slug) {
         journeyClearBtn.textContent = anyEnabled ? 'clear all' : 'show all';
     }
 
-    // Load journey layers
-    Object.keys(movieJourneys).forEach(async key => {
+    Promise.all(Object.keys(movieJourneys).map(async key => {
         const layer = await getJourneyLayer(key);
         map.addLayer(layer);
-    });
+    })).catch(e => console.warn('Journey load error:', e));
 
     journeyClearBtn.addEventListener('click', async () => {
         const anyEnabled = journeyToggles.some(t => !t.classList.contains('disabled'));
@@ -1206,62 +1166,38 @@ function loadMovie(slug) {
     });
     legendEl.appendChild(streetToggle);
 
-    // ── Event-to-Segment Mapping ────────────────
-    const categoryToJourney = {};
-    Object.keys(movieJourneys).forEach(jKey => {
-        if (movieLabels[jKey]) categoryToJourney[jKey] = jKey;
-    });
-
-    function buildEventSegmentMap() {
-        eventSegmentMap = {};
-        Object.entries(categoryToJourney).forEach(([cat, journeyKey]) => {
-            const sd = journeySegmentData[journeyKey];
-            if (!sd || !sd.waypointToSegment) return;
-
-            const journey = movieJourneys[journeyKey];
-            const catEvents = movieEvents
-                .map((e, i) => ({ evt: e, idx: i }))
-                .filter(o => o.evt.category === cat)
-                .sort((a, b) => a.evt.sceneOrder - b.evt.sceneOrder);
-
-            const usedWaypoints = new Set();
-            catEvents.forEach(({ evt, idx }) => {
-                let bestWp = -1, bestDist = Infinity;
-                journey.points.forEach((wp, wi) => {
-                    if (usedWaypoints.has(wi)) return;
-                    const d = (evt.lat - wp[0]) ** 2 + (evt.lng - wp[1]) ** 2;
-                    if (d < bestDist) { bestDist = d; bestWp = wi; }
-                });
-                if (bestWp >= 0 && bestDist < 0.001) {
-                    usedWaypoints.add(bestWp);
-                    const segIdx = sd.waypointToSegment[bestWp];
-                    if (segIdx !== undefined) {
-                        eventSegmentMap[idx] = { journeyKey, segmentIndex: segIdx };
-                    }
-                }
-            });
-        });
-    }
-    setTimeout(buildEventSegmentMap, 2000);
-
     // ── Hover Highlights ────────────────────────
     document.querySelectorAll('.legend-item').forEach(item => {
         const idx = parseInt(item.dataset.index);
         const evt = movieEvents[idx];
         item.addEventListener('mouseenter', () => {
+            const marker = markersByIndex[idx];
+            if (marker) {
+                const el = marker.getElement();
+                if (el) {
+                    const div = el.querySelector('.event-marker');
+                    if (div) div.classList.add('hover-highlight');
+                }
+            }
             highlightByTimestamp(evt.filmTime, idx);
-            highlightSegment(idx);
         });
-        item.addEventListener('mouseleave', clearTimestampHighlight);
+        item.addEventListener('mouseleave', () => {
+            clearHoverHighlight();
+            clearTimestampHighlight();
+        });
     });
 
     markersByIndex.forEach((marker, idx) => {
         const evt = movieEvents[idx];
         marker.on('mouseover', () => {
+            const item = document.querySelector(`.legend-item[data-index="${idx}"]`);
+            if (item) item.classList.add('hover-highlight');
             highlightByTimestamp(evt.filmTime, idx);
-            highlightSegment(idx);
         });
-        marker.on('mouseout', clearTimestampHighlight);
+        marker.on('mouseout', () => {
+            clearHoverHighlight();
+            clearTimestampHighlight();
+        });
     });
 }
 
