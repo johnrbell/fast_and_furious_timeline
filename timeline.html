@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fast and the Furious — Timeline</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #0d0d0d;
+    color: #ccc;
+    min-height: 100vh;
+}
+
+/* ── Nav Bar ───────────────────────────── */
+#nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    z-index: 1100;
+    background: rgba(13, 13, 13, 0.94);
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-link {
+    color: #777;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.12);
+}
+
+.nav-title {
+    font-size: 15px;
+    color: #e0e0e0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.nav-title span { color: #ff6b35; }
+
+@media (max-width: 500px) {
+    .nav-title { font-size: 12px; letter-spacing: 1px; }
+}
+
+/* ── Timeline Container ────────────────── */
+.timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px 60px;
+}
+
+.timeline-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.timeline-header h1 {
+    font-size: 28px;
+    color: #e0e0e0;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.timeline-header h1 span { color: #ff6b35; }
+
+.timeline-header p {
+    font-size: 14px;
+    color: #777;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ── Timeline Line ─────────────────────── */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #333, #ff6b35 10%, #ff6b35 90%, #333);
+}
+
+/* ── Timeline Card ─────────────────────── */
+.timeline-card {
+    position: relative;
+    background: rgba(18, 18, 24, 0.9);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, transform 0.2s;
+}
+
+.timeline-card:hover {
+    border-color: #444;
+    transform: translateX(4px);
+}
+
+.timeline-card::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 1;
+}
+
+.timeline-card::after {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 29px;
+    width: 16px;
+    height: 2px;
+    background: #333;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e0e0e0;
+    line-height: 1.3;
+}
+
+.card-film-time {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.08);
+    padding: 2px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.card-category {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 10px;
+    color: #fff;
+    display: inline-block;
+}
+
+.card-address {
+    font-size: 12px;
+    color: #ff6b35;
+}
+
+.card-description {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.card-characters {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card-map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #ff6b35;
+    text-decoration: none;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.card-map-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: #ff6b35;
+}
+
+/* ── Category-specific dot colors ──────── */
+.timeline-card[data-category="brian"]::before  { background: #3498db; }
+.timeline-card[data-category="dom"]::before    { background: #e74c3c; }
+.timeline-card[data-category="tran"]::before   { background: #27ae60; }
+.timeline-card[data-category="crew"]::before   { background: #f39c12; }
+.timeline-card[data-category="heists"]::before { background: #9b59b6; }
+
+/* ── Footer ────────────────────────────── */
+.timeline-footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    font-size: 11px;
+    color: #444;
+}
+
+/* ── Responsive ────────────────────────── */
+@media (max-width: 600px) {
+    .timeline-container { padding: 70px 16px 40px; }
+    .timeline { padding-left: 32px; }
+    .timeline::before { left: 11px; }
+    .timeline-card::before { left: -29px; }
+    .timeline-card::after { left: -17px; width: 12px; }
+    .timeline-card { padding: 16px 18px; }
+    .card-title { font-size: 14px; }
+    .timeline-header h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div id="nav-bar">
+    <a href="index.html" class="nav-link">&#x1f3ce;&#xfe0f; Map</a>
+    <div class="nav-title">The <span>Fast</span> & the Furious</div>
+    <a href="timeline.html" class="nav-link active">&#x23f3; Timeline</a>
+</div>
+
+<div class="timeline-container">
+    <div class="timeline-header">
+        <h1>The <span>Fast</span> & the Furious</h1>
+        <p>Every major filming location from the 2001 film, in the order they appear on screen. Click "View on Map" to see each spot on the interactive map.</p>
+    </div>
+    <div class="timeline" id="timeline"></div>
+    <div class="timeline-footer">
+        Location data sourced from movie-locations.com and seeing-stars.com. For fan/educational purposes.
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+const timelineEl = document.getElementById('timeline');
+
+const sorted = [...events].sort((a, b) => a.sceneOrder - b.sceneOrder);
+
+sorted.forEach((evt, i) => {
+    const card = document.createElement('div');
+    card.className = 'timeline-card';
+    card.dataset.category = evt.category;
+
+    card.innerHTML = `
+        <div class="card-header">
+            <div class="card-title">${evt.name}</div>
+            <div class="card-film-time">${evt.filmTime}</div>
+        </div>
+        <div class="card-meta">
+            <span class="card-category" style="background:${COLORS[evt.category]}">${CATEGORY_LABELS[evt.category]}</span>
+            <span class="card-address">${evt.address}</span>
+        </div>
+        <div class="card-description">${evt.description}</div>
+        <div class="card-characters">Featuring: ${evt.characters}</div>
+        <a class="card-map-link" href="index.html?fly=${evt.lat},${evt.lng}&event=${evt.id}">
+            &#x1f5fa;&#xfe0f; View on Map
+        </a>
+    `;
+
+    timelineEl.appendChild(card);
+});
+</script>
+</body>
+</html>
