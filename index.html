@@ -679,6 +679,7 @@ body {
 <button id="info-btn">i</button>
 
 <script src="data.js"></script>
+<script src="routes.js"></script>
 <script>
 // ── Map Setup ───────────────────────────────────
 const map = L.map('map', {
@@ -780,7 +781,9 @@ async function getJourneyLayer(key) {
     const journey = JOURNEYS[key];
     let routeLatLngs;
 
-    if (!journeyRouteCache[key]) {
+    if (typeof CACHED_ROUTES !== 'undefined' && CACHED_ROUTES[key]) {
+        routeLatLngs = decodePolyline(CACHED_ROUTES[key]);
+    } else if (!journeyRouteCache[key]) {
         try {
             routeLatLngs = await fetchRoute(journey.points);
             if (routeLatLngs) journeyRouteCache[key] = routeLatLngs;
