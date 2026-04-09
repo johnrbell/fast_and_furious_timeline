@@ -63,6 +63,50 @@ const events = [
         characters: "Brian O'Conner, Harry"
     },
     {
+        id: "first-rally-brian",
+        name: "Clock Street — Brian Bets It All",
+        category: 'brian',
+        sceneOrder: 6,
+        filmTime: "0:22",
+        lat: 34.0285, lng: -118.2352,
+        address: "761 Terminal Street / Clock Street, Downtown Los Angeles",
+        description: "Brian shows up to the underground rally and does the one thing no outsider should — he challenges Dominic Toretto to a race and puts up his own car as the wager. It's a calculated gamble: lose the race, but win Dom's attention. The entire crowd thinks he's insane.",
+        characters: "Brian O'Conner, Dom Toretto, Hector, Edwin, Jesse"
+    },
+    {
+        id: "first-race-brian",
+        name: "Prairie Avenue — Brian Loses His Car",
+        category: 'brian',
+        sceneOrder: 7,
+        filmTime: "0:25",
+        lat: 33.9200, lng: -118.3572,
+        address: "Prairie Avenue, 120th to 118th Street, Hawthorne",
+        description: "Brian lines up against Dom on Prairie Avenue for a quarter-mile drag. He pushes the Eclipse hard but Dom's Mazda RX-7 pulls ahead. Brian hits the NOS too late, crosses the finish line out of control, and loses his car. It's the worst possible outcome for his cover — and the best possible outcome for getting inside Dom's world.",
+        characters: "Brian O'Conner, Dom Toretto, Edwin, Jesse"
+    },
+    {
+        id: "union-ave-brian",
+        name: "Union Avenue — Brian Saves Dom from the Cops",
+        category: 'brian',
+        sceneOrder: 8,
+        filmTime: "0:30",
+        lat: 34.0531, lng: -118.2740,
+        address: "W. 7th Street & S. Union Avenue, Downtown Los Angeles",
+        description: "When the cops show up after the race, Brian makes a split-second decision that changes everything — he picks up Dom and drives him to safety. It's the moment Brian stops being a spectator and becomes complicit. Dom owes him now, and Brian knows it. The door to the Toretto crew just opened.",
+        characters: "Brian O'Conner, Dom Toretto"
+    },
+    {
+        id: "pch-ferrari-brian",
+        name: "PCH — Brian Smokes a Ferrari",
+        category: 'brian',
+        sceneOrder: 14,
+        filmTime: "0:50",
+        lat: 34.0400, lng: -118.8800,
+        address: "Pacific Coast Highway, Malibu",
+        description: "Brian and Dom take the rebuilt Eclipse up the Pacific Coast Highway. When a Ferrari 355 Spider pulls alongside, Brian floors it and leaves the Ferrari in the dust. It's pure, uncomplicated joy — two guys and a fast car on an open road. For a few minutes, Brian isn't a cop and Dom isn't a suspect. They're just friends.",
+        characters: "Brian O'Conner, Dom Toretto"
+    },
+    {
         id: "brian-arrested",
         name: "7th & Valencia — Brian's Cover Revealed",
         category: 'brian',
@@ -128,6 +172,61 @@ const events = [
         description: "After everything — the lies, the betrayal, the badge — Brian lines up against Dom for one last quarter-mile. They nearly collide with a train at the railroad crossing on Earle Street. When the dust settles, Brian tosses Dom the keys to his car, choosing loyalty over the law and letting him drive away.",
         characters: "Brian O'Conner, Dom Toretto"
     },
+    {
+        id: "cha-cha-cha-brian",
+        name: "Cha Cha Cha — Brian's Date with Mia",
+        category: 'brian',
+        sceneOrder: 13,
+        filmTime: "0:45",
+        lat: 34.0828, lng: -118.2866,
+        address: "656 N. Virgil Avenue, Silver Lake, Los Angeles",
+        description: "Mia takes Brian to Cha Cha Cha, a Caribbean restaurant in Silver Lake. It's one of their first real moments alone — away from the crew, away from Dom's watchful eye. For Brian, it's the night things stop being just a job. He's falling for Mia, and every minute deeper makes the eventual betrayal worse.",
+        characters: "Brian O'Conner, Mia Toretto"
+    },
+    {
+        id: "neptunes-net-brian",
+        name: "Neptune's Net — Brian Digs for the Truth",
+        category: 'brian',
+        sceneOrder: 15,
+        filmTime: "0:52",
+        lat: 34.0533, lng: -118.9635,
+        address: "42505 Pacific Coast Highway, Malibu",
+        description: "After racing a Ferrari on PCH, Brian and Dom stop at Neptune's Net. While Dom sees it as two friends sharing a meal, Brian is working — probing Dom about how he really makes his money. It's the most conflicted Brian has been: genuinely bonding with the man he's been sent to destroy.",
+        characters: "Brian O'Conner, Dom Toretto"
+    },
+    {
+        id: "little-saigon-brian",
+        name: "Little Saigon — Brian Meets Tran",
+        category: 'brian',
+        sceneOrder: 9,
+        filmTime: "0:33",
+        lat: 33.7449, lng: -117.9680,
+        address: "9221 Bolsa Avenue, Westminster, Orange County",
+        description: "Dom brings Brian to Little Saigon to confront Johnny Tran — Brian's first direct look at the man the FBI initially suspects is behind the hijackings. The visit turns violent when Tran's crew torches Brian's Eclipse in a parking lot, giving Brian a personal stake in the investigation beyond just following orders.",
+        characters: "Brian O'Conner, Dom Toretto, Johnny Tran, Lance Nguyen"
+    },
+    {
+        id: "micheltorena-brian",
+        name: "Micheltorena Street — Brian Chases Tran",
+        category: 'brian',
+        sceneOrder: 20,
+        filmTime: "1:30",
+        lat: 34.0874, lng: -118.2758,
+        address: "Micheltorena Street at Sunset Blvd, Silver Lake/Echo Park",
+        description: "Seconds after Jesse is gunned down, Brian jumps into his Supra and tears after Tran and Lance through the steep, winding streets of Echo Park. He's no longer a cop following procedure — he's running on rage and grief, chasing the men who just killed a kid on his friend's front lawn.",
+        characters: "Brian O'Conner, Johnny Tran, Lance Nguyen"
+    },
+    {
+        id: "glendale-blvd-brian",
+        name: "Glendale Blvd — Brian Kills Tran",
+        category: 'brian',
+        sceneOrder: 21,
+        filmTime: "1:33",
+        lat: 34.0834, lng: -118.2599,
+        address: "Glendale Blvd at Alvarado Street, Echo Park",
+        description: "The chase from Micheltorena Street ends on Glendale Boulevard. Brian pulls alongside Tran's motorcycle and shoots him off the bike — the first time in the film Brian uses lethal force. It's the moment the undercover cop fully crosses over: he's not making an arrest, he's avenging Jesse.",
+        characters: "Brian O'Conner, Johnny Tran"
+    },
 
     // ── Dominic Toretto ──
     {
@@ -140,6 +239,61 @@ const events = [
         address: "722 E. Kensington Road, Echo Park, Los Angeles",
         description: "Dom's iconic white woodframe house in Echo Park, where the team gathers for backyard barbecues and Corona beers. The house and the brown Craftsman next door at 718-720 are real homes. The white garage between them was a temporary set piece built for the film.",
         characters: "Dom Toretto, Mia, Letty, Vince, Leon, Jesse"
+    },
+    {
+        id: "first-hijack-dom",
+        name: "Wilmington — Dom Leads the Heist",
+        category: 'dom',
+        sceneOrder: 1,
+        filmTime: "0:02",
+        lat: 33.7864, lng: -118.2426,
+        address: "Henry Ford Avenue & Alameda Street, Wilmington/Long Beach",
+        description: "The film opens with Dom and his crew hijacking an 18-wheeler loaded with electronics near the docks. Dom is in command — coordinating four Honda Civics from underneath the trailer at highway speed. It's a meticulously rehearsed operation that establishes who Dominic Toretto is before we ever hear him speak: a man who lives a quarter-mile at a time.",
+        characters: "Dom Toretto, Vince, Letty, Leon, Jesse"
+    },
+    {
+        id: "first-rally-dom",
+        name: "Clock Street — Dom Accepts the Challenge",
+        category: 'dom',
+        sceneOrder: 6,
+        filmTime: "0:22",
+        lat: 34.0285, lng: -118.2352,
+        address: "761 Terminal Street / Clock Street, Downtown Los Angeles",
+        description: "Dom runs the rally from the center of the crowd — the king of this world. When the new kid Brian wagers his car in a head-to-head challenge, Dom doesn't flinch. He's been racing since he was a teenager, and no outsider with a neon Eclipse is going to embarrass him on his own turf.",
+        characters: "Dom Toretto, Brian O'Conner, Hector, Edwin, Jesse"
+    },
+    {
+        id: "first-race-dom",
+        name: "Prairie Avenue — Dom Wins the Race",
+        category: 'dom',
+        sceneOrder: 7,
+        filmTime: "0:25",
+        lat: 33.9200, lng: -118.3572,
+        address: "Prairie Avenue, 120th to 118th Street, Hawthorne",
+        description: "Dom lines up on Prairie Avenue and does what he always does — wins. His RX-7 pulls ahead cleanly, and Brian's Eclipse crosses the line out of control. Dom takes Brian's car, but what he really gains is the measure of the man: reckless, determined, and willing to risk everything. That catches Dom's attention more than the car ever could.",
+        characters: "Dom Toretto, Brian O'Conner, Edwin, Jesse"
+    },
+    {
+        id: "union-ave-dom",
+        name: "Union Avenue — Dom Escapes with Brian's Help",
+        category: 'dom',
+        sceneOrder: 8,
+        filmTime: "0:30",
+        lat: 34.0531, lng: -118.2740,
+        address: "W. 7th Street & S. Union Avenue, Downtown Los Angeles",
+        description: "When the cops scatter the rally, Dom ducks into a parking garage — cornered. Then Brian pulls up and offers him a ride. It's an unexpected move from a guy who just lost everything to Dom. In Dom's code, that kind of loyalty means something. Brian just went from outsider to someone worth knowing.",
+        characters: "Dom Toretto, Brian O'Conner"
+    },
+    {
+        id: "pch-ferrari-dom",
+        name: "PCH — Dom Tests the Rebuilt Car",
+        category: 'dom',
+        sceneOrder: 14,
+        filmTime: "0:50",
+        lat: 34.0400, lng: -118.8800,
+        address: "Pacific Coast Highway, Malibu",
+        description: "Dom rides shotgun as Brian takes the rebuilt car up PCH. When they dust a Ferrari at a stoplight, Dom sees the engine Brian built is the real deal. This is the moment Brian fully earns Dom's respect — not through words or loyalty, but through the only language Dom truly trusts: speed.",
+        characters: "Dom Toretto, Brian O'Conner"
     },
     {
         id: "torettos-market",
@@ -173,6 +327,17 @@ const events = [
         address: "42505 Pacific Coast Highway, Malibu",
         description: "After racing a Ferrari on PCH, Dom and Brian stop at Neptune's Net, an iconic beachside seafood shack in Malibu. Over food, Brian tries to get Dom to reveal how he really makes money. This is a key bonding moment between the two characters. The restaurant also appeared in Point Break.",
         characters: "Dom Toretto, Brian O'Conner"
+    },
+    {
+        id: "little-saigon-dom",
+        name: "Little Saigon — Dom Confronts Tran",
+        category: 'dom',
+        sceneOrder: 9,
+        filmTime: "0:33",
+        lat: 33.7449, lng: -117.9680,
+        address: "9221 Bolsa Avenue, Westminster, Orange County",
+        description: "Dom drives Brian to Little Saigon to settle a score with Johnny Tran face-to-face. The confrontation in the Vietnamese Cultural Court reveals the bad blood between the two — Tran's family and Dom's have a history that predates the hijackings. When Tran's crew torches Brian's car in retaliation, it confirms Dom's suspicion that Tran is dangerous and unpredictable.",
+        characters: "Dom Toretto, Brian O'Conner, Johnny Tran, Lance Nguyen"
     },
 
     {
@@ -422,47 +587,46 @@ const JOURNEYS = {
         label: "Brian's Journey",
         color: '#3498db',
         points: [
-            [34.0736, -118.2400],   // Dodger Stadium
-            [34.0893, -118.3414],   // Racer's Edge
-            [34.0763, -118.2585],   // Toretto's Market
-            [34.0531, -118.2694],   // 7th & Valencia (arrested)
-            [34.0921, -118.4354],   // Police HQ
-            [34.0763, -118.2585],   // Toretto's Market (returns)
-            [34.0285, -118.2352],   // First Rally
-            [33.9200, -118.3572],   // First Race
-            [34.0531, -118.2740],   // Union Ave escape
-            [34.0783, -118.2577],   // Toretto's House
-            [33.7449, -117.9680],   // Little Saigon
-            [34.0828, -118.2866],   // Cha Cha Cha
-            [34.0400, -118.8800],   // PCH Ferrari Race
-            [34.0533, -118.9635],   // Neptune's Net
-            [34.2805, -118.7340],   // SWAT Raid (Simi Valley)
-            [34.1045, -117.2512],   // Race Wars
-            [33.7478, -116.9716],   // Final Hijack (Hemet)
-            [34.0783, -118.2577],   // Toretto's House (drive-by)
-            [34.0874, -118.2758],   // Micheltorena Chase
-            [34.0834, -118.2599],   // Glendale Blvd
-            [33.7420, -118.2649]    // Final Race
+            [34.0736, -118.2400],   // Dodger Stadium (0:05)
+            [34.0763, -118.2585],   // Toretto's Market (0:07)
+            [34.0893, -118.3414],   // Racer's Edge (0:12)
+            [34.0285, -118.2352],   // Clock Street Rally (0:22)
+            [33.9200, -118.3572],   // Prairie Avenue Race (0:25)
+            [34.0531, -118.2740],   // Union Ave escape (0:30)
+            [34.0783, -118.2577],   // Toretto's House (0:30+)
+            [33.7449, -117.9680],   // Little Saigon (0:33)
+            [34.0531, -118.2694],   // 7th & Valencia — arrested (0:38)
+            [34.0921, -118.4354],   // Police HQ (0:40)
+            [34.0828, -118.2866],   // Cha Cha Cha (0:45)
+            [34.0400, -118.8800],   // PCH Ferrari Race (0:50)
+            [34.0533, -118.9635],   // Neptune's Net (0:52)
+            [34.2805, -118.7340],   // SWAT Raid — Simi Valley (1:05)
+            [34.1045, -117.2512],   // Race Wars (1:10)
+            [33.7478, -116.9716],   // Final Hijack — Hemet (1:20)
+            [34.0783, -118.2577],   // Toretto's House — drive-by (1:28)
+            [34.0874, -118.2758],   // Micheltorena Chase (1:30)
+            [34.0834, -118.2599],   // Glendale Blvd (1:33)
+            [33.7420, -118.2649]    // Terminal Island (1:38)
         ]
     },
     dom: {
         label: "Dom's Journey",
         color: '#e74c3c',
         points: [
-            [33.7864, -118.2426],   // First Hijack
-            [34.0783, -118.2577],   // Toretto's House
-            [34.0763, -118.2585],   // Toretto's Market
-            [34.0285, -118.2352],   // First Rally
-            [33.9200, -118.3572],   // First Race
-            [34.0531, -118.2740],   // Union Ave escape
-            [34.0783, -118.2577],   // Toretto's House (BBQ)
-            [33.7449, -117.9680],   // Little Saigon
-            [34.0400, -118.8800],   // PCH Ferrari Race
-            [34.0533, -118.9635],   // Neptune's Net
-            [34.1045, -117.2512],   // Race Wars
-            [33.7478, -116.9716],   // Final Hijack (Hemet)
-            [34.0783, -118.2577],   // Toretto's House (drive-by)
-            [33.7420, -118.2649]    // Final Race
+            [33.7864, -118.2426],   // Wilmington — First Hijack (0:02)
+            [34.0763, -118.2585],   // Toretto's Market (0:07)
+            [34.0783, -118.2577],   // Toretto's House (0:18)
+            [34.0285, -118.2352],   // Clock Street Rally (0:22)
+            [33.9200, -118.3572],   // Prairie Avenue Race (0:25)
+            [34.0531, -118.2740],   // Union Ave escape (0:30)
+            [34.0783, -118.2577],   // Toretto's House — BBQ (0:30+)
+            [33.7449, -117.9680],   // Little Saigon (0:33)
+            [34.0400, -118.8800],   // PCH Ferrari Race (0:50)
+            [34.0533, -118.9635],   // Neptune's Net (0:52)
+            [34.1045, -117.2512],   // Race Wars (1:10)
+            [33.7478, -116.9716],   // Final Hijack — Hemet (1:20)
+            [34.0783, -118.2577],   // Toretto's House — drive-by (1:28)
+            [33.7420, -118.2649]    // Terminal Island (1:38)
         ]
     }
 };

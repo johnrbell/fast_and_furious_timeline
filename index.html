@@ -925,7 +925,8 @@ const eventsClearBtn = document.getElementById('events-clear-btn');
 const categoryDivs = [];
 
 Object.keys(CATEGORY_LABELS).forEach(cat => {
-    const catEvents = events.filter(e => e.category === cat);
+    const catEvents = events.filter(e => e.category === cat)
+        .sort((a, b) => a.sceneOrder - b.sceneOrder);
     const div = document.createElement('div');
     div.className = 'legend-category';
     div.dataset.category = cat;
