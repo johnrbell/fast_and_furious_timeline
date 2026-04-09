@@ -676,8 +676,6 @@ body {
 <script>
 // ── Map Setup ───────────────────────────────────
 const map = L.map('map', {
-    center: [34.05, -118.35],
-    zoom: 10,
     minZoom: 7,
     maxZoom: 18,
     zoomSnap: 0.25,
@@ -685,6 +683,9 @@ const map = L.map('map', {
     wheelPxPerZoomLevel: 120,
     attributionControl: false
 });
+
+const bounds = L.latLngBounds(events.map(e => [e.lat, e.lng]));
+map.fitBounds(bounds, { padding: [50, 300, 50, 50] });
 
 const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd',
