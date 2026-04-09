@@ -650,7 +650,7 @@ body {
 <div id="map"></div>
 
 <div id="legend">
-    <h2>Filming Locations <button id="legend-close">&times;</button></h2>
+    <h2>Locations <button id="legend-close">&times;</button></h2>
     <div id="legend-content"></div>
 </div>
 
@@ -691,7 +691,7 @@ const map = L.map('map', {
 });
 
 const bounds = L.latLngBounds(events.map(e => [e.lat, e.lng]));
-map.fitBounds(bounds, { padding: [0, 320, 0, 0] });
+map.fitBounds(bounds, { padding: [220, 120, 220, 0] });
 
 const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd',
