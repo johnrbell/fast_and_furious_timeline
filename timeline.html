@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Fast and the Furious — Timeline</title>
+<title>Fast & Furious — Timeline</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -88,6 +88,39 @@ body {
     max-width: 500px;
     margin: 0 auto;
     line-height: 1.6;
+}
+
+/* ── Movie Picker ─────────────────────── */
+#movie-picker {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.movie-pill {
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    background: rgba(18, 18, 24, 0.9);
+    border: 1px solid #333;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.movie-pill:hover {
+    color: #bbb;
+    border-color: #555;
+}
+
+.movie-pill.active {
+    color: #fff;
+    background: #ff6b35;
+    border-color: #ff6b35;
 }
 
 /* ── Timeline Line ─────────────────────── */
@@ -224,12 +257,15 @@ body {
     border-color: #ff6b35;
 }
 
-/* ── Category-specific dot colors ──────── */
+/* ── Category-specific dot colors (generated dynamically via style attr) ── */
 .timeline-card[data-category="brian"]::before  { background: #3498db; }
 .timeline-card[data-category="dom"]::before    { background: #e74c3c; }
 .timeline-card[data-category="tran"]::before   { background: #27ae60; }
 .timeline-card[data-category="crew"]::before   { background: #f39c12; }
 .timeline-card[data-category="heists"]::before { background: #9b59b6; }
+.timeline-card[data-category="roman"]::before  { background: #e67e22; }
+.timeline-card[data-category="verone"]::before { background: #e74c3c; }
+.timeline-card[data-category="key"]::before    { background: #9b59b6; }
 
 /* ── Footer ────────────────────────────── */
 .timeline-footer {
@@ -256,14 +292,15 @@ body {
 
 <div id="nav-bar">
     <a href="index.html" class="nav-link">&#x1f3ce;&#xfe0f; Map</a>
-    <div class="nav-title">The <span>Fast</span> & the Furious</div>
+    <div class="nav-title" id="nav-title">The <span>Fast</span> & the Furious</div>
     <a href="timeline.html" class="nav-link active">&#x23f3; Timeline</a>
 </div>
 
 <div class="timeline-container">
     <div class="timeline-header">
-        <h1>The <span>Fast</span> & the Furious</h1>
-        <p>Every major filming location from the 2001 film, in the order they appear on screen. Click "View on Map" to see each spot on the interactive map.</p>
+        <h1 id="timeline-title">The <span>Fast</span> & the Furious</h1>
+        <p id="timeline-desc">Every major filming location from the film, in the order they appear on screen. Click "View on Map" to see each spot on the interactive map.</p>
+        <div id="movie-picker"></div>
     </div>
     <div class="timeline" id="timeline"></div>
     <div class="timeline-footer">
@@ -273,33 +310,75 @@ body {
 
 <script src="data.js"></script>
 <script>
-const timelineEl = document.getElementById('timeline');
+let currentSlug = null;
 
-const sorted = [...events].sort((a, b) => a.sceneOrder - b.sceneOrder);
-
-sorted.forEach((evt, i) => {
-    const card = document.createElement('div');
-    card.className = 'timeline-card';
-    card.dataset.category = evt.category;
-
-    card.innerHTML = `
-        <div class="card-header">
-            <div class="card-title">${evt.name}</div>
-            <div class="card-film-time">${evt.filmTime}</div>
-        </div>
-        <div class="card-meta">
-            <span class="card-category" style="background:${COLORS[evt.category]}">${CATEGORY_LABELS[evt.category]}</span>
-            <span class="card-address">${evt.address}</span>
-        </div>
-        <div class="card-description">${evt.description}</div>
-        <div class="card-characters">Featuring: ${evt.characters}</div>
-        <a class="card-map-link" href="index.html?fly=${evt.lat},${evt.lng}&event=${evt.id}">
-            &#x1f5fa;&#xfe0f; View on Map
-        </a>
-    `;
-
-    timelineEl.appendChild(card);
+// Build movie picker
+const pickerEl = document.getElementById('movie-picker');
+MOVIE_ORDER.forEach(slug => {
+    const movie = MOVIES[slug];
+    const btn = document.createElement('button');
+    btn.className = 'movie-pill';
+    btn.dataset.slug = slug;
+    btn.textContent = movie.title + ' (' + movie.year + ')';
+    btn.addEventListener('click', () => loadTimeline(slug));
+    pickerEl.appendChild(btn);
 });
+
+function loadTimeline(slug) {
+    if (slug === currentSlug) return;
+    currentSlug = slug;
+
+    const movieData = MOVIES[slug];
+    const movieEvents = movieData.events;
+    const movieColors = movieData.COLORS;
+    const movieLabels = movieData.CATEGORY_LABELS;
+
+    // Update picker
+    document.querySelectorAll('.movie-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.slug === slug);
+    });
+
+    // Update titles
+    document.getElementById('nav-title').innerHTML = movieData.title.replace(/(Fast)/i, '<span>$1</span>');
+    document.getElementById('timeline-title').innerHTML = movieData.title.replace(/(Fast)/i, '<span>$1</span>');
+    document.getElementById('timeline-desc').textContent =
+        `Every major filming location from ${movieData.title} (${movieData.year}), in the order they appear on screen. Click "View on Map" to see each spot on the interactive map.`;
+
+    // Build cards
+    const timelineEl = document.getElementById('timeline');
+    timelineEl.innerHTML = '';
+
+    const sorted = [...movieEvents].sort((a, b) => a.sceneOrder - b.sceneOrder);
+
+    sorted.forEach(evt => {
+        const card = document.createElement('div');
+        card.className = 'timeline-card';
+        card.dataset.category = evt.category;
+
+        card.innerHTML = `
+            <div class="card-header">
+                <div class="card-title">${evt.name}</div>
+                <div class="card-film-time">${evt.filmTime}</div>
+            </div>
+            <div class="card-meta">
+                <span class="card-category" style="background:${movieColors[evt.category]}">${movieLabels[evt.category]}</span>
+                <span class="card-address">${evt.address}</span>
+            </div>
+            <div class="card-description">${evt.description}</div>
+            <div class="card-characters">Featuring: ${evt.characters}</div>
+            <a class="card-map-link" href="index.html?movie=${slug}&fly=${evt.lat},${evt.lng}&event=${evt.id}">
+                &#x1f5fa;&#xfe0f; View on Map
+            </a>
+        `;
+
+        timelineEl.appendChild(card);
+    });
+}
+
+// Check URL for movie param, default to first
+const urlParams = new URLSearchParams(window.location.search);
+const movieParam = urlParams.get('movie');
+loadTimeline(movieParam && MOVIES[movieParam] ? movieParam : MOVIE_ORDER[0]);
 </script>
 </body>
 </html>
