@@ -371,6 +371,17 @@ const MOVIES = {
             characters: "Dom Toretto, Brian O'Conner, Johnny Tran, Lance Nguyen"
         },
         {
+            id: "supra-rebuild-dom",
+            name: "Toretto's Garage — Dom Opens His Doors",
+            category: 'dom',
+            sceneOrder: 13,
+            filmTime: "0:42",
+            lat: 34.0783, lng: -118.2577,
+            address: "722 E. Kensington Road, Echo Park, Los Angeles",
+            description: "Brian shows up at Dom's house with a destroyed Toyota Supra, and Dom sees something in the gesture — not the car, but the commitment. When Jesse confirms the engine is legitimate, Dom makes a decision that changes everything: he puts the parts on his tab at Harry's and walks Brian into his garage. 'My tools are your tools.' Dom doesn't say that to outsiders. By opening his garage, he's opening his family. The three of them — Dom, Brian, and Jesse — rebuild the Supra together, and by the time it's done, Brian isn't a customer or a guest anymore. He's one of Dom's people.",
+            characters: "Dom Toretto, Brian O'Conner, Jesse"
+        },
+        {
             id: "race-wars-dom",
             name: "Race Wars — Dom's Last Stand",
             category: 'dom',
