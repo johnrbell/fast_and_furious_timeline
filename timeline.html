@@ -327,6 +327,7 @@ MOVIE_ORDER.forEach(slug => {
     btn.addEventListener('click', () => loadTimeline(slug));
     pickerEl.appendChild(btn);
 });
+if (MOVIE_ORDER.length <= 1) pickerEl.style.display = 'none';
 
 function loadTimeline(slug) {
     if (slug === currentSlug) return;

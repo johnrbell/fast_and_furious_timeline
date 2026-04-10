@@ -772,6 +772,7 @@ MOVIE_ORDER.forEach(slug => {
     btn.addEventListener('click', () => loadMovie(slug));
     pickerEl.appendChild(btn);
 });
+if (MOVIE_ORDER.length <= 1) pickerEl.style.display = 'none';
 
 // ── Polyline Helpers ────────────────────────────
 function decodePolyline(encoded) {

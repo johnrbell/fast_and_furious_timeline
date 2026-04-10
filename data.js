@@ -105,6 +105,17 @@ const MOVIES = {
             characters: "Brian O'Conner, Dom Toretto"
         },
         {
+            id: "house-party-brian",
+            name: "Toretto's House — Brian Meets the Family",
+            category: 'brian',
+            sceneOrder: 8,
+            filmTime: "0:32",
+            lat: 34.0783, lng: -118.2577,
+            address: "722 E. Kensington Road, Echo Park, Los Angeles",
+            description: "Dom brings Brian back to the house after the escape, and Brian walks into something he wasn't prepared for — a family. The backyard is lit up, music thumping, the crew eating and laughing like the cops were never a factor. Brian's been watching these people through surveillance photos and wiretaps for weeks. Now he's standing in their yard, holding a Corona, while Mia catches his eye from across the table. For the FBI, this is the deepest cover Brian has ever achieved. For Brian the person, it's the moment everything gets complicated.",
+            characters: "Brian O'Conner, Dom Toretto, Mia Toretto, Letty, Vince, Leon, Jesse"
+        },
+        {
             id: "pch-ferrari-brian",
             name: "PCH — Brian Smokes a Ferrari",
             category: 'brian',
@@ -112,7 +123,7 @@ const MOVIES = {
             filmTime: "0:50",
             lat: 34.0400, lng: -118.8800,
             address: "Pacific Coast Highway, Malibu",
-            description: "Brian and Dom take the rebuilt Eclipse up the Pacific Coast Highway. When a Ferrari 355 Spider pulls alongside, Brian floors it and leaves the Ferrari in the dust. It's pure, uncomplicated joy — two guys and a fast car on an open road. For a few minutes, Brian isn't a cop and Dom isn't a suspect. They're just friends.",
+            description: "Brian and Dom take the rebuilt Supra up the Pacific Coast Highway. When a Ferrari 355 Spider pulls alongside, Brian floors it and leaves the Ferrari in the dust. It's pure, uncomplicated joy — two guys and a fast car on an open road. For a few minutes, Brian isn't a cop and Dom isn't a suspect. They're just friends.",
             characters: "Brian O'Conner, Dom Toretto"
         },
         {
@@ -136,6 +147,17 @@ const MOVIES = {
             address: "1261 Angelo Drive, Beverly Hills",
             description: "The circular mid-century Hollywood home with the pool where Brian's FBI/LAPD task force has set up a temporary headquarters. The house was described in the film as 'the house Eddie Fisher built for Elizabeth Taylor.' The home was demolished around 2001.",
             characters: "Brian O'Conner, Sgt. Tanner, Agent Bilkins"
+        },
+        {
+            id: "supra-rebuild",
+            name: "Toretto's Garage — Brian Brings the Supra",
+            category: 'brian',
+            sceneOrder: 13,
+            filmTime: "0:42",
+            lat: 34.0783, lng: -118.2577,
+            address: "722 E. Kensington Road, Echo Park, Los Angeles",
+            description: "Brian pulls up to Dom's house with a battered, half-destroyed Toyota Supra — passenger side crushed, trim missing, headlights dangling from their wires. Jesse takes one look and calls it 'a ten minute car.' Dom asks if Brian plans to tow it or push it across the finish line. But when Brian pops the hood and reveals the engine underneath, Jesse's eyes go wide: 'This will decimate all — after you put about fifteen grand in it. Or more, if we have to overnight parts from Japan.' Dom puts it on his tab at Harry's and walks Brian to his garage: 'My tools are your tools.' What follows is the most important montage in the franchise — Dom, Brian, and Jesse rebuilding the car together, turning a wreck into a weapon. It's the scene where Brian stops being a guest and becomes part of the family.",
+            characters: "Brian O'Conner, Dom Toretto, Jesse"
         },
         {
             id: "swat-raid-tran",
@@ -294,6 +316,17 @@ const MOVIES = {
             characters: "Dom Toretto, Brian O'Conner"
         },
         {
+            id: "house-party-dom",
+            name: "Toretto's House — The Backyard Party",
+            category: 'dom',
+            sceneOrder: 8,
+            filmTime: "0:32",
+            lat: 34.0783, lng: -118.2577,
+            address: "722 E. Kensington Road, Echo Park, Los Angeles",
+            description: "The crew is already deep into their ritual — Coronas, barbecue smoke, and Tego Calderón on the speakers — when Dom walks through the gate with the blond kid who just pulled him out of a parking garage full of cops. The yard goes quiet. Vince's jaw tightens. Letty sizes Brian up in two seconds flat. But Dom's word is law on Kensington Road, and if he says the kid's welcome, the kid's welcome. By the time the food comes out, Brian is sitting at the Toretto table for the first time, surrounded by a family he was sent to destroy.",
+            characters: "Dom Toretto, Brian O'Conner, Mia Toretto, Letty, Vince, Leon, Jesse"
+        },
+        {
             id: "pch-ferrari-dom",
             name: "PCH — Dom Tests the Rebuilt Car",
             category: 'dom',
@@ -314,17 +347,6 @@ const MOVIES = {
             address: "1234 Bellevue Avenue, Echo Park, Los Angeles",
             description: "The Toretto family deli and grocery store where Brian orders a tuna sandwich every day to get close to Mia. In reality it's Bob's Market, a mom-and-pop store at the corner of Kensington Road and Bellevue Ave. The fight between Vince and Brian spills out into the street here.",
             characters: "Brian O'Conner, Mia Toretto, Vince, Dom Toretto"
-        },
-        {
-            id: "cha-cha-cha",
-            name: "Cha Cha Cha — Mia & Brian's Date",
-            category: 'dom',
-            sceneOrder: 13,
-            filmTime: "0:45",
-            lat: 34.0828, lng: -118.2866,
-            address: "656 N. Virgil Avenue, Silver Lake, Los Angeles",
-            description: "Mia takes Brian to Cha Cha Cha, a popular Caribbean restaurant in the Virgil Village area of Silver Lake, partly to spite Vince. The colorful, lively eatery has since been demolished. It also appeared in the 2005 Steve Martin film Shopgirl.",
-            characters: "Brian O'Conner, Mia Toretto"
         },
         {
             id: "neptunes-net",
@@ -570,9 +592,10 @@ const MOVIES = {
         { from: "torettos-market", to: "first-rally", type: "sequel", label: "Brian challenges Dom" },
         { from: "first-rally", to: "first-race", type: "sequel", label: "Rally leads to the race" },
         { from: "first-race", to: "union-ave-escape", type: "sequel", label: "Dom flees cops after race" },
-        { from: "union-ave-escape", to: "torettos-house", type: "sequel", label: "Brian earns Dom's trust" },
-        { from: "torettos-house", to: "cha-cha-cha", type: "sequel", label: "Brian and Mia grow closer" },
-        { from: "cha-cha-cha", to: "pch-ferrari-race", type: "sequel", label: "Brian and Dom test the car" },
+        { from: "union-ave-escape", to: "house-party-brian", type: "sequel", label: "Dom brings Brian to the party" },
+        { from: "house-party-brian", to: "house-party-dom", type: "location", label: "Same party" },
+        { from: "house-party-brian", to: "cha-cha-cha-brian", type: "sequel", label: "Brian and Mia grow closer" },
+        { from: "cha-cha-cha-brian", to: "pch-ferrari-race", type: "sequel", label: "Brian and Dom test the car" },
         { from: "pch-ferrari-race", to: "neptunes-net", type: "sequel", label: "They celebrate at Neptune's Net" },
         { from: "little-saigon-statues", to: "little-saigon-archway", type: "location", label: "Same district" },
         { from: "neptunes-net", to: "swat-raid-tran", type: "sequel", label: "Brian's investigation leads to raid" },
@@ -584,6 +607,8 @@ const MOVIES = {
         { from: "glendale-blvd", to: "final-race", type: "sequel", label: "Dom and Brian's final race" },
         { from: "first-hijack", to: "brian-arrested", type: "cause", label: "Hijackings trigger investigation" },
         { from: "brian-arrested", to: "police-hq", type: "sequel", label: "Brian reports to task force" },
+        { from: "police-hq", to: "supra-rebuild", type: "sequel", label: "Brian finds a car to rebuild" },
+        { from: "supra-rebuild", to: "cha-cha-cha-brian", type: "sequel", label: "Brian falls for Mia" },
         { from: "police-hq", to: "swat-raid-tran", type: "sequel", label: "Investigation targets Tran" },
         { from: "first-rally", to: "little-saigon-statues", type: "sequel", label: "Dom takes Brian to confront Tran" }
     ],
@@ -603,6 +628,7 @@ const MOVIES = {
                 [33.7449, -117.9680],
                 [34.0531, -118.2694],
                 [34.0921, -118.4354],
+                [34.0783, -118.2577],
                 [34.0828, -118.2866],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
@@ -627,6 +653,7 @@ const MOVIES = {
                 [34.0531, -118.2740],
                 [34.0783, -118.2577],
                 [33.7449, -117.9680],
+                [34.0783, -118.2577],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
                 [34.1045, -117.2512],
@@ -1382,7 +1409,7 @@ const MOVIES = {
 }; // end MOVIES
 
 // ── Movie ordering for UI ───────────────────────
-const MOVIE_ORDER = ["fast-1", "fast-2", "fast-3"];
+const MOVIE_ORDER = ["fast-1"];
 
 // ── Backward-compatible aliases (default to first movie) ────────
 const COLORS = MOVIES["fast-1"].COLORS;
