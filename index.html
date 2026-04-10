@@ -158,7 +158,7 @@ body {
     position: absolute;
     top: 100px;
     right: 22px;
-    z-index: 1000;
+    z-index: 1100;
     background: linear-gradient(180deg, rgba(14, 14, 20, 0.96) 0%, rgba(10, 10, 14, 0.96) 100%);
     border: 1px solid #2a2a2e;
     border-top: 2px solid rgba(255, 107, 53, 0.4);
@@ -431,7 +431,7 @@ body {
     position: absolute;
     top: 100px;
     right: 22px;
-    z-index: 1001;
+    z-index: 1101;
     background: linear-gradient(180deg, rgba(14, 14, 20, 0.96), rgba(10, 10, 14, 0.96));
     border: 1px solid #2a2a2e;
     border-top: 2px solid rgba(255, 107, 53, 0.4);
@@ -868,6 +868,112 @@ body {
     box-shadow: 0 0 10px rgba(255, 107, 53, 0.15);
 }
 
+/* ── Loading Overlay ──────────────────── */
+#loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: rgba(6, 6, 6, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transition: opacity 0.5s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+#loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tire-spinner {
+    width: 72px;
+    height: 72px;
+    position: relative;
+    animation: tireSpin 1s linear infinite;
+}
+
+.tire-outer {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 8px solid #222;
+    box-shadow:
+        0 0 0 3px #111,
+        inset 0 0 0 3px #111,
+        0 0 20px rgba(255, 107, 53, 0.15);
+    position: absolute;
+    inset: 0;
+}
+
+.tire-tread {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    border-top-color: #444;
+    border-right-color: #333;
+}
+
+.tire-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #555 30%, #333 60%, #222 100%);
+    border: 2px solid #444;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.tire-hub::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff6b35;
+    box-shadow: 0 0 6px rgba(255, 107, 53, 0.6);
+}
+
+.tire-spoke {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 16px;
+    background: #444;
+    transform-origin: center 0;
+    border-radius: 1px;
+}
+
+.tire-spoke:nth-child(1) { transform: translate(-50%, 0) rotate(0deg); }
+.tire-spoke:nth-child(2) { transform: translate(-50%, 0) rotate(72deg); }
+.tire-spoke:nth-child(3) { transform: translate(-50%, 0) rotate(144deg); }
+.tire-spoke:nth-child(4) { transform: translate(-50%, 0) rotate(216deg); }
+.tire-spoke:nth-child(5) { transform: translate(-50%, 0) rotate(288deg); }
+
+@keyframes tireSpin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-family: 'Teko', 'Segoe UI', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #666;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
 /* ── Leaflet Attribution ─────────────── */
 .leaflet-control-attribution {
     display: none !important;
@@ -886,6 +992,20 @@ body {
 </div>
 
 <div id="map"></div>
+
+<div id="loading-overlay">
+    <div class="tire-spinner">
+        <div class="tire-outer"></div>
+        <div class="tire-tread"></div>
+        <div class="tire-spoke"></div>
+        <div class="tire-spoke"></div>
+        <div class="tire-spoke"></div>
+        <div class="tire-spoke"></div>
+        <div class="tire-spoke"></div>
+        <div class="tire-hub"></div>
+    </div>
+    <div class="loading-text">Loading Routes</div>
+</div>
 
 <div id="legend">
     <h2>Filming Locations <button id="legend-close">&times;</button></h2>
@@ -1109,9 +1229,26 @@ function clearHoverHighlight() {
 }
 
 // ── Load Movie ──────────────────────────────────
+function showLoader() {
+    const el = document.getElementById('loading-overlay');
+    el.style.display = 'flex';
+    el.offsetHeight;
+    el.classList.remove('hidden');
+}
+
+function hideLoader() {
+    const el = document.getElementById('loading-overlay');
+    el.classList.add('hidden');
+    el.addEventListener('transitionend', function handler() {
+        el.style.display = 'none';
+        el.removeEventListener('transitionend', handler);
+    });
+}
+
 function loadMovie(slug) {
     if (slug === currentMovieSlug) return;
     currentMovieSlug = slug;
+    showLoader();
 
     const movieData = MOVIES[slug];
     const movieEvents = movieData.events;
@@ -1232,7 +1369,7 @@ function loadMovie(slug) {
     Promise.all(Object.keys(movieJourneys).map(async key => {
         const layer = await getJourneyLayer(key);
         map.addLayer(layer);
-    })).catch(e => console.warn('Journey load error:', e));
+    })).then(() => hideLoader()).catch(e => { console.warn('Journey load error:', e); hideLoader(); });
 
     journeyClearBtn.addEventListener('click', async () => {
         const anyEnabled = journeyToggles.some(t => !t.classList.contains('disabled'));
