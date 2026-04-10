@@ -1123,7 +1123,7 @@ async function fetchRoute(points) {
 function makeStraightLine(journey) {
     return L.polyline(journey.points.map(([lat, lng]) => [lat, lng]), {
         color: journey.color, weight: 3, dashArray: '10 6', opacity: 0.7, className: 'journey-path',
-        _origOpacity: 0.7, _origWeight: 3
+        _origOpacity: 0.7, _origWeight: 3, _wpIdxStart: 0, _wpIdxEnd: journey.points.length - 1
     });
 }
 
@@ -1138,35 +1138,51 @@ function nearestIndex(routePts, target) {
 
 function buildSegmentedLines(routeLatLngs, journey) {
     const waypoints = journey.points;
-    const wpIndices = waypoints.map(wp => nearestIndex(routeLatLngs, wp));
-    const sortedOrder = wpIndices.map((ri, wi) => ({ ri, wi }));
-    sortedOrder.sort((a, b) => a.ri - b.ri);
 
-    const segments = [];
-    for (let i = 0; i < sortedOrder.length - 1; i++) {
-        const start = sortedOrder[i].ri;
-        const end = sortedOrder[i + 1].ri;
-        if (end <= start) continue;
-        segments.push(routeLatLngs.slice(start, end + 1));
+    // Find each waypoint on the route in order, searching forward only
+    // so backtracking journeys don't match the wrong pass
+    const wpRouteIndices = [];
+    let searchFrom = 0;
+    for (let wi = 0; wi < waypoints.length; wi++) {
+        let best = searchFrom, bestDist = Infinity;
+        for (let ri = searchFrom; ri < routeLatLngs.length; ri++) {
+            const d = (routeLatLngs[ri][0] - waypoints[wi][0]) ** 2 +
+                      (routeLatLngs[ri][1] - waypoints[wi][1]) ** 2;
+            if (d < bestDist) { bestDist = d; best = ri; }
+        }
+        wpRouteIndices.push(best);
+        searchFrom = best;
     }
 
-    if (segments.length === 0) {
+    const segData = [];
+    for (let i = 0; i < waypoints.length - 1; i++) {
+        const start = wpRouteIndices[i];
+        const end = wpRouteIndices[i + 1];
+        if (end <= start) continue;
+        segData.push({
+            coords: routeLatLngs.slice(start, end + 1),
+            wpIdxStart: i,
+            wpIdxEnd: i + 1
+        });
+    }
+
+    if (segData.length === 0) {
         const line = L.polyline(routeLatLngs, {
             color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path',
-            _origOpacity: 0.75, _origWeight: 3.5
+            _origOpacity: 0.75, _origWeight: 3.5, _wpIdxStart: 0, _wpIdxEnd: waypoints.length - 1
         });
         return [line];
     }
 
     const minOpacity = 0.45;
     const maxOpacity = 0.9;
-    return segments.map((seg, i) => {
-        const t = segments.length === 1 ? 1 : i / (segments.length - 1);
+    return segData.map((sd, i) => {
+        const t = segData.length === 1 ? 1 : i / (segData.length - 1);
         const opacity = minOpacity + t * (maxOpacity - minOpacity);
         const weight = 3 + t * 1.5;
-        return L.polyline(seg, {
+        return L.polyline(sd.coords, {
             color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path',
-            _origOpacity: opacity, _origWeight: weight
+            _origOpacity: opacity, _origWeight: weight, _wpIdxStart: sd.wpIdxStart, _wpIdxEnd: sd.wpIdxEnd
         });
     });
 }
@@ -1224,6 +1240,14 @@ function clearTimestampHighlight() {
     document.querySelectorAll('.timestamp-highlight').forEach(el => {
         el.classList.remove('timestamp-highlight');
     });
+}
+
+function segmentTouchesWpIdx(line, wpIdx) {
+    const opts = line.options;
+    if (opts._wpIdxStart !== undefined && opts._wpIdxEnd !== undefined) {
+        return opts._wpIdxStart === wpIdx || opts._wpIdxEnd === wpIdx;
+    }
+    return false;
 }
 
 function clearHoverHighlight() {
@@ -1319,6 +1343,28 @@ function loadMovie(slug) {
         marker._eventIndex = evtIndex;
         markersByIndex[evtIndex] = marker;
         categoryLayers[evt.category].addLayer(marker);
+    });
+
+    // Pre-compute event → journey waypoint index mapping
+    Object.keys(movieJourneys).forEach(jKey => {
+        const journey = movieJourneys[jKey];
+        const catEvents = movieEvents
+            .map((e, i) => ({ evt: e, idx: i }))
+            .filter(o => o.evt.category === jKey)
+            .sort((a, b) => a.evt.sceneOrder - b.evt.sceneOrder);
+        const d = 0.006;
+        let searchFrom = 0;
+        catEvents.forEach(({ evt, idx }) => {
+            let bestWp = -1, bestDist = Infinity;
+            for (let wi = searchFrom; wi < journey.points.length; wi++) {
+                const dist = Math.abs(journey.points[wi][0] - evt.lat) + Math.abs(journey.points[wi][1] - evt.lng);
+                if (dist < bestDist) { bestDist = dist; bestWp = wi; }
+            }
+            if (bestWp >= 0 && bestDist < d * 2) {
+                markersByIndex[idx]._journeyWpIdx = bestWp;
+                searchFrom = bestWp + 1;
+            }
+        });
     });
 
     Object.values(categoryLayers).forEach(layer => layer.addTo(map));
@@ -1592,10 +1638,52 @@ function loadMovie(slug) {
                 }
             }
             highlightByTimestamp(evt.filmTime, idx);
+            const wpIdx = markersByIndex[idx]._journeyWpIdx;
+            Object.keys(movieJourneys).forEach(jKey => {
+                const layer = journeyLayers[jKey];
+                if (!layer || !map.hasLayer(layer)) return;
+                layer.eachLayer(line => {
+                    if (jKey === evt.category && wpIdx >= 0 && segmentTouchesWpIdx(line, wpIdx)) {
+                        line.setStyle({ opacity: 1, weight: 5 });
+                    } else {
+                        line.setStyle({ opacity: 0.08 });
+                    }
+                });
+            });
+            markersByIndex.forEach(m => {
+                if (!m) return;
+                const el = m.getElement();
+                if (!el) return;
+                const div = el.querySelector('.event-marker');
+                if (!div) return;
+                if (m._eventData === evt) {
+                    div.style.opacity = '1';
+                    div.style.filter = '';
+                } else {
+                    div.style.opacity = '0.15';
+                    div.style.filter = 'grayscale(1)';
+                }
+            });
         });
         item.addEventListener('mouseleave', () => {
             clearHoverHighlight();
             clearTimestampHighlight();
+            Object.keys(movieJourneys).forEach(jKey => {
+                const layer = journeyLayers[jKey];
+                if (!layer || !map.hasLayer(layer)) return;
+                layer.eachLayer(line => {
+                    line.setStyle({ opacity: line.options._origOpacity || 0.75, weight: line.options._origWeight || 3.5 });
+                });
+            });
+            markersByIndex.forEach(m => {
+                if (!m) return;
+                const el = m.getElement();
+                if (!el) return;
+                const div = el.querySelector('.event-marker');
+                if (!div) return;
+                div.style.opacity = '';
+                div.style.filter = '';
+            });
         });
     });
 
