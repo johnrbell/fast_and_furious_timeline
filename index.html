@@ -125,6 +125,7 @@ body {
         0 2px 4px rgba(0, 0, 0, 0.6);
     position: relative;
     padding-bottom: 6px;
+    font-style: italic;;
 }
 
 .nav-title span {
@@ -1528,21 +1529,26 @@ document.getElementById('hud-clear').addEventListener('click', () => {
 (function() {
     const fly = urlParams.get('fly');
     const eventName = urlParams.get('event');
-    if (fly) {
-        const [lat, lng] = fly.split(',').map(Number);
-        setTimeout(() => {
-            map.flyTo([lat, lng], 15, { duration: 1.2 });
-            if (eventName) {
+    if (!fly) return;
+
+    const [lat, lng] = fly.split(',').map(Number);
+
+    setTimeout(() => {
+        map.stop();
+        map.setView([lat, lng], 16, { animate: false });
+
+        if (eventName) {
+            setTimeout(() => {
                 Object.values(categoryLayers).forEach(layer => {
                     layer.eachLayer(marker => {
                         if (marker._eventData && marker._eventData.id === eventName) {
-                            setTimeout(() => marker.openPopup(), 1200);
+                            marker.openPopup();
                         }
                     });
                 });
-            }
-        }, 500);
-    }
+            }, 300);
+        }
+    }, 300);
 })();
 </script>
 </body>
