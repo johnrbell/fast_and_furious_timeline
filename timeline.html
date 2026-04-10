@@ -368,6 +368,13 @@ body {
     box-shadow: 0 0 10px rgba(255, 107, 53, 0.1);
 }
 
+.card-image {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    display: block;
+}
+
 /* ── Category-specific dot colors ────── */
 .timeline-card[data-category="brian"]::before  { background: #3498db; }
 .timeline-card[data-category="dom"]::before    { background: #e74c3c; }
@@ -551,6 +558,7 @@ function loadTimeline(slug) {
             const evt = group[0];
             card.dataset.category = evt.category;
             card.innerHTML = `
+                ${evt.image ? `<img class="card-image" src="${evt.image}" alt="${evt.name}" loading="lazy">` : ''}
                 <div class="card-header">
                     <div class="card-title">${evt.name}</div>
                     <div class="card-film-time">${evt.filmTime}</div>
@@ -590,8 +598,10 @@ function loadTimeline(slug) {
                 `;
             }).join('');
 
+            const groupImage = group.find(e => e.image)?.image;
             card.innerHTML = `
                 <div class="timeline-dots">${dotsHtml}</div>
+                ${groupImage ? `<img class="card-image" src="${groupImage}" alt="${locationName}" loading="lazy">` : ''}
                 <div class="card-header">
                     <div class="card-title">${locationName}</div>
                     <div class="card-film-time">${firstEvt.filmTime}</div>

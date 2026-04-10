@@ -619,6 +619,13 @@ body {
     padding-top: 6px;
 }
 
+.popup-image {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: block;
+}
+
 /* ── Leaflet Controls (hidden — replaced by arc pad) ── */
 .leaflet-control-zoom { display: none !important; }
 
@@ -1335,6 +1342,7 @@ function loadMovie(slug) {
         const marker = L.marker([evt.lat, evt.lng], { icon })
             .bindPopup(`
                 <div>
+                    ${evt.image ? `<img class="popup-image" src="${evt.image}" alt="${evt.name}">` : ''}
                     <div class="popup-title">${evt.name}</div>
                     <div class="popup-meta"><span class="popup-category">${movieLabels[evt.category]}</span><span class="popup-timestamp">${evt.filmTime}</span></div>
                     <div class="popup-address">${evt.address}</div>
