@@ -1105,7 +1105,8 @@ MOVIE_ORDER.forEach(slug => {
 if (MOVIE_ORDER.length <= 1) pickerEl.style.display = 'none';
 
 // ── Polyline Helpers ────────────────────────────
-function decodePolyline(encoded) {
+function decodePolyline(encoded, factor) {
+    factor = factor || 1e5;
     const points = [];
     let index = 0, lat = 0, lng = 0;
     while (index < encoded.length) {
@@ -1115,18 +1116,28 @@ function decodePolyline(encoded) {
         shift = 0; result = 0;
         do { b = encoded.charCodeAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
         lng += (result & 1) ? ~(result >> 1) : (result >> 1);
-        points.push([lat / 1e5, lng / 1e5]);
+        points.push([lat / factor, lng / factor]);
     }
     return points;
 }
 
 async function fetchRoute(points) {
-    const coords = points.map(([lat, lng]) => `${lng},${lat}`).join(';');
-    const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=polyline`;
-    const res = await fetch(url);
+    const locations = points.map(([lat, lng]) => ({ lat, lon: lng, type: 'break' }));
+    const body = JSON.stringify({ locations, costing: 'auto' });
+    const url = `https://valhalla1.openstreetmap.de/route`;
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+    });
     const data = await res.json();
-    if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
-        return decodePolyline(data.routes[0].geometry);
+    if (data.trip && data.trip.legs) {
+        let all = [];
+        data.trip.legs.forEach((leg, i) => {
+            const pts = decodePolyline(leg.shape, 1e6);
+            all = all.concat(i === 0 ? pts : pts.slice(1));
+        });
+        return all;
     }
     return null;
 }

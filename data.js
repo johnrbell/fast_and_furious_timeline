@@ -160,7 +160,7 @@ const MOVIES = {
         },
         {
             id: "supra-rebuild",
-            image: "screengrabs/torettos-house.jpg",
+            image: "screengrabs/torettos-garage.jpg",
             name: "Toretto's Garage — Brian Brings the Supra",
             category: 'brian',
             sceneOrder: 13,
@@ -402,7 +402,7 @@ const MOVIES = {
         },
         {
             id: "supra-rebuild-dom",
-            image: "screengrabs/torettos-house.jpg",
+            image: "screengrabs/torettos-garage.jpg",
             name: "Toretto's Garage — Dom Opens His Doors",
             category: 'dom',
             sceneOrder: 13,
