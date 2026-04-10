@@ -1589,7 +1589,7 @@ function loadMovie(slug) {
                 const evt = movieEvents[parseInt(item.dataset.index)];
                 const targetPoint = map.project([evt.lat, evt.lng], 15);
                 const adjustedCenter = map.unproject(
-                    L.point(targetPoint.x + 120, targetPoint.y - 80),
+                    L.point(targetPoint.x + 120, targetPoint.y - 140),
                     15
                 );
                 map.flyTo(adjustedCenter, 15, { duration: 0.8 });

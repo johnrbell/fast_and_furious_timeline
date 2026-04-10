@@ -173,7 +173,7 @@ const MOVIES = {
         {
             id: "speed-shop-brian",
             image: "screengrabs/tran-speed-shop.jpg",
-            name: "Speed Shop — Brian Sees Tran's Methods",
+            name: "Tran's Garage — Brian Sees Tran's Methods",
             category: 'brian',
             sceneOrder: 13,
             filmTime: "0:44",
@@ -427,7 +427,7 @@ const MOVIES = {
         {
             id: "speed-shop-dom",
             image: "screengrabs/tran-speed-shop.jpg",
-            name: "Speed Shop — Dom Shows Brian Who Tran Really Is",
+            name: "Tran's Garage — Dom Shows Brian Who Tran Really Is",
             category: 'dom',
             sceneOrder: 13,
             filmTime: "0:44",
@@ -513,7 +513,7 @@ const MOVIES = {
         {
             id: "speed-shop-tran",
             image: "screengrabs/tran-speed-shop.jpg",
-            name: "Speed Shop — Tran Sends a Message",
+            name: "Tran's Garage — Tran Sends a Message",
             category: 'tran',
             sceneOrder: 13,
             filmTime: "0:44",
