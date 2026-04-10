@@ -1587,7 +1587,12 @@ function loadMovie(slug) {
             item.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const evt = movieEvents[parseInt(item.dataset.index)];
-                map.flyTo([evt.lat, evt.lng], 15, { duration: 0.8 });
+                const targetPoint = map.project([evt.lat, evt.lng], 15);
+                const adjustedCenter = map.unproject(
+                    L.point(targetPoint.x + 160, targetPoint.y - 120),
+                    15
+                );
+                map.flyTo(adjustedCenter, 15, { duration: 0.8 });
                 categoryLayers[evt.category].eachLayer(marker => {
                     if (marker._eventData === evt) {
                         setTimeout(() => marker.openPopup(), 400);
