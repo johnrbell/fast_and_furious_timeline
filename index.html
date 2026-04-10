@@ -1542,7 +1542,7 @@ function loadMovie(slug) {
                 ${catEvents.map(e => {
                     const idx = movieEvents.indexOf(e);
                     const shortName = e.name.split('\u2014')[0].trim();
-                    return `<div class="legend-item" data-index="${idx}"><span class="legend-item-time">${e.filmTime}</span> ${shortName}</div>`;
+                    return `<div class="legend-item" data-index="${idx}"><span class="legend-item-time" style="color:${movieColors[cat]}">${e.filmTime}</span> ${shortName}</div>`;
                 }).join('')}
             </div>
         `;
