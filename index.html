@@ -408,6 +408,13 @@ body {
     z-index: 1000 !important;
 }
 
+.legend-item.popup-active {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.18);
+    border-left: 2px solid #ff6b35;
+    padding-left: 6px;
+}
+
 .legend-item.hover-highlight {
     color: #ff6b35;
     background: rgba(255, 107, 53, 0.12);
@@ -1881,6 +1888,17 @@ function loadMovie(slug) {
         marker.on('mouseout', () => {
             clearHoverHighlight();
             clearTimestampHighlight();
+        });
+        marker.on('popupopen', () => {
+            document.querySelectorAll('.legend-item.popup-active').forEach(el => el.classList.remove('popup-active'));
+            const item = document.querySelector(`.legend-item[data-index="${idx}"]`);
+            if (item) {
+                item.classList.add('popup-active');
+                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+        marker.on('popupclose', () => {
+            document.querySelectorAll('.legend-item.popup-active').forEach(el => el.classList.remove('popup-active'));
         });
     });
 }
