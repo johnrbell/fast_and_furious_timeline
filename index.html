@@ -626,6 +626,55 @@ body {
     display: block;
 }
 
+.popup-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 8px;
+    border-top: 1px solid #2a2a2a;
+    padding-top: 8px;
+    gap: 8px;
+}
+
+.popup-nav-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+}
+.popup-nav-group.brian { align-items: flex-start; }
+.popup-nav-group.dom   { align-items: flex-end; }
+
+.popup-nav-arrows {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.popup-nav-arrow {
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    line-height: 1;
+    user-select: none;
+}
+.popup-nav-arrow.brian { color: #3498db; }
+.popup-nav-arrow.dom   { color: #e74c3c; }
+.popup-nav-arrow:hover { opacity: 0.7; }
+.popup-nav-arrow.disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+}
+
+.popup-nav-name {
+    font-size: 12px;
+    font-weight: 600;
+}
+.popup-nav-name.brian { color: #3498db; }
+.popup-nav-name.dom   { color: #e74c3c; }
+
 /* ── Leaflet Controls (hidden — replaced by arc pad) ── */
 .leaflet-control-zoom { display: none !important; }
 
@@ -1336,6 +1385,109 @@ function loadMovie(slug) {
         filmTimeIndex[evt.filmTime].push(i);
     });
 
+    // Build character timelines, deduplicated by location.
+    // Multiple events at the same lat/lng collapse into one entry per character,
+    // preferring that character's own category (brian/dom).
+    function buildCharTimeline(charName, preferredCat) {
+        const locKey = e => `${e.lat.toFixed(4)},${e.lng.toFixed(4)}`;
+        const candidates = movieEvents
+            .map((e, i) => ({ evt: e, idx: i }))
+            .filter(o => o.evt.characters.includes(charName))
+            .sort((a, b) => a.evt.sceneOrder - b.evt.sceneOrder || a.idx - b.idx);
+        const seen = {};
+        const timeline = [];
+        for (const o of candidates) {
+            const key = locKey(o.evt);
+            if (!seen[key]) {
+                seen[key] = o;
+                timeline.push(o);
+            } else if (o.evt.category === preferredCat && seen[key].evt.category !== preferredCat) {
+                const idx = timeline.indexOf(seen[key]);
+                timeline[idx] = o;
+                seen[key] = o;
+            }
+        }
+        return timeline;
+    }
+
+    const brianTimeline = buildCharTimeline('Brian', 'brian');
+    const domTimeline   = buildCharTimeline('Dom', 'dom');
+
+    // Map every event id to its position in each timeline (all co-located events share the same position)
+    const brianTimelineIdx = {};
+    brianTimeline.forEach((o, pos) => {
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)}`;
+        movieEvents.forEach(e => {
+            if (e.characters.includes('Brian') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)}` === key)
+                brianTimelineIdx[e.id] = pos;
+        });
+    });
+    const domTimelineIdx = {};
+    domTimeline.forEach((o, pos) => {
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)}`;
+        movieEvents.forEach(e => {
+            if (e.characters.includes('Dom') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)}` === key)
+                domTimelineIdx[e.id] = pos;
+        });
+    });
+
+    function buildNavHtml(evt) {
+        const hasBrian = evt.characters.includes('Brian');
+        const hasDom   = evt.characters.includes('Dom');
+        if (!hasBrian && !hasDom) return '';
+
+        let left = '', right = '';
+
+        if (hasBrian) {
+            const pos = brianTimelineIdx[evt.id];
+            const prev = pos > 0 ? brianTimeline[pos - 1] : null;
+            const next = pos < brianTimeline.length - 1 ? brianTimeline[pos + 1] : null;
+            const prevBtn = prev
+                ? `<span class="popup-nav-arrow brian" onclick="navigateToEvent('${prev.evt.id}')" title="${prev.evt.name}">&#9664;</span>`
+                : `<span class="popup-nav-arrow brian disabled">&#9664;</span>`;
+            const nextBtn = next
+                ? `<span class="popup-nav-arrow brian" onclick="navigateToEvent('${next.evt.id}')" title="${next.evt.name}">&#9654;</span>`
+                : `<span class="popup-nav-arrow brian disabled">&#9654;</span>`;
+            left = `<div class="popup-nav-group brian">
+                <div class="popup-nav-arrows">${prevBtn}<span class="popup-nav-name brian">Brian</span>${nextBtn}</div>
+            </div>`;
+        }
+
+        if (hasDom) {
+            const pos = domTimelineIdx[evt.id];
+            const prev = pos > 0 ? domTimeline[pos - 1] : null;
+            const next = pos < domTimeline.length - 1 ? domTimeline[pos + 1] : null;
+            const prevBtn = prev
+                ? `<span class="popup-nav-arrow dom" onclick="navigateToEvent('${prev.evt.id}')" title="${prev.evt.name}">&#9664;</span>`
+                : `<span class="popup-nav-arrow dom disabled">&#9664;</span>`;
+            const nextBtn = next
+                ? `<span class="popup-nav-arrow dom" onclick="navigateToEvent('${next.evt.id}')" title="${next.evt.name}">&#9654;</span>`
+                : `<span class="popup-nav-arrow dom disabled">&#9654;</span>`;
+            right = `<div class="popup-nav-group dom">
+                <div class="popup-nav-arrows">${prevBtn}<span class="popup-nav-name dom">Dom</span>${nextBtn}</div>
+            </div>`;
+        }
+
+        return `<div class="popup-nav">${left}${right}</div>`;
+    }
+
+    // Global navigate function for popup arrow clicks
+    window.navigateToEvent = function(eventId) {
+        const idx = movieEvents.findIndex(e => e.id === eventId);
+        if (idx < 0) return;
+        const evt = movieEvents[idx];
+        const targetPoint = map.project([evt.lat, evt.lng], 15);
+        const adjustedCenter = map.unproject(
+            L.point(targetPoint.x + 120, targetPoint.y - 140), 15
+        );
+        map.flyTo(adjustedCenter, 15, { duration: 0.8 });
+        categoryLayers[evt.category].eachLayer(marker => {
+            if (marker._eventData === evt) {
+                setTimeout(() => marker.openPopup(), 400);
+            }
+        });
+    };
+
     // Create category layers
     Object.keys(movieLabels).forEach(cat => {
         categoryLayers[cat] = L.layerGroup();
@@ -1352,6 +1504,7 @@ function loadMovie(slug) {
             popupAnchor: [0, -14]
         });
 
+        const navHtml = buildNavHtml(evt);
         const marker = L.marker([evt.lat, evt.lng], { icon })
             .bindPopup(`
                 <div>
@@ -1361,6 +1514,7 @@ function loadMovie(slug) {
                     <div class="popup-address">${evt.address}</div>
                     <div class="popup-description">${evt.description}</div>
                     <div class="popup-characters">Featuring: ${evt.characters}</div>
+                    ${navHtml}
                 </div>
             `, { maxWidth: 320, autoPanPaddingTopLeft: L.point(10, 58) });
 
