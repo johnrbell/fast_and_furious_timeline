@@ -352,6 +352,7 @@ body {
     font-size: 13px;
     font-weight: 600;
     flex-grow: 1;
+    font-style: italic;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 12px;
@@ -546,6 +547,9 @@ body {
         0 0 20px rgba(255, 255, 255, 0.15),
         0 0 8px rgba(255, 100, 20, 0.25);
 }
+
+/* ── Map Tile Brightness ──────────────── */
+.leaflet-tile-pane { filter: brightness(1.35) contrast(0.95); }
 
 /* ── Popup Styles ──────────────────────── */
 .leaflet-popup-content-wrapper {
