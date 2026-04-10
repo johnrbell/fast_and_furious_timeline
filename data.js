@@ -171,6 +171,18 @@ const MOVIES = {
             characters: "Brian O'Conner, Dom Toretto, Jesse"
         },
         {
+            id: "speed-shop-brian",
+            image: "screengrabs/placeholder.jpg",
+            name: "Speed Shop — Brian Sees Tran's Methods",
+            category: 'brian',
+            sceneOrder: 13,
+            filmTime: "0:44",
+            lat: 34.0893, lng: -118.3414,
+            address: "TBD — Filming location to be confirmed",
+            description: "Dom takes Brian on a drive through Tran's territory to show him what they're really dealing with. Through the window of a speed shop, they watch Johnny Tran rough up the owner — forcing motor oil down his throat as a warning. It's pure intimidation, a message to anyone who might talk or do business outside Tran's control. For Brian the undercover cop, this is critical intelligence: Tran isn't just a racer with an attitude, he's running an operation built on fear and violence.",
+            characters: "Brian O'Conner, Dom Toretto, Johnny Tran"
+        },
+        {
             id: "swat-raid-tran",
             image: "screengrabs/simi-valley.jpg",
             name: "Simi Valley — SWAT Raid on Tran's House",
@@ -413,6 +425,18 @@ const MOVIES = {
             characters: "Dom Toretto, Brian O'Conner, Jesse"
         },
         {
+            id: "speed-shop-dom",
+            image: "screengrabs/placeholder.jpg",
+            name: "Speed Shop — Dom Shows Brian Who Tran Really Is",
+            category: 'dom',
+            sceneOrder: 13,
+            filmTime: "0:44",
+            lat: 34.0893, lng: -118.3414,
+            address: "TBD — Filming location to be confirmed",
+            description: "Dom drives Brian past one of Tran's operations — not to start trouble, but to make a point. Through the shop window they watch Tran grab the owner and pour motor oil into his mouth, a brutal display of dominance over anyone in his orbit. Dom doesn't flinch; he's seen this before. He's showing Brian the world he lives in — where business disputes aren't settled in court, they're settled with humiliation and fear. It's a warning as much as an education.",
+            characters: "Dom Toretto, Brian O'Conner, Johnny Tran"
+        },
+        {
             id: "race-wars-dom",
             image: "screengrabs/race-wars.jpg",
             name: "Race Wars — Dom's Last Stand",
@@ -485,6 +509,18 @@ const MOVIES = {
             address: "9631 Bolsa Avenue, Westminster, Orange County",
             description: "The large ornamental Asian archway that the characters drive under in the Little Saigon scenes is located a few blocks east of the Cultural Court. Though the film makes them appear adjacent, they're actually separate locations along Bolsa Avenue.",
             characters: "Johnny Tran, Lance Nguyen"
+        },
+        {
+            id: "speed-shop-tran",
+            image: "screengrabs/placeholder.jpg",
+            name: "Speed Shop — Tran Sends a Message",
+            category: 'tran',
+            sceneOrder: 13,
+            filmTime: "0:44",
+            lat: 34.0893, lng: -118.3414,
+            address: "TBD — Filming location to be confirmed",
+            description: "Johnny Tran walks into a speed shop and grabs the owner by the collar. This isn't a negotiation — it's a demonstration. He forces motor oil down the man's throat while his crew watches from the doorway. The message is simple: everyone in Tran's territory plays by Tran's rules, or they choke on the consequences. What Tran doesn't know is that Dom and Brian are watching from outside — taking the measure of the man they'll eventually have to go through.",
+            characters: "Johnny Tran, Dom Toretto, Brian O'Conner"
         },
         {
             id: "swat-raid-tran-pov",
@@ -669,7 +705,10 @@ const MOVIES = {
         { from: "first-hijack", to: "brian-arrested", type: "cause", label: "Hijackings trigger investigation" },
         { from: "brian-arrested", to: "police-hq", type: "sequel", label: "Brian reports to task force" },
         { from: "police-hq", to: "supra-rebuild", type: "sequel", label: "Brian finds a car to rebuild" },
-        { from: "supra-rebuild", to: "cha-cha-cha-brian", type: "sequel", label: "Brian falls for Mia" },
+        { from: "supra-rebuild", to: "speed-shop-brian", type: "sequel", label: "Dom shows Brian Tran's world" },
+        { from: "speed-shop-brian", to: "cha-cha-cha-brian", type: "sequel", label: "Brian falls for Mia" },
+        { from: "speed-shop-brian", to: "speed-shop-dom", type: "location", label: "Same scene" },
+        { from: "speed-shop-brian", to: "speed-shop-tran", type: "location", label: "Same scene" },
         { from: "police-hq", to: "swat-raid-tran", type: "sequel", label: "Investigation targets Tran" },
         { from: "first-rally", to: "little-saigon-statues", type: "sequel", label: "Dom takes Brian to confront Tran" }
     ],
