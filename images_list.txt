@@ -1,0 +1,53 @@
+The Fast and the Furious (2001) — Location Images Needed
+=========================================================
+
+All images go in: img/fast-1/
+Recommended format: 16:9 landscape, ~800×450px, JPG
+
+#   Filename                     Location                              Address
+--- ---------------------------- ------------------------------------- -----------------------------------------------
+1   dodger-stadium.jpg           Dodger Stadium parking lot             1000 Vin Scully Avenue, Los Angeles
+2   torettos-market.jpg          Toretto's Market / Bob's Market        1234 Bellevue Avenue, Echo Park
+3   racers-edge.jpg              The Racer's Edge auto parts store      1046 N. Orange Drive, Hollywood
+4   clock-street.jpg             Clock Street rally / LA Produce Mkt    761 Terminal Street, Downtown LA
+5   prairie-ave.jpg              Prairie Avenue quarter-mile             Prairie Ave, 120th–118th St, Hawthorne
+6   union-ave.jpg                Union Ave & 7th Street                 W. 7th St & S. Union Ave, Downtown LA
+7   torettos-house.jpg           Toretto's House                        722 E. Kensington Road, Echo Park
+8   pch-malibu.jpg               Pacific Coast Highway                  PCH, Malibu
+9   brian-arrested.jpg           7th & Valencia / MacArthur Park area   W. 7th St & Valencia St, Los Angeles
+10  police-hq.jpg                Eddie Fisher House (police HQ)         1261 Angelo Drive, Beverly Hills
+11  cha-cha-cha.jpg              Cha Cha Cha restaurant                 656 N. Virgil Avenue, Silver Lake
+12  neptunes-net.jpg             Neptune's Net seafood shack            42505 PCH, Malibu
+13  little-saigon.jpg            Vietnamese Cultural Court              9221 Bolsa Avenue, Westminster
+14  little-saigon-archway.jpg    Asian Gateway archway                  9631 Bolsa Avenue, Westminster
+15  simi-valley.jpg              Tran's house (SWAT raid)               5777 Tonopah Court, Simi Valley
+16  race-wars.jpg                Race Wars / San Bernardino airport     San Bernardino International Airport
+17  hemet.jpg                    Truck hijacking hills                  Hemet, California
+18  micheltorena.jpg             Micheltorena Street chase              Micheltorena St at Sunset Blvd, Echo Park
+19  glendale-blvd.jpg            Glendale Blvd (chase ends)            Glendale Blvd at Alvarado St, Echo Park
+20  terminal-island.jpg          Terminal Island (final race)           Terminal Way at Earle St, San Pedro
+21  wilmington.jpg               Wilmington docks (truck hijacking)     Henry Ford Ave & Alameda St, Wilmington
+
+Events that share each image:
+-----------------------------
+dodger-stadium.jpg        → dodger-stadium
+torettos-market.jpg       → torettos-market-brian, torettos-market
+racers-edge.jpg           → racers-edge
+clock-street.jpg          → first-rally-brian, first-rally-dom, first-rally
+prairie-ave.jpg           → first-race-brian, first-race-dom, first-race
+union-ave.jpg             → union-ave-brian, union-ave-dom, union-ave-escape
+torettos-house.jpg        → torettos-house, house-party-brian, house-party-dom, supra-rebuild, driveby-dom, driveby-jesse
+pch-malibu.jpg            → pch-ferrari-brian, pch-ferrari-dom, pch-ferrari-race
+brian-arrested.jpg        → brian-arrested
+police-hq.jpg             → police-hq
+cha-cha-cha.jpg           → cha-cha-cha-brian
+neptunes-net.jpg          → neptunes-net-brian, neptunes-net
+little-saigon.jpg         → little-saigon-brian, little-saigon-dom, little-saigon-statues
+little-saigon-archway.jpg → little-saigon-archway
+simi-valley.jpg           → swat-raid-tran, swat-raid-tran-pov
+race-wars.jpg             → race-wars-brian, race-wars-dom, race-wars-tran, race-wars
+hemet.jpg                 → final-hijack-brian, final-hijack-dom, final-hijack
+micheltorena.jpg          → micheltorena-brian, micheltorena-chase
+glendale-blvd.jpg         → glendale-blvd-brian, glendale-blvd
+terminal-island.jpg       → final-race-brian, final-race-dom, final-race
+wilmington.jpg            → first-hijack-dom, first-hijack
