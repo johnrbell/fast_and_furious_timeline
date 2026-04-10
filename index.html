@@ -532,7 +532,7 @@ body {
         0 0 12px rgba(0, 0, 0, 0.3),
         0 0 4px rgba(255, 100, 20, 0.15);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s, filter 0.3s;
     font-size: 10px;
     font-weight: 700;
     line-height: 1;
@@ -664,6 +664,7 @@ body {
 
 .journey-path {
     animation: march 0.67s linear infinite;
+    transition: opacity 0.3s, stroke-width 0.3s;
 }
 
 /* ── Bottom HUD Bar ────────────────────── */
@@ -1121,7 +1122,8 @@ async function fetchRoute(points) {
 
 function makeStraightLine(journey) {
     return L.polyline(journey.points.map(([lat, lng]) => [lat, lng]), {
-        color: journey.color, weight: 3, dashArray: '10 6', opacity: 0.7, className: 'journey-path'
+        color: journey.color, weight: 3, dashArray: '10 6', opacity: 0.7, className: 'journey-path',
+        _origOpacity: 0.7, _origWeight: 3
     });
 }
 
@@ -1150,7 +1152,8 @@ function buildSegmentedLines(routeLatLngs, journey) {
 
     if (segments.length === 0) {
         const line = L.polyline(routeLatLngs, {
-            color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path'
+            color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path',
+            _origOpacity: 0.75, _origWeight: 3.5
         });
         return [line];
     }
@@ -1162,7 +1165,8 @@ function buildSegmentedLines(routeLatLngs, journey) {
         const opacity = minOpacity + t * (maxOpacity - minOpacity);
         const weight = 3 + t * 1.5;
         return L.polyline(seg, {
-            color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path'
+            color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path',
+            _origOpacity: opacity, _origWeight: weight
         });
     });
 }
@@ -1357,6 +1361,76 @@ function loadMovie(slug) {
             }
             updateJourneyClearBtn();
         });
+        let flagMarkers = [];
+
+        toggle.addEventListener('mouseenter', () => {
+            if (toggle.classList.contains('disabled')) return;
+            Object.keys(movieJourneys).forEach(otherKey => {
+                if (otherKey === key) return;
+                const otherLayer = journeyLayers[otherKey];
+                if (otherLayer && map.hasLayer(otherLayer)) {
+                    otherLayer.eachLayer(line => { line.setStyle({ opacity: 0.08 }); });
+                }
+            });
+            const layer = journeyLayers[key];
+            if (layer && map.hasLayer(layer)) {
+                layer.eachLayer(line => { line.setStyle({ opacity: 1, weight: 5 }); });
+            }
+            markersByIndex.forEach(marker => {
+                if (!marker) return;
+                const el = marker.getElement();
+                if (!el) return;
+                const div = el.querySelector('.event-marker');
+                if (!div) return;
+                if (marker._eventData && marker._eventData.category === key) {
+                    div.style.opacity = '1';
+                    div.style.filter = '';
+                } else {
+                    div.style.opacity = '0.15';
+                    div.style.filter = 'grayscale(1)';
+                }
+            });
+            const pts = journey.points;
+            if (pts && pts.length >= 2) {
+                const startIcon = L.divIcon({
+                    className: '',
+                    html: '<div style="font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.7));">🟢</div>',
+                    iconSize: [24, 24], iconAnchor: [12, 12]
+                });
+                const endIcon = L.divIcon({
+                    className: '',
+                    html: '<div style="font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.7));">🏁</div>',
+                    iconSize: [24, 24], iconAnchor: [12, 12]
+                });
+                flagMarkers.push(L.marker(pts[0], { icon: startIcon, interactive: false }).addTo(map));
+                flagMarkers.push(L.marker(pts[pts.length - 1], { icon: endIcon, interactive: false }).addTo(map));
+            }
+        });
+
+        toggle.addEventListener('mouseleave', () => {
+            Object.keys(movieJourneys).forEach(otherKey => {
+                const otherToggle = journeyToggles.find(t => t.dataset.key === otherKey);
+                if (otherToggle && otherToggle.classList.contains('disabled')) return;
+                const otherLayer = journeyLayers[otherKey];
+                if (otherLayer && map.hasLayer(otherLayer)) {
+                    otherLayer.eachLayer(line => {
+                        line.setStyle({ opacity: line.options._origOpacity || 0.75, weight: line.options._origWeight || 3.5 });
+                    });
+                }
+            });
+            markersByIndex.forEach(marker => {
+                if (!marker) return;
+                const el = marker.getElement();
+                if (!el) return;
+                const div = el.querySelector('.event-marker');
+                if (!div) return;
+                div.style.opacity = '';
+                div.style.filter = '';
+            });
+            flagMarkers.forEach(m => map.removeLayer(m));
+            flagMarkers = [];
+        });
+
         journeyToggles.push(toggle);
         legendEl.appendChild(toggle);
     });
