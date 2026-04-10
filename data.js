@@ -172,7 +172,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-brian",
-            image: "screengrabs/placeholder.jpg",
+            image: "screengrabs/tran-speed-shop.jpg",
             name: "Speed Shop — Brian Sees Tran's Methods",
             category: 'brian',
             sceneOrder: 13,
@@ -426,7 +426,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-dom",
-            image: "screengrabs/placeholder.jpg",
+            image: "screengrabs/tran-speed-shop.jpg",
             name: "Speed Shop — Dom Shows Brian Who Tran Really Is",
             category: 'dom',
             sceneOrder: 13,
@@ -512,7 +512,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-tran",
-            image: "screengrabs/placeholder.jpg",
+            image: "screengrabs/tran-speed-shop.jpg",
             name: "Speed Shop — Tran Sends a Message",
             category: 'tran',
             sceneOrder: 13,
@@ -729,6 +729,7 @@ const MOVIES = {
                 [34.0531, -118.2694],
                 [34.0921, -118.4354],
                 [34.0906, -118.2935],
+                [34.0893, -118.3414],
                 [34.0828, -118.2866],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
@@ -754,6 +755,7 @@ const MOVIES = {
                 [34.0783, -118.2577],
                 [33.7449, -117.9680],
                 [34.0906, -118.2935],
+                [34.0893, -118.3414],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
                 [34.1045, -117.2512],
