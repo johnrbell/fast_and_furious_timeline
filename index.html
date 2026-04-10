@@ -1891,11 +1891,20 @@ function loadMovie(slug) {
         });
         marker.on('popupopen', () => {
             document.querySelectorAll('.legend-item.popup-active').forEach(el => el.classList.remove('popup-active'));
-            const item = document.querySelector(`.legend-item[data-index="${idx}"]`);
-            if (item) {
-                item.classList.add('popup-active');
-                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            const locKey = `${evt.lat.toFixed(4)},${evt.lng.toFixed(4)}`;
+            let scrolled = false;
+            movieEvents.forEach((e, i) => {
+                if (`${e.lat.toFixed(4)},${e.lng.toFixed(4)}` === locKey) {
+                    const item = document.querySelector(`.legend-item[data-index="${i}"]`);
+                    if (item) {
+                        item.classList.add('popup-active');
+                        if (!scrolled) {
+                            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            scrolled = true;
+                        }
+                    }
+                }
+            });
         });
         marker.on('popupclose', () => {
             document.querySelectorAll('.legend-item.popup-active').forEach(el => el.classList.remove('popup-active'));
