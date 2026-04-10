@@ -1229,7 +1229,7 @@ function loadMovie(slug) {
 
     // Fly to movie region
     const bounds = L.latLngBounds(movieEvents.map(e => [e.lat, e.lng]));
-    map.flyToBounds(bounds, { padding: [220, 120, 220, 0], duration: 1.0, maxZoom: 14 });
+    map.flyToBounds(bounds, { paddingTopLeft: [40, 100], paddingBottomRight: [360, 80], duration: 1.0, maxZoom: 14 });
 
     // ── Build Legend Content ─────────────────────
     const legendEl = document.getElementById('legend-content');
@@ -1519,7 +1519,7 @@ document.getElementById('hud-clear').addEventListener('click', () => {
     const movieData = MOVIES[currentMovieSlug];
     if (movieData) {
         const bounds = L.latLngBounds(movieData.events.map(e => [e.lat, e.lng]));
-        map.flyToBounds(bounds, { padding: [220, 120, 220, 0], duration: 1.0, maxZoom: 14 });
+        map.flyToBounds(bounds, { paddingTopLeft: [40, 100], paddingBottomRight: [360, 80], duration: 1.0, maxZoom: 14 });
     }
     map.closePopup();
 });
