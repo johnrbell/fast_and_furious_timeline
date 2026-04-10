@@ -382,6 +382,62 @@ body {
 .timeline-card[data-category="dk"]::before     { background: #e74c3c; }
 .timeline-card[data-category="drift"]::before  { background: #27ae60; }
 
+/* ── Grouped Timeline Cards ───────────── */
+.timeline-card-grouped::before {
+    display: none;
+}
+
+.timeline-dots {
+    position: absolute;
+    left: -35px;
+    top: 21px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.timeline-dot + .timeline-dot {
+    margin-top: -4px;
+}
+
+.card-sub-event {
+    padding: 10px 0 10px 14px;
+    border-left: 2px solid #333;
+    margin-top: 10px;
+}
+
+.card-sub-event:last-of-type {
+    margin-bottom: 14px;
+}
+
+.card-sub-title {
+    font-family: 'Teko', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ccc;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+}
+
+.card-sub-event .card-description {
+    margin-bottom: 6px;
+}
+
+.card-sub-event .card-characters {
+    margin-bottom: 0;
+}
+
 /* ── Footer ────────────────────────────── */
 .timeline-footer {
     text-align: center;
@@ -404,6 +460,7 @@ body::-webkit-scrollbar-thumb:hover { background: #444; }
     .timeline::before { left: 11px; }
     .timeline-card::before { left: -31px; }
     .timeline-card::after { left: -19px; width: 14px; }
+    .timeline-dots { left: -31px; }
     .timeline-card { padding: 18px 20px; }
     .card-title { font-size: 17px; }
     .timeline-header h1 { font-size: 28px; letter-spacing: 3px; }
@@ -476,26 +533,79 @@ function loadTimeline(slug) {
 
     const sorted = [...movieEvents].sort((a, b) => a.sceneOrder - b.sceneOrder);
 
+    const groupMap = new Map();
     sorted.forEach(evt => {
+        const key = `${evt.lat},${evt.lng},${evt.filmTime}`;
+        if (!groupMap.has(key)) groupMap.set(key, []);
+        groupMap.get(key).push(evt);
+    });
+
+    const groups = Array.from(groupMap.values());
+    groups.sort((a, b) => a[0].sceneOrder - b[0].sceneOrder);
+
+    groups.forEach(group => {
         const card = document.createElement('div');
         card.className = 'timeline-card';
-        card.dataset.category = evt.category;
 
-        card.innerHTML = `
-            <div class="card-header">
-                <div class="card-title">${evt.name}</div>
-                <div class="card-film-time">${evt.filmTime}</div>
-            </div>
-            <div class="card-meta">
-                <span class="card-category" style="background:${movieColors[evt.category]}">${movieLabels[evt.category]}</span>
-                <span class="card-address">${evt.address}</span>
-            </div>
-            <div class="card-description">${evt.description}</div>
-            <div class="card-characters">Featuring: ${evt.characters}</div>
-            <a class="card-map-link" href="./?movie=${slug}&fly=${evt.lat},${evt.lng}&event=${evt.id}">
-                &#x1f5fa;&#xfe0f; View on Map
-            </a>
-        `;
+        if (group.length === 1) {
+            const evt = group[0];
+            card.dataset.category = evt.category;
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-title">${evt.name}</div>
+                    <div class="card-film-time">${evt.filmTime}</div>
+                </div>
+                <div class="card-meta">
+                    <span class="card-category" style="background:${movieColors[evt.category]}">${movieLabels[evt.category]}</span>
+                    <span class="card-address">${evt.address}</span>
+                </div>
+                <div class="card-description">${evt.description}</div>
+                <div class="card-characters">Featuring: ${evt.characters}</div>
+                <a class="card-map-link" href="./?movie=${slug}&fly=${evt.lat},${evt.lng}&event=${evt.id}">
+                    &#x1f5fa;&#xfe0f; View on Map
+                </a>
+            `;
+        } else {
+            card.classList.add('timeline-card-grouped');
+            const uniqueCats = [...new Set(group.map(e => e.category))];
+            const locationName = group[0].name.split(' \u2014 ')[0] || group[0].name;
+            const firstEvt = group[0];
+
+            const dotsHtml = uniqueCats.map(cat =>
+                `<span class="timeline-dot" style="background:${movieColors[cat]}"></span>`
+            ).join('');
+
+            const badgesHtml = uniqueCats.map(cat =>
+                `<span class="card-category" style="background:${movieColors[cat]}">${movieLabels[cat]}</span>`
+            ).join('');
+
+            const subEventsHtml = group.map(evt => {
+                const subTitle = evt.name.includes(' \u2014 ') ? evt.name.split(' \u2014 ').slice(1).join(' \u2014 ') : evt.name;
+                return `
+                    <div class="card-sub-event" style="border-left-color:${movieColors[evt.category]}">
+                        <div class="card-sub-title">${subTitle}</div>
+                        <div class="card-description">${evt.description}</div>
+                        <div class="card-characters">Featuring: ${evt.characters}</div>
+                    </div>
+                `;
+            }).join('');
+
+            card.innerHTML = `
+                <div class="timeline-dots">${dotsHtml}</div>
+                <div class="card-header">
+                    <div class="card-title">${locationName}</div>
+                    <div class="card-film-time">${firstEvt.filmTime}</div>
+                </div>
+                <div class="card-meta">
+                    ${badgesHtml}
+                    <span class="card-address">${firstEvt.address}</span>
+                </div>
+                ${subEventsHtml}
+                <a class="card-map-link" href="./?movie=${slug}&fly=${firstEvt.lat},${firstEvt.lng}&event=${firstEvt.id}">
+                    &#x1f5fa;&#xfe0f; View on Map
+                </a>
+            `;
+        }
 
         timelineEl.appendChild(card);
     });
