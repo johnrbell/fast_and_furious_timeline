@@ -1,0 +1,15 @@
+---
+description: All work is in the context of The Fast and the Furious (2001) only
+alwaysApply: true
+---
+
+# Fast 1 Only
+
+This project tracks filming locations for The Fast and the Furious franchise. All discussion, edits, and features are in the context of **the first movie (fast-1)** unless the user explicitly says otherwise.
+
+## Movies 2 and 3
+
+- Data for 2 Fast 2 Furious (fast-2) and Tokyo Drift (fast-3) is backed up in `backup/`.
+- **Never** rebuild, regenerate, modify, or restore fast-2 or fast-3 data unless the user explicitly asks.
+- **Never** re-add fast-2 or fast-3 entries to `data.js`, `routes.js`, or `regen_routes.js`.
+- If the user mentions scenes, characters, or locations, assume they mean the first movie.
