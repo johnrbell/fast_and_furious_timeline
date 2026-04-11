@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
 
 html, body {
     height: 100%;
     overflow: hidden;
 }
+
+.leaflet-popup-content-wrapper { user-select: text; -webkit-user-select: text; }
 
 body {
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -1031,6 +1033,11 @@ body {
     text-transform: uppercase;
 }
 
+/* ── Orbit Center Dots ────────────────── */
+.orbit-center {
+    pointer-events: none !important;
+}
+
 /* ── Leaflet Attribution ─────────────── */
 .leaflet-control-attribution {
     display: none !important;
@@ -1340,6 +1347,65 @@ function clearHoverHighlight() {
     });
 }
 
+// ── Orbital Burst Helpers ────────────────────────
+const ORBIT_ZOOM_THRESHOLD = 14;
+
+function getOrbitOffset(index, total, radius) {
+    if (total <= 1) return [0, 0];
+    const angle = (2 * Math.PI * index / total) - Math.PI / 2;
+    return [Math.round(Math.cos(angle) * radius), Math.round(Math.sin(angle) * radius)];
+}
+
+function orbitRadius(count) {
+    if (count <= 2) return 14;
+    if (count <= 4) return 16;
+    return 18;
+}
+
+let orbitCenterMarkers = [];
+let currentLocationGroups = {};
+let orbitActive = false;
+
+function updateOrbitState() {
+    const shouldOrbit = map.getZoom() >= ORBIT_ZOOM_THRESHOLD;
+    if (shouldOrbit === orbitActive) return;
+    orbitActive = shouldOrbit;
+
+    const movieData = MOVIES[currentMovieSlug];
+    if (!movieData) return;
+    const movieColors = movieData.COLORS;
+    const movieIcons = movieData.CATEGORY_ICONS;
+
+    markersByIndex.forEach((marker, idx) => {
+        if (!marker) return;
+        const evt = marker._eventData;
+        const locKey = `${evt.lat.toFixed(4)},${evt.lng.toFixed(4)}`;
+        const group = currentLocationGroups[locKey];
+        if (!group || group.length <= 1) return;
+
+        const posInGroup = group.indexOf(idx);
+        const groupSize = group.length;
+        const [ox, oy] = shouldOrbit
+            ? getOrbitOffset(posInGroup, groupSize, orbitRadius(groupSize))
+            : [0, 0];
+
+        const color = movieColors[evt.category];
+        const icon = L.divIcon({
+            className: '',
+            html: `<div class="event-marker" style="background:${color};width:22px;height:22px;">${movieIcons[evt.category]}</div>`,
+            iconSize: [22, 22],
+            iconAnchor: [11 - ox, 11 - oy],
+            popupAnchor: [ox, -14 + oy]
+        });
+        marker.setIcon(icon);
+    });
+
+    orbitCenterMarkers.forEach(m => {
+        const el = m.getElement();
+        if (el) el.style.opacity = shouldOrbit ? '1' : '0';
+    });
+}
+
 // ── Load Movie ──────────────────────────────────
 function showLoader() {
     const el = document.getElementById('loading-overlay');
@@ -1382,6 +1448,8 @@ function loadMovie(slug) {
     // Clear existing layers
     Object.values(categoryLayers).forEach(layer => map.removeLayer(layer));
     Object.values(journeyLayers).forEach(layer => map.removeLayer(layer));
+    orbitCenterMarkers.forEach(m => map.removeLayer(m));
+    orbitCenterMarkers = [];
     categoryLayers = {};
     journeyLayers = {};
     journeyRouteCache = {};
@@ -1516,12 +1584,21 @@ function loadMovie(slug) {
         }
     };
 
+    // Group events by location for orbital burst layout
+    currentLocationGroups = {};
+    movieEvents.forEach((evt, i) => {
+        const key = `${evt.lat.toFixed(4)},${evt.lng.toFixed(4)}`;
+        if (!currentLocationGroups[key]) currentLocationGroups[key] = [];
+        currentLocationGroups[key].push(i);
+    });
+    orbitActive = false;
+
     // Create category layers
     Object.keys(movieLabels).forEach(cat => {
         categoryLayers[cat] = L.layerGroup();
     });
 
-    // Create markers
+    // Create markers (start stacked; orbital offsets applied on zoom)
     movieEvents.forEach((evt, evtIndex) => {
         const color = movieColors[evt.category];
         const icon = L.divIcon({
@@ -1575,6 +1652,25 @@ function loadMovie(slug) {
     });
 
     Object.values(categoryLayers).forEach(layer => layer.addTo(map));
+
+    // Add center dots for locations with multiple markers (start hidden)
+    Object.keys(currentLocationGroups).forEach(key => {
+        const group = currentLocationGroups[key];
+        if (group.length < 2) return;
+        const evt = movieEvents[group[0]];
+        const centerIcon = L.divIcon({
+            className: 'orbit-center',
+            html: '<div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);box-shadow:0 0 6px rgba(255,255,255,0.15);"></div>',
+            iconSize: [6, 6],
+            iconAnchor: [3, 3]
+        });
+        const dot = L.marker([evt.lat, evt.lng], { icon: centerIcon, interactive: false, zIndexOffset: -100 }).addTo(map);
+        orbitCenterMarkers.push(dot);
+    });
+    orbitCenterMarkers.forEach(m => {
+        const el = m.getElement();
+        if (el) el.style.opacity = '0';
+    });
 
     // Fly to movie region
     const bounds = L.latLngBounds(movieEvents.map(e => [e.lat, e.lng]));
@@ -1995,6 +2091,9 @@ setTimeout(() => {
 // ── Arc Pad Zoom Buttons ────────────────────────
 document.getElementById('arc-zoom-in').addEventListener('click', () => map.zoomIn());
 document.getElementById('arc-zoom-out').addEventListener('click', () => map.zoomOut());
+
+// ── Orbital Burst on Zoom ────────────────────────
+map.on('zoomend', updateOrbitState);
 
 // ── Initial Movie Load ──────────────────────────
 const urlParams = new URLSearchParams(window.location.search);
