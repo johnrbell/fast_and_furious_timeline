@@ -1145,7 +1145,7 @@ const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x
     maxZoom: 20
 }).addTo(map);
 
-const streetTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const streetTiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     maxZoom: 19
 });
 
@@ -1801,7 +1801,7 @@ function loadMovie(slug) {
     streetToggle.className = 'toggle-row' + (streetViewActive ? ' active' : '');
     streetToggle.innerHTML = `
         <div class="toggle-switch"></div>
-        <div class="toggle-label">Street view</div>
+        <div class="toggle-label">Satellite view</div>
     `;
     streetToggle.addEventListener('click', () => {
         streetViewActive = streetToggle.classList.toggle('active');
