@@ -486,7 +486,7 @@ const MOVIES = {
         },
         {
             id: "driveby-dom",
-            image: "screengrabs/torettos-house.jpg",
+            image: "screengrabs/torreto-house-driveby.jpg",
             name: "Toretto's House — Jesse Is Killed",
             category: 'dom',
             sceneOrder: 19,
@@ -596,7 +596,7 @@ const MOVIES = {
         },
         {
             id: "driveby-jesse",
-            image: "screengrabs/torettos-house.jpg",
+            image: "screengrabs/torreto-house-driveby.jpg",
             name: "Toretto's House — Tran's Drive-By Kills Jesse",
             category: 'tran',
             sceneOrder: 19,
