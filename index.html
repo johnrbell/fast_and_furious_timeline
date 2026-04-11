@@ -688,6 +688,53 @@ body {
 .popup-nav-name.brian { color: #3498db; }
 .popup-nav-name.dom   { color: #e74c3c; }
 
+/* ── Mobile Popup Scaling ─────────────── */
+@media (max-width: 600px) {
+    .leaflet-popup-content-wrapper {
+        border-radius: 9px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
+    }
+    .leaflet-popup-content {
+        margin: 12px 14px;
+    }
+    .popup-title {
+        font-size: 19.5px;
+        margin-bottom: 4px;
+    }
+    .popup-category,
+    .popup-timestamp,
+    .popup-address {
+        font-size: 11.5px;
+    }
+    .popup-address {
+        margin-bottom: 8px;
+    }
+    .popup-description {
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+    .popup-characters {
+        font-size: 11px;
+        margin-top: 8px;
+        padding-top: 7px;
+    }
+    .popup-image {
+        border-radius: 5px;
+        margin-bottom: 8px;
+    }
+    .popup-nav {
+        margin-top: 8px;
+        padding-top: 8px;
+        gap: 8px;
+    }
+    .popup-nav-arrow {
+        font-size: 15px;
+    }
+    .popup-nav-name {
+        font-size: 11px;
+    }
+}
+
 /* ── Leaflet Controls (hidden — replaced by arc pad) ── */
 .leaflet-control-zoom { display: none !important; }
 
@@ -1623,7 +1670,7 @@ function loadMovie(slug) {
                     <div class="popup-characters">Featuring: ${evt.characters}</div>
                     ${navHtml}
                 </div>
-            `, { maxWidth: 420, minWidth: 340, autoPan: false });
+            `, { maxWidth: window.innerWidth < 600 ? 340 : 420, minWidth: window.innerWidth < 600 ? 270 : 340, autoPan: false });
 
         marker._eventData = evt;
         marker._eventIndex = evtIndex;
