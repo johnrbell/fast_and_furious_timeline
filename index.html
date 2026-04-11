@@ -1745,9 +1745,13 @@ function loadMovie(slug) {
         if (el) el.style.opacity = '0';
     });
 
-    // Fly to movie region
+    // Fly to movie region (skip when navigating from timeline with fly param)
     const bounds = L.latLngBounds(movieEvents.map(e => [e.lat, e.lng]));
-    map.flyToBounds(bounds, { paddingTopLeft: [40, 100], paddingBottomRight: [360, 80], duration: 1.0, maxZoom: 14 });
+    if (skipInitialFly) {
+        skipInitialFly = false;
+    } else {
+        map.flyToBounds(bounds, { paddingTopLeft: [40, 100], paddingBottomRight: [360, 80], duration: 1.0, maxZoom: 14 });
+    }
 
     // ── Build Legend Content ─────────────────────
     const legendEl = document.getElementById('legend-content');
@@ -2171,37 +2175,20 @@ map.on('zoomend', updateOrbitState);
 // ── Initial Movie Load ──────────────────────────
 const urlParams = new URLSearchParams(window.location.search);
 const movieParam = urlParams.get('movie');
+let skipInitialFly = urlParams.has('fly');
 loadMovie(movieParam && MOVIES[movieParam] ? movieParam : MOVIE_ORDER[0]);
 
 
 // ── Cross-page Navigation (from timeline) ───────
 (function() {
-    const fly = urlParams.get('fly');
-    const eventName = urlParams.get('event');
-    if (!fly) return;
+    const eventId = urlParams.get('event');
+    if (!urlParams.has('fly') || !eventId) return;
 
-    const [lat, lng] = fly.split(',').map(Number);
-
-    setTimeout(() => {
-        map.stop();
-        let targetMarker;
-        if (eventName) {
-            Object.values(categoryLayers).forEach(layer => {
-                layer.eachLayer(m => {
-                    if (m._eventData && m._eventData.id === eventName) targetMarker = m;
-                });
-            });
-        }
-        const targetPt = map.project([lat, lng], 16);
-        const popupH = targetMarker ? estimatePopupHeight(targetMarker._eventData) : 350;
-        const oy = (popupH / 2) - 14;
-        const adjusted = map.unproject(L.point(targetPt.x + 120, targetPt.y - oy), 16);
-        map.setView(adjusted, 16, { animate: false });
-
-        if (targetMarker) {
-            setTimeout(() => targetMarker.openPopup(), 300);
-        }
-    }, 300);
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            window.navigateToEvent(eventId);
+        });
+    });
 })();
 </script>
 </body>
