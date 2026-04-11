@@ -564,9 +564,13 @@ body {
     color: #ccc;
     border: 1px solid #333;
     border-top: 2px solid rgba(255, 107, 53, 0.3);
-    border-radius: 8px;
+    border-radius: 10px;
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.leaflet-popup-content {
+    margin: 14px 16px;
 }
 
 .leaflet-popup-tip {
@@ -574,15 +578,15 @@ body {
     border: 1px solid #333;
 }
 
-.leaflet-popup-close-button { color: #666 !important; }
+.leaflet-popup-close-button { color: #666 !important; font-size: 20px !important; top: 4px !important; right: 6px !important; }
 .leaflet-popup-close-button:hover { color: #ff6b35 !important; }
 
 .popup-title {
     font-family: 'Teko', 'Segoe UI', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
     color: #e8e8e8;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     letter-spacing: 0.5px;
 }
 
@@ -590,46 +594,46 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .popup-category {
-    font-size: 11px;
+    font-size: 12.5px;
     color: #888;
     font-style: italic;
 }
 
 .popup-timestamp {
-    font-size: 11px;
+    font-size: 12.5px;
     color: #ff6b35;
     font-family: 'SF Mono', 'Consolas', monospace;
     font-weight: 600;
 }
 
 .popup-address {
-    font-size: 11px;
+    font-size: 12.5px;
     color: #ff8c42;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .popup-description {
-    font-size: 13px;
-    line-height: 1.55;
+    font-size: 14.5px;
+    line-height: 1.6;
     color: #aaa;
 }
 
 .popup-characters {
-    font-size: 11px;
+    font-size: 12px;
     color: #777;
-    margin-top: 8px;
+    margin-top: 10px;
     border-top: 1px solid #2a2a2a;
-    padding-top: 6px;
+    padding-top: 8px;
 }
 
 .popup-image {
     width: 100%;
-    border-radius: 4px;
-    margin-bottom: 8px;
+    border-radius: 6px;
+    margin-bottom: 10px;
     display: block;
 }
 
@@ -637,10 +641,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 8px;
+    margin-top: 10px;
     border-top: 1px solid #2a2a2a;
-    padding-top: 8px;
-    gap: 8px;
+    padding-top: 10px;
+    gap: 10px;
 }
 
 .popup-nav-group {
@@ -1478,14 +1482,21 @@ function loadMovie(slug) {
         return `<div class="popup-nav">${left}${right}</div>`;
     }
 
-    function flyToEvent(lat, lng, zoom) {
+    function estimatePopupHeight(evt) {
+        const imgH = evt.image ? 200 : 0;
+        const textH = 160 + Math.ceil(evt.description.length / 55) * 22;
+        return imgH + textH;
+    }
+
+    function flyToEvent(lat, lng, zoom, marker) {
         zoom = zoom || 15;
         const isMobile = window.innerWidth < 600;
         const targetPoint = map.project([lat, lng], zoom);
         const ox = isMobile ? 0 : 120;
-        const oy = isMobile ? -80 : -140;
+        const popupH = marker && marker._eventData ? estimatePopupHeight(marker._eventData) : 350;
+        const oy = (popupH / 2) - 14;
         const adjustedCenter = map.unproject(
-            L.point(targetPoint.x + ox, targetPoint.y + oy), zoom
+            L.point(targetPoint.x + ox, targetPoint.y - oy), zoom
         );
         map.flyTo(adjustedCenter, zoom, { duration: 0.8 });
     }
@@ -1495,12 +1506,14 @@ function loadMovie(slug) {
         const idx = movieEvents.findIndex(e => e.id === eventId);
         if (idx < 0) return;
         const evt = movieEvents[idx];
-        flyToEvent(evt.lat, evt.lng, 15);
-        categoryLayers[evt.category].eachLayer(marker => {
-            if (marker._eventData === evt) {
-                setTimeout(() => marker.openPopup(), 400);
-            }
+        let targetMarker;
+        categoryLayers[evt.category].eachLayer(m => {
+            if (m._eventData === evt) targetMarker = m;
         });
+        flyToEvent(evt.lat, evt.lng, 15, targetMarker);
+        if (targetMarker) {
+            setTimeout(() => targetMarker.openPopup(), 400);
+        }
     };
 
     // Create category layers
@@ -1531,7 +1544,7 @@ function loadMovie(slug) {
                     <div class="popup-characters">Featuring: ${evt.characters}</div>
                     ${navHtml}
                 </div>
-            `, { maxWidth: 320, autoPan: true, autoPanPaddingTopLeft: L.point(10, 58), autoPanPaddingBottomRight: L.point(10, 10) });
+            `, { maxWidth: 420, minWidth: 340, autoPan: false });
 
         marker._eventData = evt;
         marker._eventIndex = evtIndex;
@@ -1758,12 +1771,14 @@ function loadMovie(slug) {
             item.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const evt = movieEvents[parseInt(item.dataset.index)];
-                flyToEvent(evt.lat, evt.lng, 15);
-                categoryLayers[evt.category].eachLayer(marker => {
-                    if (marker._eventData === evt) {
-                        setTimeout(() => marker.openPopup(), 400);
-                    }
+                let targetMarker;
+                categoryLayers[evt.category].eachLayer(m => {
+                    if (m._eventData === evt) targetMarker = m;
                 });
+                flyToEvent(evt.lat, evt.lng, 15, targetMarker);
+                if (targetMarker) {
+                    setTimeout(() => targetMarker.openPopup(), 400);
+                }
             });
         });
 
@@ -1997,18 +2012,22 @@ loadMovie(movieParam && MOVIES[movieParam] ? movieParam : MOVIE_ORDER[0]);
 
     setTimeout(() => {
         map.stop();
-        map.setView([lat, lng], 16, { animate: false });
-
+        let targetMarker;
         if (eventName) {
-            setTimeout(() => {
-                Object.values(categoryLayers).forEach(layer => {
-                    layer.eachLayer(marker => {
-                        if (marker._eventData && marker._eventData.id === eventName) {
-                            marker.openPopup();
-                        }
-                    });
+            Object.values(categoryLayers).forEach(layer => {
+                layer.eachLayer(m => {
+                    if (m._eventData && m._eventData.id === eventName) targetMarker = m;
                 });
-            }, 300);
+            });
+        }
+        const targetPt = map.project([lat, lng], 16);
+        const popupH = targetMarker ? estimatePopupHeight(targetMarker._eventData) : 350;
+        const oy = (popupH / 2) - 14;
+        const adjusted = map.unproject(L.point(targetPt.x + 120, targetPt.y - oy), 16);
+        map.setView(adjusted, 16, { animate: false });
+
+        if (targetMarker) {
+            setTimeout(() => targetMarker.openPopup(), 300);
         }
     }, 300);
 })();
