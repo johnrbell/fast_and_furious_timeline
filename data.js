@@ -57,7 +57,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 3,
             filmTime: "0:07",
-            lat: 34.0763, lng: -118.2585,
+            lat: 34.0676, lng: -118.2520,
             address: "1234 Bellevue Avenue, Echo Park, Los Angeles",
             description: "Brian walks into Toretto's Market and orders the same terrible tuna sandwich for the fourth day in a row — a transparent excuse to get close to Mia. Vince, suspicious from day one, picks a fight that spills into the street. Dom breaks it up, and Brian gets his first real look at the man he's been sent to investigate.",
             characters: "Brian O'Conner, Mia Toretto, Vince, Dom Toretto"
@@ -81,7 +81,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 6,
             filmTime: "0:22",
-            lat: 34.0285, lng: -118.2352,
+            lat: 34.0341, lng: -118.2404,
             address: "761 Terminal Street / Clock Street, Downtown Los Angeles",
             description: "Brian shows up to the underground rally and does the one thing no outsider should — he challenges Dominic Toretto to a race and puts up his own car as the wager. It's a calculated gamble: lose the race, but win Dom's attention. The entire crowd thinks he's insane.",
             characters: "Brian O'Conner, Dom Toretto, Hector, Edwin, Jesse"
@@ -93,7 +93,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 7,
             filmTime: "0:25",
-            lat: 33.9200, lng: -118.3572,
+            lat: 33.9230, lng: -118.3519,
             address: "Prairie Avenue, 120th to 118th Street, Hawthorne",
             description: "Brian lines up against Dom on Prairie Avenue for a quarter-mile drag. He pushes the Eclipse hard but Dom's Mazda RX-7 pulls ahead. Brian hits the NOS too late, crosses the finish line out of control, and loses his car. It's the worst possible outcome for his cover — and the best possible outcome for getting inside Dom's world.",
             characters: "Brian O'Conner, Dom Toretto, Edwin, Jesse"
@@ -105,7 +105,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 8,
             filmTime: "0:30",
-            lat: 34.0531, lng: -118.2740,
+            lat: 34.0555, lng: -118.2735,
             address: "W. 7th Street & S. Union Avenue, Downtown Los Angeles",
             description: "When the cops show up after the race, Brian makes a split-second decision that changes everything — he picks up Dom and drives him to safety. It's the moment Brian stops being a spectator and becomes complicit. Dom owes him now, and Brian knows it. The door to the Toretto crew just opened.",
             characters: "Brian O'Conner, Dom Toretto"
@@ -117,7 +117,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 10,
             filmTime: "0:34",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "Dom brings Brian back to the house after the escape, and Brian walks into something he wasn't prepared for — a family. The backyard is lit up, music thumping, the crew eating and laughing like the cops were never a factor. Brian's been watching these people through surveillance photos and wiretaps for weeks. Now he's standing in their yard, holding a Corona, while Mia catches his eye from across the table. For the FBI, this is the deepest cover Brian has ever achieved. For Brian the person, it's the moment everything gets complicated.",
             characters: "Brian O'Conner, Dom Toretto, Mia Toretto, Letty, Vince, Leon, Jesse"
@@ -141,7 +141,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 11,
             filmTime: "0:38",
-            lat: 34.0531, lng: -118.2694,
+            lat: 34.0555, lng: -118.2755,
             address: "W. 7th Street & Valencia Street, Los Angeles",
             description: "Brian is 'arrested' by LAPD officers in a staged scene near MacArthur Park. This is the first reveal to the audience that Brian is actually an undercover cop investigating the truck hijackings.",
             characters: "Brian O'Conner, Sgt. Tanner, Agent Bilkins"
@@ -153,7 +153,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 12,
             filmTime: "0:40",
-            lat: 34.0921, lng: -118.4354,
+            lat: 34.0910, lng: -118.4368,
             address: "1261 Angelo Drive, Beverly Hills",
             description: "The circular mid-century Hollywood home with the pool where Brian's FBI/LAPD task force has set up a temporary headquarters. The house was described in the film as 'the house Eddie Fisher built for Elizabeth Taylor.' The home was demolished around 2001.",
             characters: "Brian O'Conner, Sgt. Tanner, Agent Bilkins"
@@ -165,7 +165,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 13,
             filmTime: "0:42",
-            lat: 34.0906, lng: -118.2935,
+            lat: 34.0908, lng: -118.2901,
             address: "4632 Santa Monica Blvd, Los Angeles, CA 90029",
             description: "Brian pulls up to Dom's house with a battered, half-destroyed Toyota Supra — passenger side crushed, trim missing, headlights dangling from their wires. Jesse takes one look and calls it 'a ten minute car.' Dom asks if Brian plans to tow it or push it across the finish line. But when Brian pops the hood and reveals the engine underneath, Jesse's eyes go wide: 'This will decimate all — after you put about fifteen grand in it. Or more, if we have to overnight parts from Japan.' Dom puts it on his tab at Harry's and walks Brian to his garage: 'My tools are your tools.' What follows is the most important montage in the franchise — Dom, Brian, and Jesse rebuilding the car together, turning a wreck into a weapon. It's the scene where Brian stops being a guest and becomes part of the family.",
             characters: "Brian O'Conner, Dom Toretto, Jesse"
@@ -189,7 +189,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 16,
             filmTime: "1:05",
-            lat: 34.2805, lng: -118.7340,
+            lat: 34.2905, lng: -118.6799,
             address: "5777 Tonopah Court, Simi Valley, California",
             description: "Brian leads a SWAT team to raid Johnny Tran's family home. The bust is a spectacular failure — the Civics in Tran's garage aren't black, the machine gun doesn't turn up, and the VCRs were legally purchased. All suspects are released on bail. Brian is placed on desk duty pending an Internal Affairs investigation, his career on the line.",
             characters: "Brian O'Conner, Sgt. Tanner, Agent Bilkins, Johnny Tran, Lance Nguyen"
@@ -201,7 +201,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 17,
             filmTime: "1:10",
-            lat: 34.1045, lng: -117.2512,
+            lat: 34.0955, lng: -117.2350,
             address: "San Bernardino International Airport, San Bernardino",
             description: "Brian arrives at Race Wars walking a razor's edge — the SWAT raid on Tran's house was a disaster, Internal Affairs is circling, and Bilkins is ready to pull the plug. This is his last chance to build a case. When Jesse loses his car to Tran and disappears, Brian senses the crew is about to do something reckless, but he's powerless to stop it without blowing his cover.",
             characters: "Brian O'Conner, Dom Toretto, Jesse, Johnny Tran"
@@ -225,7 +225,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 19,
             filmTime: "1:28",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "Brian is standing on the lawn when Jesse pulls up in his Jetta — relieved, for one breath, that the kid came home. Then the sound of two-stroke engines tears through the street and Johnny Tran and Lance roar past on motorcycles, guns blazing. Jesse crumples to the pavement. Brian's training kicks in before his grief does — he sprints for the Supra, engine already turning over in his mind. He's no longer a cop weighing options. He's a man who just watched a friend die, and the killers are still in earshot.",
             characters: "Brian O'Conner, Dom Toretto, Jesse, Mia Toretto, Johnny Tran, Lance Nguyen"
@@ -285,7 +285,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 20,
             filmTime: "1:30",
-            lat: 34.0874, lng: -118.2758,
+            lat: 34.0807, lng: -118.2775,
             address: "Micheltorena Street at Sunset Blvd, Silver Lake/Echo Park",
             description: "Seconds after Jesse is gunned down, Brian jumps into his Supra and tears after Tran and Lance through the steep, winding streets of Echo Park. He's no longer a cop following procedure — he's running on rage and grief, chasing the men who just killed a kid on his friend's front lawn.",
             characters: "Brian O'Conner, Johnny Tran, Lance Nguyen"
@@ -297,7 +297,7 @@ const MOVIES = {
             category: 'brian',
             sceneOrder: 21,
             filmTime: "1:33",
-            lat: 34.0834, lng: -118.2599,
+            lat: 34.0782, lng: -118.2606,
             address: "Glendale Blvd at Alvarado Street, Echo Park",
             description: "The chase from Micheltorena Street ends on Glendale Boulevard. Brian pulls alongside Tran's motorcycle and shoots him off the bike — the first time in the film Brian uses lethal force. It's the moment the undercover cop fully crosses over: he's not making an arrest, he's avenging Jesse.",
             characters: "Brian O'Conner, Dom Toretto, Johnny Tran"
@@ -311,7 +311,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 5,
             filmTime: "0:18",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "Dom's iconic white woodframe house in Echo Park, where the team gathers for backyard barbecues and Corona beers. The house and the brown Craftsman next door at 718-720 are real homes. The white garage between them was a temporary set piece built for the film.",
             characters: "Dom Toretto, Mia, Letty, Vince, Leon, Jesse"
@@ -323,7 +323,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 1,
             filmTime: "0:02",
-            lat: 33.7864, lng: -118.2426,
+            lat: 33.7855, lng: -118.2645,
             address: "Henry Ford Avenue & Alameda Street, Wilmington/Long Beach",
             description: "The film opens with Dom and his crew hijacking an 18-wheeler loaded with electronics near the docks. Dom is in command — coordinating four Honda Civics from underneath the trailer at highway speed. It's a meticulously rehearsed operation that establishes who Dominic Toretto is before we ever hear him speak: a man who lives a quarter-mile at a time.",
             characters: "Dom Toretto, Vince, Letty, Leon, Jesse"
@@ -335,7 +335,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 6,
             filmTime: "0:22",
-            lat: 34.0285, lng: -118.2352,
+            lat: 34.0341, lng: -118.2404,
             address: "761 Terminal Street / Clock Street, Downtown Los Angeles",
             description: "Dom runs the rally from the center of the crowd — the king of this world. When the new kid Brian wagers his car in a head-to-head challenge, Dom doesn't flinch. He's been racing since he was a teenager, and no outsider with a neon Eclipse is going to embarrass him on his own turf.",
             characters: "Dom Toretto, Brian O'Conner, Hector, Edwin, Jesse"
@@ -347,7 +347,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 7,
             filmTime: "0:25",
-            lat: 33.9200, lng: -118.3572,
+            lat: 33.9230, lng: -118.3519,
             address: "Prairie Avenue, 120th to 118th Street, Hawthorne",
             description: "Dom lines up on Prairie Avenue and does what he always does — wins. His RX-7 pulls ahead cleanly, and Brian's Eclipse crosses the line out of control. Dom takes Brian's car, but what he really gains is the measure of the man: reckless, determined, and willing to risk everything. That catches Dom's attention more than the car ever could.",
             characters: "Dom Toretto, Brian O'Conner, Edwin, Jesse"
@@ -359,7 +359,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 8,
             filmTime: "0:30",
-            lat: 34.0531, lng: -118.2740,
+            lat: 34.0555, lng: -118.2735,
             address: "W. 7th Street & S. Union Avenue, Downtown Los Angeles",
             description: "When the cops scatter the rally, Dom ducks into a parking garage — cornered. Then Brian pulls up and offers him a ride. It's an unexpected move from a guy who just lost everything to Dom. In Dom's code, that kind of loyalty means something. Brian just went from outsider to someone worth knowing.",
             characters: "Dom Toretto, Brian O'Conner"
@@ -371,7 +371,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 10,
             filmTime: "0:34",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "The crew is already deep into their ritual — Coronas, barbecue smoke, and Tego Calderón on the speakers — when Dom walks through the gate with the blond kid who just pulled him out of a parking garage full of cops. The yard goes quiet. Vince's jaw tightens. Letty sizes Brian up in two seconds flat. But Dom's word is law on Kensington Road, and if he says the kid's welcome, the kid's welcome. By the time the food comes out, Brian is sitting at the Toretto table for the first time, surrounded by a family he was sent to destroy.",
             characters: "Dom Toretto, Brian O'Conner, Mia Toretto, Letty, Vince, Leon, Jesse"
@@ -395,7 +395,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 3,
             filmTime: "0:07",
-            lat: 34.0763, lng: -118.2585,
+            lat: 34.0676, lng: -118.2520,
             address: "1234 Bellevue Avenue, Echo Park, Los Angeles",
             description: "The Toretto family deli and grocery store where Brian orders a tuna sandwich every day to get close to Mia. In reality it's Bob's Market, a mom-and-pop store at the corner of Kensington Road and Bellevue Ave. The fight between Vince and Brian spills out into the street here.",
             characters: "Brian O'Conner, Mia Toretto, Vince, Dom Toretto"
@@ -431,7 +431,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 13,
             filmTime: "0:42",
-            lat: 34.0906, lng: -118.2935,
+            lat: 34.0908, lng: -118.2901,
             address: "4632 Santa Monica Blvd, Los Angeles, CA 90029",
             description: "Brian shows up at Dom's house with a destroyed Toyota Supra, and Dom sees something in the gesture — not the car, but the commitment. When Jesse confirms the engine is legitimate, Dom makes a decision that changes everything: he puts the parts on his tab at Harry's and walks Brian into his garage. 'My tools are your tools.' Dom doesn't say that to outsiders. By opening his garage, he's opening his family. The three of them — Dom, Brian, and Jesse — rebuild the Supra together, and by the time it's done, Brian isn't a customer or a guest anymore. He's one of Dom's people.",
             characters: "Dom Toretto, Brian O'Conner, Jesse"
@@ -455,7 +455,7 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 17,
             filmTime: "1:10",
-            lat: 34.1045, lng: -117.2512,
+            lat: 34.0955, lng: -117.2350,
             address: "San Bernardino International Airport, San Bernardino",
             description: "Dom and the crew arrive at Race Wars in force. Beneath the surface, Dom is planning one final truck hijacking. When Jesse loses his Jetta to Tran and disappears, Dom pushes forward with the heist anyway — a decision that unravels everything.",
             characters: "Dom Toretto, Letty, Vince, Leon, Jesse, Mia Toretto"
@@ -491,10 +491,22 @@ const MOVIES = {
             category: 'dom',
             sceneOrder: 19,
             filmTime: "1:28",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "Jesse finally returns home after fleeing Race Wars, pulling up to Dom's house in his battered Jetta. Before anyone can react, Johnny Tran and Lance roar past on motorcycles and open fire. Jesse is cut down in the street — the youngest member of Dom's family, murdered on his own front lawn. Dom's grief turns instantly to rage.",
             characters: "Dom Toretto, Jesse, Mia Toretto, Johnny Tran, Lance Nguyen"
+        },
+        {
+            id: "glendale-blvd-dom",
+            image: "screengrabs/glendale-blvd.jpg",
+            name: "Glendale Blvd — Dom Watches Brian Cross the Line",
+            category: 'dom',
+            sceneOrder: 21,
+            filmTime: "1:33",
+            lat: 34.0782, lng: -118.2606,
+            address: "Glendale Blvd at Alvarado Street, Echo Park",
+            description: "Dom arrives on Glendale Boulevard in time to see Brian gun down Johnny Tran from the Supra. It's the moment Dom realizes Brian isn't a cop anymore — he's one of them. The kid who walked into his store ordering bad tuna sandwiches just killed a man to avenge Jesse. Whatever Brian was before, he's family now.",
+            characters: "Dom Toretto, Brian O'Conner, Johnny Tran"
         },
 
         // ── Johnny Tran ──
@@ -565,7 +577,7 @@ const MOVIES = {
             category: 'tran',
             sceneOrder: 16,
             filmTime: "1:05",
-            lat: 34.2805, lng: -118.7340,
+            lat: 34.2905, lng: -118.6799,
             address: "5777 Tonopah Court, Simi Valley, California",
             description: "A SWAT team storms Johnny Tran's family compound on Brian's orders. The raid turns up nothing — no black Civics, no stolen goods, no machine guns. Tran and Lance are arrested but quickly released on bail. The botched raid vindicates Tran and humiliates the task force, leaving Tran more brazen and dangerous than before.",
             characters: "Johnny Tran, Lance Nguyen, Brian O'Conner, Sgt. Tanner"
@@ -577,7 +589,7 @@ const MOVIES = {
             category: 'tran',
             sceneOrder: 17,
             filmTime: "1:10",
-            lat: 34.1045, lng: -117.2512,
+            lat: 34.0955, lng: -117.2350,
             address: "San Bernardino International Airport, San Bernardino",
             description: "At Race Wars, Johnny Tran goads Jesse into betting his father's Volkswagen Jetta in a head-to-head race. Tran wins easily, taking the car. Humiliated and terrified of Dom's reaction, Jesse panics and flees the event — setting off the chain of events that leads to the film's violent climax.",
             characters: "Johnny Tran, Jesse, Lance Nguyen"
@@ -589,7 +601,7 @@ const MOVIES = {
             category: 'tran',
             sceneOrder: 19,
             filmTime: "1:28",
-            lat: 34.0783, lng: -118.2577,
+            lat: 34.0689, lng: -118.2516,
             address: "722 E. Kensington Road, Echo Park, Los Angeles",
             description: "After the failed hijacking, Jesse returns to Dom's house. Johnny Tran and Lance Nguyen roar past on motorcycles, opening fire with machine guns in a retaliatory drive-by. Jesse is gunned down in the street — the crew's youngest member killed in a hail of bullets. His death sends Dom and Brian into a furious pursuit.",
             characters: "Johnny Tran, Lance Nguyen, Jesse, Dom Toretto, Mia Toretto"
@@ -601,7 +613,7 @@ const MOVIES = {
             category: 'tran',
             sceneOrder: 20,
             filmTime: "1:30",
-            lat: 34.0874, lng: -118.2758,
+            lat: 34.0807, lng: -118.2775,
             address: "Micheltorena Street at Sunset Blvd, Silver Lake/Echo Park",
             description: "Seconds after the drive-by that killed Jesse, Brian leaps into his car and chases Tran and Lance through the steep, hilly streets of Echo Park. The steep descent down Micheltorena Street is a homage to the famous car chase in Bullitt.",
             characters: "Brian O'Conner, Johnny Tran, Lance Nguyen"
@@ -613,7 +625,7 @@ const MOVIES = {
             category: 'tran',
             sceneOrder: 21,
             filmTime: "1:33",
-            lat: 34.0834, lng: -118.2599,
+            lat: 34.0782, lng: -118.2606,
             address: "Glendale Blvd at Alvarado Street, Echo Park",
             description: "The motorcycle chase from Micheltorena Street ends on Glendale Boulevard, just north of Echo Park. Brian shoots Johnny Tran from his bike during the pursuit. This location is only a few blocks from Dom's house in the film.",
             characters: "Brian O'Conner, Johnny Tran"
@@ -627,7 +639,7 @@ const MOVIES = {
             category: 'crew',
             sceneOrder: 6,
             filmTime: "0:22",
-            lat: 34.0285, lng: -118.2352,
+            lat: 34.0341, lng: -118.2404,
             address: "761 Terminal Street / Clock Street, Downtown Los Angeles",
             description: "The first major nighttime car rally takes place between the giant warehouses of the LA Produce Market near 7th Street and Alameda. Brian wagers his car against Dom in a quarter-mile race. The huge warehouse complex (now ROW DTLA) was once the Southern Pacific Railroad goods terminus.",
             characters: "Brian O'Conner, Dom Toretto, Hector, Edwin, Jesse"
@@ -639,7 +651,7 @@ const MOVIES = {
             category: 'crew',
             sceneOrder: 7,
             filmTime: "0:25",
-            lat: 33.9200, lng: -118.3572,
+            lat: 33.9230, lng: -118.3519,
             address: "Prairie Avenue, 120th to 118th Street, Hawthorne",
             description: "The actual quarter-mile race takes place on Prairie Avenue in Hawthorne, about 15 miles from the rally location. The cars race north from 120th Street to 118th Street, past the western edge of Hawthorne Airport. Brian loses his car to Dom after crossing the finish line and nearly crashing.",
             characters: "Brian O'Conner, Dom Toretto, Edwin, Jesse"
@@ -663,7 +675,7 @@ const MOVIES = {
             category: 'crew',
             sceneOrder: 17,
             filmTime: "1:10",
-            lat: 34.1045, lng: -117.2512,
+            lat: 34.0955, lng: -117.2350,
             address: "San Bernardino International Airport, San Bernardino",
             description: "The massive desert 'Race Wars' rally was filmed at San Bernardino International Airport, about 60 miles east of LA. Director Rob Cohen noted it was 120 degrees during filming. Jesse loses his father's Volkswagen Jetta to Johnny Tran in a race, then flees.",
             characters: "Dom Toretto, Brian O'Conner, Jesse, Johnny Tran, the whole crew"
@@ -689,7 +701,7 @@ const MOVIES = {
             category: 'heists',
             sceneOrder: 1,
             filmTime: "0:02",
-            lat: 33.7864, lng: -118.2426,
+            lat: 33.7855, lng: -118.2645,
             address: "Henry Ford Avenue & Alameda Street, Wilmington/Long Beach",
             description: "The film's opening sequence shows Dom's crew hijacking an 18-wheeler loaded with electronics using Honda Civics. Shot in the industrial area near the docks on the border of Wilmington and Long Beach, with the Texaco refinery visible in the background.",
             characters: "Dom Toretto, Vince, Letty, Leon, Jesse"
@@ -725,7 +737,7 @@ const MOVIES = {
             category: 'crew',
             sceneOrder: 8,
             filmTime: "0:30",
-            lat: 34.0531, lng: -118.2740,
+            lat: 34.0555, lng: -118.2735,
             address: "W. 7th Street & S. Union Avenue, Downtown Los Angeles",
             description: "After the first street race, Dom loses the pursuing police by pulling into an underground parking garage beneath the building at the northwest corner of 7th Street and Union Ave. Brian rescues Dom from the cops in this scene, beginning to earn his trust.",
             characters: "Dom Toretto, Brian O'Conner"
@@ -761,7 +773,8 @@ const MOVIES = {
         { from: "first-rally", to: "little-saigon-statues", type: "sequel", label: "Dom takes Brian to confront Tran" },
         { from: "final-hijack-brian", to: "driveby-brian", type: "sequel", label: "Brian returns to find Jesse" },
         { from: "driveby-brian", to: "driveby-dom", type: "location", label: "Same scene" },
-        { from: "driveby-brian", to: "micheltorena-brian", type: "sequel", label: "Brian chases Tran" }
+        { from: "driveby-brian", to: "micheltorena-brian", type: "sequel", label: "Brian chases Tran" },
+        { from: "glendale-blvd-brian", to: "glendale-blvd-dom", type: "location", label: "Same scene" }
     ],
 
     JOURNEYS: {
@@ -770,27 +783,27 @@ const MOVIES = {
             color: '#3498db',
             points: [
                 [34.0736, -118.2400],
-                [34.0763, -118.2585],
+                [34.0676, -118.2520],
                 [34.0893, -118.3414],
-                [34.0285, -118.2352],
-                [33.9200, -118.3572],
-                [34.0531, -118.2740],
+                [34.0341, -118.2404],
+                [33.9230, -118.3519],
+                [34.0555, -118.2735],
                 [33.7449, -117.9630],
                 [33.7449, -117.9680],
-                [34.0783, -118.2577],
-                [34.0531, -118.2694],
-                [34.0921, -118.4354],
-                [34.0906, -118.2935],
+                [34.0689, -118.2516],
+                [34.0555, -118.2755],
+                [34.0910, -118.4368],
+                [34.0908, -118.2901],
                 [33.7449, -117.9630],
                 [34.0828, -118.2866],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
-                [34.2805, -118.7340],
-                [34.1045, -117.2512],
+                [34.2905, -118.6799],
+                [34.0955, -117.2350],
                 [33.7478, -116.9716],
-                [34.0783, -118.2577],
-                [34.0874, -118.2758],
-                [34.0834, -118.2599],
+                [34.0689, -118.2516],
+                [34.0807, -118.2775],
+                [34.0782, -118.2606],
                 [33.7420, -118.2649]
             ]
         },
@@ -798,23 +811,23 @@ const MOVIES = {
             label: "Dom's Journey",
             color: '#e74c3c',
             points: [
-                [33.7864, -118.2426],
-                [34.0763, -118.2585],
-                [34.0783, -118.2577],
-                [34.0285, -118.2352],
-                [33.9200, -118.3572],
-                [34.0531, -118.2740],
+                [33.7855, -118.2645],
+                [34.0676, -118.2520],
+                [34.0689, -118.2516],
+                [34.0341, -118.2404],
+                [33.9230, -118.3519],
+                [34.0555, -118.2735],
                 [33.7449, -117.9630],
                 [33.7449, -117.9680],
-                [34.0783, -118.2577],
-                [34.0906, -118.2935],
+                [34.0689, -118.2516],
+                [34.0908, -118.2901],
                 [33.7449, -117.9630],
                 [34.0400, -118.8800],
                 [34.0533, -118.9635],
-                [34.1045, -117.2512],
+                [34.0955, -117.2350],
                 [33.7478, -116.9716],
-                [34.0783, -118.2577],
-                [34.0834, -118.2599],
+                [34.0689, -118.2516],
+                [34.0782, -118.2606],
                 [33.7420, -118.2649]
             ]
         }
