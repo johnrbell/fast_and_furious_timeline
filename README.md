@@ -2,7 +2,7 @@
 
 An interactive map and timeline of real-world filming locations from *The Fast and the Furious* (2001), built as a static site with Leaflet.
 
-![Screenshot](ss.png)
+![Screenshot](screengrabs/ss.png)
 
 ## Features
 
