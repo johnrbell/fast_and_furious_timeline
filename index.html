@@ -1478,16 +1478,24 @@ function loadMovie(slug) {
         return `<div class="popup-nav">${left}${right}</div>`;
     }
 
+    function flyToEvent(lat, lng, zoom) {
+        zoom = zoom || 15;
+        const isMobile = window.innerWidth < 600;
+        const targetPoint = map.project([lat, lng], zoom);
+        const ox = isMobile ? 0 : 120;
+        const oy = isMobile ? -80 : -140;
+        const adjustedCenter = map.unproject(
+            L.point(targetPoint.x + ox, targetPoint.y + oy), zoom
+        );
+        map.flyTo(adjustedCenter, zoom, { duration: 0.8 });
+    }
+
     // Global navigate function for popup arrow clicks
     window.navigateToEvent = function(eventId) {
         const idx = movieEvents.findIndex(e => e.id === eventId);
         if (idx < 0) return;
         const evt = movieEvents[idx];
-        const targetPoint = map.project([evt.lat, evt.lng], 15);
-        const adjustedCenter = map.unproject(
-            L.point(targetPoint.x + 120, targetPoint.y - 140), 15
-        );
-        map.flyTo(adjustedCenter, 15, { duration: 0.8 });
+        flyToEvent(evt.lat, evt.lng, 15);
         categoryLayers[evt.category].eachLayer(marker => {
             if (marker._eventData === evt) {
                 setTimeout(() => marker.openPopup(), 400);
@@ -1523,7 +1531,7 @@ function loadMovie(slug) {
                     <div class="popup-characters">Featuring: ${evt.characters}</div>
                     ${navHtml}
                 </div>
-            `, { maxWidth: 320, autoPanPaddingTopLeft: L.point(10, 58) });
+            `, { maxWidth: 320, autoPan: true, autoPanPaddingTopLeft: L.point(10, 58), autoPanPaddingBottomRight: L.point(10, 10) });
 
         marker._eventData = evt;
         marker._eventIndex = evtIndex;
@@ -1750,12 +1758,7 @@ function loadMovie(slug) {
             item.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const evt = movieEvents[parseInt(item.dataset.index)];
-                const targetPoint = map.project([evt.lat, evt.lng], 15);
-                const adjustedCenter = map.unproject(
-                    L.point(targetPoint.x + 120, targetPoint.y - 140),
-                    15
-                );
-                map.flyTo(adjustedCenter, 15, { duration: 0.8 });
+                flyToEvent(evt.lat, evt.lng, 15);
                 categoryLayers[evt.category].eachLayer(marker => {
                     if (marker._eventData === evt) {
                         setTimeout(() => marker.openPopup(), 400);
