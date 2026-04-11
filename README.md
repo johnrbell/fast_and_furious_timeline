@@ -2,7 +2,7 @@
 
 An interactive map and timeline of real-world filming locations from *The Fast and the Furious* (2001), built as a zero-dependency static site with Leaflet.
 
-![Screenshot](screengrabs/ss.png)
+![Screenshot](assets/screengrabs/ss.png)
 
 ## Features
 
@@ -42,7 +42,7 @@ Then open [http://localhost:8080](http://localhost:8080).
 ├── data.js           # Shared location data, categories, journeys, and event links
 ├── routes.js         # Pre-cached encoded polyline geometry for character journeys
 ├── regen_routes.js   # Node script to regenerate routes.js via the Valhalla routing API
-├── screengrabs/      # Film stills shown in map popups and the timeline
+├── assets/           # Favicons and film stills (screengrabs/) used in popups and timeline
 ├── backup/           # Archived data and routes for fast-2 and fast-3 (not active)
 └── README.md
 ```
@@ -64,7 +64,7 @@ All location data lives in `data.js` inside the `MOVIES["fast-1"]` object. Each 
 - Scene order and in-film timestamp
 - Latitude/longitude and real-world address
 - Description, characters, and category
-- Reference to a film still in `screengrabs/`
+- Reference to a film still in `assets/screengrabs/`
 
 The file also defines `EVENT_LINKS` (narrative connections between locations) and `JOURNEYS` (waypoints for Brian's and Dom's routes through the film).
 

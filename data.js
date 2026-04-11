@@ -40,7 +40,7 @@ const MOVIES = {
         // ── Brian O'Conner ──
         {
             id: "dodger-stadium",
-            image: "screengrabs/dodger-stadium.jpg",
+            image: "assets/screengrabs/dodger-stadium.jpg",
             name: "Dodger Stadium — Brian Tests His Car",
             category: 'brian',
             sceneOrder: 2,
@@ -52,7 +52,7 @@ const MOVIES = {
         },
         {
             id: "torettos-market-brian",
-            image: "screengrabs/torettos-market.jpg",
+            image: "assets/screengrabs/torettos-market.jpg",
             name: "Toretto's Market & Café — Brian's Tuna Sandwich",
             category: 'brian',
             sceneOrder: 3,
@@ -64,7 +64,7 @@ const MOVIES = {
         },
         {
             id: "racers-edge",
-            image: "screengrabs/racers-edge.jpg",
+            image: "assets/screengrabs/racers-edge.jpg",
             name: "The Racer's Edge — Brian's Day Job",
             category: 'brian',
             sceneOrder: 4,
@@ -76,7 +76,7 @@ const MOVIES = {
         },
         {
             id: "first-rally-brian",
-            image: "screengrabs/clock-street.jpg",
+            image: "assets/screengrabs/clock-street.jpg",
             name: "Clock Street — Brian Bets It All",
             category: 'brian',
             sceneOrder: 6,
@@ -88,7 +88,7 @@ const MOVIES = {
         },
         {
             id: "first-race-brian",
-            image: "screengrabs/prairie-ave.jpg",
+            image: "assets/screengrabs/prairie-ave.jpg",
             name: "Prairie Avenue — Brian Loses His Car",
             category: 'brian',
             sceneOrder: 7,
@@ -100,7 +100,7 @@ const MOVIES = {
         },
         {
             id: "union-ave-brian",
-            image: "screengrabs/union-ave.jpg",
+            image: "assets/screengrabs/union-ave.jpg",
             name: "Union Avenue — Brian Saves Dom from the Cops",
             category: 'brian',
             sceneOrder: 8,
@@ -112,7 +112,7 @@ const MOVIES = {
         },
         {
             id: "house-party-brian",
-            image: "screengrabs/torettos-house.jpg",
+            image: "assets/screengrabs/torettos-house.jpg",
             name: "Toretto's House — Brian Meets the Family",
             category: 'brian',
             sceneOrder: 10,
@@ -124,7 +124,7 @@ const MOVIES = {
         },
         {
             id: "pch-ferrari-brian",
-            image: "screengrabs/pch-malibu.jpg",
+            image: "assets/screengrabs/pch-malibu.jpg",
             name: "PCH — Brian Smokes a Ferrari",
             category: 'brian',
             sceneOrder: 14,
@@ -136,7 +136,7 @@ const MOVIES = {
         },
         {
             id: "brian-arrested",
-            image: "screengrabs/brian-arrested.jpg",
+            image: "assets/screengrabs/brian-arrested.jpg",
             name: "7th & Valencia — Brian's Cover Revealed",
             category: 'brian',
             sceneOrder: 11,
@@ -148,7 +148,7 @@ const MOVIES = {
         },
         {
             id: "police-hq",
-            image: "screengrabs/police-hq.jpg",
+            image: "assets/screengrabs/police-hq.jpg",
             name: "Police HQ — The Eddie Fisher House",
             category: 'brian',
             sceneOrder: 12,
@@ -160,7 +160,7 @@ const MOVIES = {
         },
         {
             id: "supra-rebuild",
-            image: "screengrabs/torettos-garage.jpg",
+            image: "assets/screengrabs/torettos-garage.jpg",
             name: "Toretto's Garage — Brian Brings the Supra",
             category: 'brian',
             sceneOrder: 13,
@@ -172,7 +172,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-brian",
-            image: "screengrabs/tran-speed-shop.jpg",
+            image: "assets/screengrabs/tran-speed-shop.jpg",
             name: "Tran's Garage — Brian Sees Tran's Methods",
             category: 'brian',
             sceneOrder: 13,
@@ -184,7 +184,7 @@ const MOVIES = {
         },
         {
             id: "swat-raid-tran",
-            image: "screengrabs/simi-valley.jpg",
+            image: "assets/screengrabs/simi-valley.jpg",
             name: "Simi Valley — SWAT Raid on Tran's House",
             category: 'brian',
             sceneOrder: 16,
@@ -196,7 +196,7 @@ const MOVIES = {
         },
         {
             id: "race-wars-brian",
-            image: "screengrabs/race-wars.jpg",
+            image: "assets/screengrabs/race-wars.jpg",
             name: "Race Wars — Brian's Last Night Undercover",
             category: 'brian',
             sceneOrder: 17,
@@ -208,7 +208,7 @@ const MOVIES = {
         },
         {
             id: "final-hijack-brian",
-            image: "screengrabs/hemet.jpg",
+            image: "assets/screengrabs/hemet.jpg",
             name: "Hemet — Brian Blows His Cover",
             category: 'brian',
             sceneOrder: 18,
@@ -220,7 +220,7 @@ const MOVIES = {
         },
         {
             id: "driveby-brian",
-            image: "screengrabs/torreto-house-driveby.jpg",
+            image: "assets/screengrabs/torreto-house-driveby.jpg",
             name: "Toretto's House — Brian Witnesses the Drive-By",
             category: 'brian',
             sceneOrder: 19,
@@ -232,7 +232,7 @@ const MOVIES = {
         },
         {
             id: "final-race-brian",
-            image: "screengrabs/terminal-island.jpg",
+            image: "assets/screengrabs/terminal-island.jpg",
             name: "Terminal Island — Brian Lets Dom Go",
             category: 'brian',
             sceneOrder: 22,
@@ -244,7 +244,7 @@ const MOVIES = {
         },
         {
             id: "cha-cha-cha-brian",
-            image: "screengrabs/cha-cha-cha.jpg",
+            image: "assets/screengrabs/cha-cha-cha.jpg",
             name: "Cha Cha Cha — Brian's Date with Mia",
             category: 'brian',
             sceneOrder: 13,
@@ -256,7 +256,7 @@ const MOVIES = {
         },
         {
             id: "neptunes-net-brian",
-            image: "screengrabs/neptunes-net.jpg",
+            image: "assets/screengrabs/neptunes-net.jpg",
             name: "Neptune's Net — Brian Digs for the Truth",
             category: 'brian',
             sceneOrder: 15,
@@ -268,7 +268,7 @@ const MOVIES = {
         },
         {
             id: "little-saigon-brian",
-            image: "screengrabs/little-saigon.jpg",
+            image: "assets/screengrabs/little-saigon.jpg",
             name: "Little Saigon — Brian Meets Tran",
             category: 'brian',
             sceneOrder: 9,
@@ -280,7 +280,7 @@ const MOVIES = {
         },
         {
             id: "micheltorena-brian",
-            image: "screengrabs/micheltorena.jpg",
+            image: "assets/screengrabs/micheltorena.jpg",
             name: "Micheltorena Street — Brian Chases Tran",
             category: 'brian',
             sceneOrder: 20,
@@ -292,7 +292,7 @@ const MOVIES = {
         },
         {
             id: "glendale-blvd-brian",
-            image: "screengrabs/glendale-blvd.jpg",
+            image: "assets/screengrabs/glendale-blvd.jpg",
             name: "Glendale Blvd — Brian Kills Tran",
             category: 'brian',
             sceneOrder: 21,
@@ -306,7 +306,7 @@ const MOVIES = {
         // ── Dominic Toretto ──
         {
             id: "torettos-house",
-            image: "screengrabs/torettos-house.jpg",
+            image: "assets/screengrabs/torettos-house.jpg",
             name: "Toretto's House — Dom's Home",
             category: 'dom',
             sceneOrder: 5,
@@ -318,7 +318,7 @@ const MOVIES = {
         },
         {
             id: "first-hijack-dom",
-            image: "screengrabs/wilmington.jpg",
+            image: "assets/screengrabs/wilmington.jpg",
             name: "Wilmington — Dom Leads the Heist",
             category: 'dom',
             sceneOrder: 1,
@@ -330,7 +330,7 @@ const MOVIES = {
         },
         {
             id: "first-rally-dom",
-            image: "screengrabs/clock-street.jpg",
+            image: "assets/screengrabs/clock-street.jpg",
             name: "Clock Street — Dom Accepts the Challenge",
             category: 'dom',
             sceneOrder: 6,
@@ -342,7 +342,7 @@ const MOVIES = {
         },
         {
             id: "first-race-dom",
-            image: "screengrabs/prairie-ave.jpg",
+            image: "assets/screengrabs/prairie-ave.jpg",
             name: "Prairie Avenue — Dom Wins the Race",
             category: 'dom',
             sceneOrder: 7,
@@ -354,7 +354,7 @@ const MOVIES = {
         },
         {
             id: "union-ave-dom",
-            image: "screengrabs/union-ave.jpg",
+            image: "assets/screengrabs/union-ave.jpg",
             name: "Union Avenue — Dom Escapes with Brian's Help",
             category: 'dom',
             sceneOrder: 8,
@@ -366,7 +366,7 @@ const MOVIES = {
         },
         {
             id: "house-party-dom",
-            image: "screengrabs/torettos-house.jpg",
+            image: "assets/screengrabs/torettos-house.jpg",
             name: "Toretto's House — The Backyard Party",
             category: 'dom',
             sceneOrder: 10,
@@ -378,7 +378,7 @@ const MOVIES = {
         },
         {
             id: "pch-ferrari-dom",
-            image: "screengrabs/pch-malibu.jpg",
+            image: "assets/screengrabs/pch-malibu.jpg",
             name: "PCH — Dom Tests the Rebuilt Car",
             category: 'dom',
             sceneOrder: 14,
@@ -390,7 +390,7 @@ const MOVIES = {
         },
         {
             id: "torettos-market",
-            image: "screengrabs/torettos-market.jpg",
+            image: "assets/screengrabs/torettos-market.jpg",
             name: "Toretto's Market & Café — Bob's Market",
             category: 'dom',
             sceneOrder: 3,
@@ -402,7 +402,7 @@ const MOVIES = {
         },
         {
             id: "neptunes-net",
-            image: "screengrabs/neptunes-net.jpg",
+            image: "assets/screengrabs/neptunes-net.jpg",
             name: "Neptune's Net — Dom & Brian Bond",
             category: 'dom',
             sceneOrder: 15,
@@ -414,7 +414,7 @@ const MOVIES = {
         },
         {
             id: "little-saigon-dom",
-            image: "screengrabs/little-saigon.jpg",
+            image: "assets/screengrabs/little-saigon.jpg",
             name: "Little Saigon — Dom Confronts Tran",
             category: 'dom',
             sceneOrder: 9,
@@ -426,7 +426,7 @@ const MOVIES = {
         },
         {
             id: "supra-rebuild-dom",
-            image: "screengrabs/torettos-garage.jpg",
+            image: "assets/screengrabs/torettos-garage.jpg",
             name: "Toretto's Garage — Dom Opens His Doors",
             category: 'dom',
             sceneOrder: 13,
@@ -438,7 +438,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-dom",
-            image: "screengrabs/tran-speed-shop.jpg",
+            image: "assets/screengrabs/tran-speed-shop.jpg",
             name: "Tran's Garage — Dom Shows Brian Who Tran Really Is",
             category: 'dom',
             sceneOrder: 13,
@@ -450,7 +450,7 @@ const MOVIES = {
         },
         {
             id: "race-wars-dom",
-            image: "screengrabs/race-wars.jpg",
+            image: "assets/screengrabs/race-wars.jpg",
             name: "Race Wars — Dom's Last Stand",
             category: 'dom',
             sceneOrder: 17,
@@ -462,7 +462,7 @@ const MOVIES = {
         },
         {
             id: "final-hijack-dom",
-            image: "screengrabs/hemet.jpg",
+            image: "assets/screengrabs/hemet.jpg",
             name: "Hemet — Dom's Heist Goes Wrong",
             category: 'dom',
             sceneOrder: 18,
@@ -474,7 +474,7 @@ const MOVIES = {
         },
         {
             id: "final-race-dom",
-            image: "screengrabs/terminal-island.jpg",
+            image: "assets/screengrabs/terminal-island.jpg",
             name: "Terminal Island — Dom's Last Quarter-Mile",
             category: 'dom',
             sceneOrder: 22,
@@ -486,7 +486,7 @@ const MOVIES = {
         },
         {
             id: "driveby-dom",
-            image: "screengrabs/torreto-house-driveby.jpg",
+            image: "assets/screengrabs/torreto-house-driveby.jpg",
             name: "Toretto's House — Jesse Is Killed",
             category: 'dom',
             sceneOrder: 19,
@@ -498,7 +498,7 @@ const MOVIES = {
         },
         {
             id: "glendale-blvd-dom",
-            image: "screengrabs/glendale-blvd.jpg",
+            image: "assets/screengrabs/glendale-blvd.jpg",
             name: "Glendale Blvd — Dom Watches Brian Cross the Line",
             category: 'dom',
             sceneOrder: 21,
@@ -512,7 +512,7 @@ const MOVIES = {
         // ── Johnny Tran ──
         {
             id: "little-saigon-statues",
-            image: "screengrabs/little-saigon.jpg",
+            image: "assets/screengrabs/little-saigon.jpg",
             name: "Little Saigon — Vietnamese Cultural Court",
             category: 'tran',
             sceneOrder: 9,
@@ -524,7 +524,7 @@ const MOVIES = {
         },
         {
             id: "little-saigon-archway",
-            image: "screengrabs/little-saigon-archway.jpg",
+            image: "assets/screengrabs/little-saigon-archway.jpg",
             name: "Little Saigon — The Asian Gateway",
             category: 'tran',
             sceneOrder: 8,
@@ -536,7 +536,7 @@ const MOVIES = {
         },
         {
             id: "little-saigon-archway-brian",
-            image: "screengrabs/little-saigon-archway.jpg",
+            image: "assets/screengrabs/little-saigon-archway.jpg",
             name: "Little Saigon — Brian Arrives in Tran's Territory",
             category: 'brian',
             sceneOrder: 8,
@@ -548,7 +548,7 @@ const MOVIES = {
         },
         {
             id: "little-saigon-archway-dom",
-            image: "screengrabs/little-saigon-archway.jpg",
+            image: "assets/screengrabs/little-saigon-archway.jpg",
             name: "Little Saigon — Dom Enters Tran's Turf",
             category: 'dom',
             sceneOrder: 8,
@@ -560,7 +560,7 @@ const MOVIES = {
         },
         {
             id: "speed-shop-tran",
-            image: "screengrabs/tran-speed-shop.jpg",
+            image: "assets/screengrabs/tran-speed-shop.jpg",
             name: "Tran's Garage — Tran Sends a Message",
             category: 'tran',
             sceneOrder: 13,
@@ -572,7 +572,7 @@ const MOVIES = {
         },
         {
             id: "swat-raid-tran-pov",
-            image: "screengrabs/simi-valley.jpg",
+            image: "assets/screengrabs/simi-valley.jpg",
             name: "Simi Valley — Tran's House Raided",
             category: 'tran',
             sceneOrder: 16,
@@ -584,7 +584,7 @@ const MOVIES = {
         },
         {
             id: "race-wars-tran",
-            image: "screengrabs/race-wars.jpg",
+            image: "assets/screengrabs/race-wars.jpg",
             name: "Race Wars — Tran Takes Jesse's Jetta",
             category: 'tran',
             sceneOrder: 17,
@@ -596,7 +596,7 @@ const MOVIES = {
         },
         {
             id: "driveby-jesse",
-            image: "screengrabs/torreto-house-driveby.jpg",
+            image: "assets/screengrabs/torreto-house-driveby.jpg",
             name: "Toretto's House — Tran's Drive-By Kills Jesse",
             category: 'tran',
             sceneOrder: 19,
@@ -608,7 +608,7 @@ const MOVIES = {
         },
         {
             id: "micheltorena-chase",
-            image: "screengrabs/micheltorena.jpg",
+            image: "assets/screengrabs/micheltorena.jpg",
             name: "Micheltorena Street — Motorcycle Chase",
             category: 'tran',
             sceneOrder: 20,
@@ -620,7 +620,7 @@ const MOVIES = {
         },
         {
             id: "glendale-blvd",
-            image: "screengrabs/glendale-blvd.jpg",
+            image: "assets/screengrabs/glendale-blvd.jpg",
             name: "Glendale Blvd — Tran's Gang Confronted",
             category: 'tran',
             sceneOrder: 21,
@@ -634,7 +634,7 @@ const MOVIES = {
         // ── The Crew / Races ──
         {
             id: "first-rally",
-            image: "screengrabs/clock-street.jpg",
+            image: "assets/screengrabs/clock-street.jpg",
             name: "Clock Street — The First Big Rally",
             category: 'crew',
             sceneOrder: 6,
@@ -646,7 +646,7 @@ const MOVIES = {
         },
         {
             id: "first-race",
-            image: "screengrabs/prairie-ave.jpg",
+            image: "assets/screengrabs/prairie-ave.jpg",
             name: "Prairie Avenue — The First Race",
             category: 'crew',
             sceneOrder: 7,
@@ -658,7 +658,7 @@ const MOVIES = {
         },
         {
             id: "pch-ferrari-race",
-            image: "screengrabs/pch-malibu.jpg",
+            image: "assets/screengrabs/pch-malibu.jpg",
             name: "PCH — Racing a Ferrari",
             category: 'crew',
             sceneOrder: 14,
@@ -670,7 +670,7 @@ const MOVIES = {
         },
         {
             id: "race-wars",
-            image: "screengrabs/race-wars.jpg",
+            image: "assets/screengrabs/race-wars.jpg",
             name: "Race Wars — Desert Rally",
             category: 'crew',
             sceneOrder: 17,
@@ -682,7 +682,7 @@ const MOVIES = {
         },
         {
             id: "final-race",
-            image: "screengrabs/terminal-island.jpg",
+            image: "assets/screengrabs/terminal-island.jpg",
             name: "Terminal Island — The Final Race",
             category: 'crew',
             sceneOrder: 22,
@@ -696,7 +696,7 @@ const MOVIES = {
         // ── The Heists ──
         {
             id: "first-hijack",
-            image: "screengrabs/wilmington.jpg",
+            image: "assets/screengrabs/wilmington.jpg",
             name: "Wilmington — First Truck Hijacking",
             category: 'heists',
             sceneOrder: 1,
@@ -708,7 +708,7 @@ const MOVIES = {
         },
         {
             id: "final-hijack",
-            image: "screengrabs/hemet.jpg",
+            image: "assets/screengrabs/hemet.jpg",
             name: "Hemet — Final Truck Hijacking",
             category: 'heists',
             sceneOrder: 18,
@@ -720,7 +720,7 @@ const MOVIES = {
         },
         {
             id: "final-hijack-crew",
-            image: "screengrabs/hemet.jpg",
+            image: "assets/screengrabs/hemet.jpg",
             name: "Hemet — The Crew's Last Ride Together",
             category: 'crew',
             sceneOrder: 18,
@@ -732,7 +732,7 @@ const MOVIES = {
         },
         {
             id: "union-ave-escape",
-            image: "screengrabs/union-ave.jpg",
+            image: "assets/screengrabs/union-ave.jpg",
             name: "Union Avenue — Dom Escapes the Cops",
             category: 'crew',
             sceneOrder: 8,
