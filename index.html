@@ -1468,7 +1468,7 @@ function loadMovie(slug) {
     // Multiple events at the same lat/lng collapse into one entry per character,
     // preferring that character's own category (brian/dom).
     function buildCharTimeline(charName, preferredCat) {
-        const locKey = e => `${e.lat.toFixed(4)},${e.lng.toFixed(4)}`;
+        const locKey = e => `${e.lat.toFixed(4)},${e.lng.toFixed(4)},${e.sceneOrder}`;
         const candidates = movieEvents
             .map((e, i) => ({ evt: e, idx: i }))
             .filter(o => o.evt.characters.includes(charName))
@@ -1495,17 +1495,17 @@ function loadMovie(slug) {
     // Map every event id to its position in each timeline (all co-located events share the same position)
     const brianTimelineIdx = {};
     brianTimeline.forEach((o, pos) => {
-        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)}`;
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)},${o.evt.sceneOrder}`;
         movieEvents.forEach(e => {
-            if (e.characters.includes('Brian') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)}` === key)
+            if (e.characters.includes('Brian') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)},${e.sceneOrder}` === key)
                 brianTimelineIdx[e.id] = pos;
         });
     });
     const domTimelineIdx = {};
     domTimeline.forEach((o, pos) => {
-        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)}`;
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)},${o.evt.sceneOrder}`;
         movieEvents.forEach(e => {
-            if (e.characters.includes('Dom') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)}` === key)
+            if (e.characters.includes('Dom') && `${e.lat.toFixed(4)},${e.lng.toFixed(4)},${e.sceneOrder}` === key)
                 domTimelineIdx[e.id] = pos;
         });
     });

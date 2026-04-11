@@ -219,6 +219,18 @@ const MOVIES = {
             characters: "Brian O'Conner, Dom Toretto, Vince"
         },
         {
+            id: "driveby-brian",
+            image: "screengrabs/torreto-house-driveby.jpg",
+            name: "Toretto's House — Brian Witnesses the Drive-By",
+            category: 'brian',
+            sceneOrder: 19,
+            filmTime: "1:28",
+            lat: 34.0783, lng: -118.2577,
+            address: "722 E. Kensington Road, Echo Park, Los Angeles",
+            description: "Brian is standing on the lawn when Jesse pulls up in his Jetta — relieved, for one breath, that the kid came home. Then the sound of two-stroke engines tears through the street and Johnny Tran and Lance roar past on motorcycles, guns blazing. Jesse crumples to the pavement. Brian's training kicks in before his grief does — he sprints for the Supra, engine already turning over in his mind. He's no longer a cop weighing options. He's a man who just watched a friend die, and the killers are still in earshot.",
+            characters: "Brian O'Conner, Dom Toretto, Jesse, Mia Toretto, Johnny Tran, Lance Nguyen"
+        },
+        {
             id: "final-race-brian",
             image: "screengrabs/terminal-island.jpg",
             name: "Terminal Island — Brian Lets Dom Go",
@@ -710,7 +722,10 @@ const MOVIES = {
         { from: "speed-shop-brian", to: "speed-shop-dom", type: "location", label: "Same scene" },
         { from: "speed-shop-brian", to: "speed-shop-tran", type: "location", label: "Same scene" },
         { from: "police-hq", to: "swat-raid-tran", type: "sequel", label: "Investigation targets Tran" },
-        { from: "first-rally", to: "little-saigon-statues", type: "sequel", label: "Dom takes Brian to confront Tran" }
+        { from: "first-rally", to: "little-saigon-statues", type: "sequel", label: "Dom takes Brian to confront Tran" },
+        { from: "final-hijack-brian", to: "driveby-brian", type: "sequel", label: "Brian returns to find Jesse" },
+        { from: "driveby-brian", to: "driveby-dom", type: "location", label: "Same scene" },
+        { from: "driveby-brian", to: "micheltorena-brian", type: "sequel", label: "Brian chases Tran" }
     ],
 
     JOURNEYS: {
