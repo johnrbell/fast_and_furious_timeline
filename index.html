@@ -319,7 +319,12 @@ body {
     height: 3px;
     margin-right: 8px;
     flex-shrink: 0;
-    border-top: 3px dashed;
+}
+.journey-line-brian {
+    background: repeating-linear-gradient(90deg, var(--jcolor) 0 10px, transparent 10px 16px);
+}
+.journey-line-dom {
+    background: repeating-linear-gradient(90deg, var(--jcolor) 0 3px, transparent 3px 10px);
 }
 
 .journey-label {
@@ -789,13 +794,22 @@ body {
 #legend::-webkit-scrollbar-thumb:hover { background: #555; }
 
 /* ── Journey Path Animation ────────────── */
-@keyframes march {
-    to { stroke-dashoffset: -20; }
+@keyframes marchBrian {
+    to { stroke-dashoffset: -16; }
+}
+@keyframes marchDom {
+    to { stroke-dashoffset: -10; }
 }
 
-.journey-path {
-    animation: march 0.67s linear infinite;
+.journey-path-brian {
+    animation: marchBrian 0.67s linear infinite;
     transition: opacity 0.3s, stroke-width 0.3s;
+    transform: translate(2px, -1px);
+}
+.journey-path-dom {
+    animation: marchDom 0.45s linear infinite;
+    transition: opacity 0.3s, stroke-width 0.3s;
+    transform: translate(-2px, 1px);
 }
 
 /* ── Bottom HUD Bar ────────────────────── */
@@ -1260,9 +1274,18 @@ async function fetchRoute(points) {
     return null;
 }
 
-function makeStraightLine(journey) {
+const JOURNEY_DASH = {
+    brian: { dashArray: '10 6', className: 'journey-path-brian' },
+    dom:   { dashArray: '3 7',  className: 'journey-path-dom'   }
+};
+function journeyStyle(key) {
+    return JOURNEY_DASH[key] || { dashArray: '10 6', className: 'journey-path-brian' };
+}
+
+function makeStraightLine(journey, key) {
+    const st = journeyStyle(key);
     return L.polyline(journey.points.map(([lat, lng]) => [lat, lng]), {
-        color: journey.color, weight: 3, dashArray: '10 6', opacity: 0.7, className: 'journey-path',
+        color: journey.color, weight: 3, dashArray: st.dashArray, opacity: 0.7, className: st.className,
         _origOpacity: 0.7, _origWeight: 3, _wpIdxStart: 0, _wpIdxEnd: journey.points.length - 1
     });
 }
@@ -1276,8 +1299,9 @@ function nearestIndex(routePts, target) {
     return best;
 }
 
-function buildSegmentedLines(routeLatLngs, journey) {
+function buildSegmentedLines(routeLatLngs, journey, key) {
     const waypoints = journey.points;
+    const st = journeyStyle(key);
 
     // Find each waypoint on the route in order, searching forward only
     // so backtracking journeys don't match the wrong pass
@@ -1308,7 +1332,7 @@ function buildSegmentedLines(routeLatLngs, journey) {
 
     if (segData.length === 0) {
         const line = L.polyline(routeLatLngs, {
-            color: journey.color, weight: 3.5, dashArray: '10 6', opacity: 0.75, className: 'journey-path',
+            color: journey.color, weight: 3.5, dashArray: st.dashArray, opacity: 0.75, className: st.className,
             _origOpacity: 0.75, _origWeight: 3.5, _wpIdxStart: 0, _wpIdxEnd: waypoints.length - 1
         });
         return [line];
@@ -1321,7 +1345,7 @@ function buildSegmentedLines(routeLatLngs, journey) {
         const opacity = minOpacity + t * (maxOpacity - minOpacity);
         const weight = 3 + t * 1.5;
         return L.polyline(sd.coords, {
-            color: journey.color, weight, dashArray: '10 6', opacity, className: 'journey-path',
+            color: journey.color, weight, dashArray: st.dashArray, opacity, className: st.className,
             _origOpacity: opacity, _origWeight: weight, _wpIdxStart: sd.wpIdxStart, _wpIdxEnd: sd.wpIdxEnd
         });
     });
@@ -1347,10 +1371,10 @@ async function getJourneyLayer(key) {
     }
 
     if (routeLatLngs) {
-        const lines = buildSegmentedLines(routeLatLngs, journey);
+        const lines = buildSegmentedLines(routeLatLngs, journey, key);
         journeyLayers[key] = L.layerGroup(lines);
     } else {
-        const line = makeStraightLine(journey);
+        const line = makeStraightLine(journey, key);
         journeyLayers[key] = L.layerGroup([line]);
     }
 
@@ -1746,7 +1770,7 @@ function loadMovie(slug) {
         toggle.className = 'journey-toggle';
         toggle.dataset.key = key;
         toggle.innerHTML = `
-            <div class="journey-line" style="border-color:${journey.color}"></div>
+            <div class="journey-line journey-line-${key}" style="--jcolor:${journey.color}"></div>
             <div class="journey-label">${journey.label}</div>
         `;
         toggle.addEventListener('click', async () => {
