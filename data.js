@@ -707,6 +707,18 @@ const MOVIES = {
             characters: "Dom Toretto, Vince, Letty, Leon, Jesse, Brian O'Conner"
         },
         {
+            id: "final-hijack-crew",
+            image: "screengrabs/hemet.jpg",
+            name: "Hemet — The Crew's Last Ride Together",
+            category: 'crew',
+            sceneOrder: 18,
+            filmTime: "1:20",
+            lat: 33.7478, lng: -116.9716,
+            address: "Hemet, California (90 miles SE of Los Angeles)",
+            description: "The whole crew rolls out for one last job — Vince, Letty, and Leon in their Civics, Jesse on point, Dom calling the shots. But this time the truck driver is ready. When Vince gets caught on the rig and the shotgun blasts start, the crew that felt invincible finally breaks. This is the job that ends everything.",
+            characters: "Vince, Letty, Leon, Dom Toretto, Brian O'Conner"
+        },
+        {
             id: "union-ave-escape",
             image: "screengrabs/union-ave.jpg",
             name: "Union Avenue — Dom Escapes the Cops",
