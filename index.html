@@ -1586,15 +1586,27 @@ function loadMovie(slug) {
         });
     });
 
+    const brianTimelineByLoc = {};
+    brianTimeline.forEach((o, pos) => {
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)},${o.evt.sceneOrder}`;
+        brianTimelineByLoc[key] = pos;
+    });
+    const domTimelineByLoc = {};
+    domTimeline.forEach((o, pos) => {
+        const key = `${o.evt.lat.toFixed(4)},${o.evt.lng.toFixed(4)},${o.evt.sceneOrder}`;
+        domTimelineByLoc[key] = pos;
+    });
+
     function buildNavHtml(evt) {
-        const hasBrian = evt.characters.includes('Brian');
-        const hasDom   = evt.characters.includes('Dom');
+        const locKey = `${evt.lat.toFixed(4)},${evt.lng.toFixed(4)},${evt.sceneOrder}`;
+        const hasBrian = brianTimelineByLoc[locKey] !== undefined;
+        const hasDom   = domTimelineByLoc[locKey] !== undefined;
         if (!hasBrian && !hasDom) return '';
 
         let left = '', right = '';
 
         if (hasBrian) {
-            const pos = brianTimelineIdx[evt.id];
+            const pos = brianTimelineByLoc[locKey];
             const prev = pos > 0 ? brianTimeline[pos - 1] : null;
             const next = pos < brianTimeline.length - 1 ? brianTimeline[pos + 1] : null;
             const prevBtn = prev
@@ -1609,7 +1621,7 @@ function loadMovie(slug) {
         }
 
         if (hasDom) {
-            const pos = domTimelineIdx[evt.id];
+            const pos = domTimelineByLoc[locKey];
             const prev = pos > 0 ? domTimeline[pos - 1] : null;
             const next = pos < domTimeline.length - 1 ? domTimeline[pos + 1] : null;
             const prevBtn = prev
